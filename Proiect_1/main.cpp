@@ -6,6 +6,14 @@
 // g++ *.cpp -o output
 // output
 
+
+// definirea problemei
+// sa se afiseze toti clientii care au folosit serviciul de transport acvatic
+// sau
+// sa se calculeze cel mai profiabil serviciu ; avg ( cati clienti au folosit si cat au platit pentru serviciu )
+
+// sa se afiseze toate servicile solicitate de un anumit client
+
 int main (){
 
     Client client1("cunt", "paul");

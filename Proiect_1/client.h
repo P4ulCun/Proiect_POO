@@ -1,5 +1,7 @@
 #pragma once
 
+// se retin date fiecarui client
+
 class Client{
 private:
     char *nume;
