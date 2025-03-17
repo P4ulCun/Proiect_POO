@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "new": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "cstdlib": "cpp",
+        "cstring": "cpp"
     }
 }

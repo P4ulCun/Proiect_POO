@@ -69,6 +69,8 @@ Client& Client::operator=(const Client& client){  // client este cel de copiat ;
         delete[] this -> telefon;
         this -> telefon = new char[strlen(client.telefon) + 1];
         strcpy(this -> telefon, client.telefon);
+
+        this -> nivelFidelitate = nivelFidelitate;
     }
     return *this;
 }
