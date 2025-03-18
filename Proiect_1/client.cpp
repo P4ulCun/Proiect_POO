@@ -74,8 +74,8 @@ Client& Client::operator=(const Client& client){  // client este cel de copiat ;
     }
     return *this;
 }
-
 // getteri:
+
 char* Client::getNume (){
     char *bufferNume = new char[strlen(nume) + 1];
     strcpy(bufferNume, nume);

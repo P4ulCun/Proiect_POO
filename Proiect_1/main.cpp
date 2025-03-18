@@ -36,5 +36,8 @@ int main (){
     serviciu.setVacantaWeekend("Roma");
     serviciu.setTabaraGhid("drumetie");
     std::cout << serviciu << '\n';
+
+    Client client6;
+    std::cout <<client6 << '\n';
     return 0;
 }
