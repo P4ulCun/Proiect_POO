@@ -8,22 +8,16 @@
 #include <cstring>
 #include "servicii.h"
 // constructor initializare
-Servicii::Servicii (const char *biletAvionDus, const char *biletAvionIntors, const char *vacantaWeekend, const char *cityBreak, const char *vacantaCroaziera, const char *tabaraGhid){
-    if (biletAvionDus != NULL){
-        this -> biletAvionDus = new char[strlen(biletAvionDus) + 1];
-        strcpy(this -> biletAvionDus, biletAvionDus);
+Servicii::Servicii (const char *biletAvion, const char *vacantaWeekend, 
+    const char *cityBreak, const char *vacantaCroaziera, const char *tabaraGhid){
+
+    if (biletAvion != NULL){
+        this -> biletAvion = new char[strlen(biletAvion) + 1];
+        strcpy(this -> biletAvion, biletAvion);
     }
     else{
-        this -> biletAvionDus = new char;
-        strcpy(this -> biletAvionDus, "-");
-    }
-    if (biletAvionIntors != NULL){
-        this -> biletAvionIntors = new char[strlen(biletAvionIntors) + 1];
-        strcpy(this -> biletAvionIntors, biletAvionIntors);
-    }
-    else{
-        this -> biletAvionIntors = new char;
-        strcpy(this -> biletAvionIntors, "-");
+        this -> biletAvion = new char;
+        strcpy(this -> biletAvion, "-");
     }
     if (vacantaWeekend != NULL){
         this -> vacantaWeekend = new char[strlen(vacantaWeekend) + 1];
@@ -61,10 +55,8 @@ Servicii::Servicii (const char *biletAvionDus, const char *biletAvionIntors, con
 
 // constructor de copiere
 Servicii::Servicii (const Servicii& newServicii){
-    this -> biletAvionDus = new char[strlen(newServicii.biletAvionDus) + 1];
-    strcpy(this -> biletAvionDus, newServicii.biletAvionDus);
-    this -> biletAvionIntors = new char[strlen(newServicii.biletAvionIntors) + 1];
-    strcpy(this -> biletAvionIntors, newServicii.biletAvionIntors);
+    this -> biletAvion = new char[strlen(newServicii.biletAvion) + 1];
+    strcpy(this -> biletAvion, newServicii.biletAvion);
     this -> vacantaWeekend = new char[strlen(newServicii.vacantaWeekend) + 1];
     strcpy(this -> vacantaWeekend, newServicii.vacantaWeekend);
     this -> cityBreak = new char[strlen(newServicii.cityBreak) + 1];
@@ -78,13 +70,9 @@ Servicii::Servicii (const Servicii& newServicii){
 // supraincarcare a operatorului = (copiere obiecte)
 Servicii& Servicii::operator=(const Servicii& Servicii){  // Servicii este cel de copiat ; this este opiectul nou in care se copiaza
     if (this != &Servicii){
-        delete[] this -> biletAvionDus;
-        this -> biletAvionDus = new char[strlen(Servicii.biletAvionDus) + 1];
-        strcpy(this -> biletAvionDus, Servicii.biletAvionDus);
-
-        delete[] this -> biletAvionIntors;
-        this -> biletAvionIntors = new char[strlen(Servicii.biletAvionIntors) + 1];
-        strcpy(this -> biletAvionIntors, Servicii.biletAvionIntors);
+        delete[] this -> biletAvion;
+        this -> biletAvion = new char[strlen(Servicii.biletAvion) + 1];
+        strcpy(this -> biletAvion, Servicii.biletAvion);
 
         delete[] this -> vacantaWeekend;
         this -> vacantaWeekend = new char[strlen(Servicii.vacantaWeekend) + 1];
@@ -106,15 +94,10 @@ Servicii& Servicii::operator=(const Servicii& Servicii){  // Servicii este cel d
 }
 
 // getteri:
-char* Servicii::getBiletAvionDus (){
-    char *bufferbiletAvionDus = new char[strlen(biletAvionDus) + 1];
-    strcpy(bufferbiletAvionDus, biletAvionDus);
-    return bufferbiletAvionDus;
-}
-char* Servicii::getBiletAvionIntors (){
-    char *bufferbiletAvionIntors = new char[strlen(biletAvionIntors) + 1];
-    strcpy(bufferbiletAvionIntors, biletAvionIntors);
-    return bufferbiletAvionIntors;
+char* Servicii::getBiletAvion (){
+    char *bufferbiletAvion = new char[strlen(biletAvion) + 1];
+    strcpy(bufferbiletAvion, biletAvion);
+    return bufferbiletAvion;
 }
 char* Servicii::getVacantaWeekend (){
     char *buffervacantaWeekend = new char[strlen(vacantaWeekend) + 1];
@@ -138,19 +121,12 @@ char* Servicii::getTabaraGhid (){
 }
 
 // setteri:
-void Servicii::setBiletAvionDus (const char *biletAvionDus){
-    if (strcmp(this -> biletAvionDus, biletAvionDus) != 0){
-        // sa nu fie acelasi biletAvionDus
-        delete[] this -> biletAvionDus;
-        this -> biletAvionDus = new char[strlen(biletAvionDus) + 1];
-        strcpy(this -> biletAvionDus, biletAvionDus);
-    }
-}
-void Servicii::setBiletAvionIntors (const char *biletAvionIntors){
-    if (strcmp(this -> biletAvionIntors, biletAvionIntors) != 0){
-        delete[] this -> biletAvionIntors;
-        this -> biletAvionIntors = new char[strlen(biletAvionIntors) + 1];
-        strcpy(this -> biletAvionIntors, biletAvionIntors);
+void Servicii::setBiletAvion (const char *biletAvion){
+    if (strcmp(this -> biletAvion, biletAvion) != 0){
+        // sa nu fie acelasi biletAvion
+        delete[] this -> biletAvion;
+        this -> biletAvion = new char[strlen(biletAvion) + 1];
+        strcpy(this -> biletAvion, biletAvion);
     }
 }
 void Servicii::setVacantaWeekend (const char *vacantaWeekend){
@@ -185,8 +161,7 @@ void Servicii::setTabaraGhid (const char *tabaraGhid){
 // supraincarcare operator <<
 // friend - pentru acces direct la date private
 std::ostream& operator<<(std::ostream& stream, const Servicii& Servicii){
-    stream << "Bilet de avion dus: : " << Servicii.biletAvionDus << '\n';
-    stream << "Bilet de avion intors: " << Servicii.biletAvionIntors << '\n';
+    stream << "Bilet de avion: " << Servicii.biletAvion << '\n';
     stream << "Vacanta weekend in: " << Servicii.vacantaWeekend << '\n';
     stream << "City-Break in: " << Servicii.cityBreak << '\n';
     stream << "Vacanta pe croaziera: " << Servicii.vacantaCroaziera << '\n';
@@ -197,8 +172,7 @@ std::ostream& operator<<(std::ostream& stream, const Servicii& Servicii){
 
 // destructor obiect
 Servicii::~Servicii (){
-    delete[] biletAvionDus;
-    delete[] biletAvionIntors;
+    delete[] biletAvion;
     delete[] vacantaWeekend;
     delete[] cityBreak;
     delete[] vacantaCroaziera;

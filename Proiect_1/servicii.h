@@ -4,28 +4,27 @@
 
 class Servicii{
 private:
-    char *biletAvionDus;
-    char *biletAvionIntors;
+    char *biletAvion;
     char *vacantaWeekend;
     char *cityBreak; // scriu orasul
     char *vacantaCroaziera; // scriu croaziera
     char *tabaraGhid; // drumetii, scuba
 
 public:
-    Servicii (const char* = NULL, const char* = NULL, const char* = NULL, const char* = NULL, const char* = NULL, const char* = NULL);
+    Servicii (const char* biletAvion = NULL, const char* vacantaWeekend = NULL, 
+        const char* cityBreak = NULL, const char* vacantaCroaziera = NULL, const char* tabaraGhid = NULL);
+        
     Servicii (const Servicii& serviciu);
 
     Servicii& operator=(const Servicii& Servicii);
 
-    char* getBiletAvionDus ();
-    char* getBiletAvionIntors ();
+    char* getBiletAvion ();
     char* getVacantaWeekend ();
     char* getCityBreak ();
     char* getVacantaCroaziera ();
     char* getTabaraGhid ();
 
-    void setBiletAvionDus (const char *biletAvionDus);
-    void setBiletAvionIntors (const char *biletAvionIntors);
+    void setBiletAvion (const char *biletAvion);
     void setVacantaWeekend (const char *vacantaWeekend);
     void setCityBreak (const char *cityBreak);
     void setVacantaCroaziera (const char *vacantaCroaziera);

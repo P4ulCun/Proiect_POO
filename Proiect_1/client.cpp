@@ -2,7 +2,7 @@
 #include <cstring>
 #include "client.h"
 // constructor initializare
-Client::Client (const char *nume, const char *prenume, const char *email, const char *telefon, const int nivelFidelitate){
+Client::Client (const char* nume, const char* prenume, const char* email, const char* telefon, const int nivelFidelitate){
     if (nume != NULL){
         this -> nume = new char[strlen(nume) + 1];
         strcpy(this -> nume, nume);
@@ -35,7 +35,17 @@ Client::Client (const char *nume, const char *prenume, const char *email, const 
         this -> telefon = new char;
         strcpy(this -> telefon, "-");
     }
-    this -> nivelFidelitate = nivelFidelitate;
+
+    if (nivelFidelitate > 5){
+        this -> nivelFidelitate = 5;
+    }
+    else if (nivelFidelitate < 0){
+        this -> nivelFidelitate = 0;
+    }
+    else {
+        this -> nivelFidelitate = nivelFidelitate;
+    }
+    
 }
 
 // constructor de copiere

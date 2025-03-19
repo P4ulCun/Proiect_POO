@@ -1,6 +1,7 @@
 #pragma once
 
 // se retin date fiecarui client
+#include "tranzactii.h"
 
 class Client{
 private:
@@ -11,8 +12,10 @@ private:
     int nivelFidelitate;
 
 public:
+    friend class Tranzactii;
     // constructor initializare
-    Client (const char* = NULL, const char* = NULL, const char* = NULL, const char* = NULL, const int = 0);
+    Client (const char* nume = NULL, const char* prenume = NULL, const char* email = NULL, 
+        const char* telefon = NULL, const int nivelFidelitate = 0);
 
     // constructor de copiere
     Client (const Client& newClient);
@@ -37,7 +40,6 @@ public:
     // supraincarcare operator <<
     // friend - pentru acces direct la date private
     friend std::ostream& operator<<(std::ostream& stream, const Client& client);
-
 
     // destructor obiect
     ~Client ();

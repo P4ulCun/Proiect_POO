@@ -2,6 +2,7 @@
 #include <cstring>
 #include "client.h"
 #include "servicii.h"
+#include "tranzactii.h"
 
 // cd Desktop\lab_poo\Proiect_POO\Proiect_1 path for files to be compiled
 // g++ *.cpp -o output
@@ -19,6 +20,7 @@ int main (){
 
     Client client1("cunt", "paul");
     Client client = Client("sal");
+    client1.setFidelitate(3);
     std::cout << client << '\n';
 
     Client client2 = client1;
@@ -32,12 +34,17 @@ int main (){
     // Client client4 = Client(client3);
     // std::cout << client4 << '\n';
 
-    Servicii serviciu;
+    Servicii serviciu("avion", "weekend", "city");
     serviciu.setVacantaWeekend("Roma");
     serviciu.setTabaraGhid("drumetie");
     std::cout << serviciu << '\n';
 
     Client client6;
-    std::cout <<client6 << '\n';
+    std::cout << client6 << '\n';
+
+    Tranzactii tranzactie1(1000, 2000);
+    tranzactie1.setReducere(client1);
+
+    std::cout << tranzactie1 << '\n';
     return 0;
 }

@@ -1,0 +1,26 @@
+nume
+prenume
+email
+telefon
+nivelFidelitate
+
+biletAvion
+vacantaWeekend
+cityBreak
+vacantaCroaziera
+tabaraGhid
+
+pretBiletAvion
+pretVacantaWeekend
+pretCityBreak
+pretVacantaCroaziera
+pretTabaraGhid
+
+reducere
+
+dataVacantaWeekend
+dataCityBreak
+dataVacantaCroaziera
+dataTabaraGhid
+
+# campuri de intrare pe care le completez cu datele relevante
