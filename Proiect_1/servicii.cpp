@@ -11,7 +11,7 @@
 Servicii::Servicii (const char *biletAvion, const char *vacantaWeekend, 
     const char *cityBreak, const char *vacantaCroaziera, const char *tabaraGhid){
 
-    if (biletAvion != NULL){
+    if (biletAvion != NULL || biletAvion[0] != ' '){
         this -> biletAvion = new char[strlen(biletAvion) + 1];
         strcpy(this -> biletAvion, biletAvion);
     }
