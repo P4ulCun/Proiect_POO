@@ -68,27 +68,27 @@ Servicii::Servicii (const Servicii& newServicii){
 }
 
 // supraincarcare a operatorului = (copiere obiecte)
-Servicii& Servicii::operator=(const Servicii& Servicii){  // Servicii este cel de copiat ; this este opiectul nou in care se copiaza
-    if (this != &Servicii){
+Servicii& Servicii::operator=(const Servicii& servicii){  // Servicii este cel de copiat ; this este opiectul nou in care se copiaza
+    if (this != &servicii){
         delete[] this -> biletAvion;
-        this -> biletAvion = new char[strlen(Servicii.biletAvion) + 1];
-        strcpy(this -> biletAvion, Servicii.biletAvion);
+        this -> biletAvion = new char[strlen(servicii.biletAvion) + 1];
+        strcpy(this -> biletAvion, servicii.biletAvion);
 
         delete[] this -> vacantaWeekend;
-        this -> vacantaWeekend = new char[strlen(Servicii.vacantaWeekend) + 1];
-        strcpy(this -> vacantaWeekend, Servicii.vacantaWeekend);
+        this -> vacantaWeekend = new char[strlen(servicii.vacantaWeekend) + 1];
+        strcpy(this -> vacantaWeekend, servicii.vacantaWeekend);
 
         delete[] this -> cityBreak;
-        this -> cityBreak = new char[strlen(Servicii.cityBreak) + 1];
-        strcpy(this -> cityBreak, Servicii.cityBreak);
+        this -> cityBreak = new char[strlen(servicii.cityBreak) + 1];
+        strcpy(this -> cityBreak, servicii.cityBreak);
 
         delete[] this -> vacantaCroaziera;
-        this -> vacantaCroaziera = new char[strlen(Servicii.vacantaCroaziera) + 1];
-        strcpy(this -> vacantaCroaziera, Servicii.vacantaCroaziera);
+        this -> vacantaCroaziera = new char[strlen(servicii.vacantaCroaziera) + 1];
+        strcpy(this -> vacantaCroaziera, servicii.vacantaCroaziera);
 
         delete[] this -> tabaraGhid;
-        this -> tabaraGhid = new char[strlen(Servicii.tabaraGhid) + 1];
-        strcpy(this -> tabaraGhid, Servicii.tabaraGhid);
+        this -> tabaraGhid = new char[strlen(servicii.tabaraGhid) + 1];
+        strcpy(this -> tabaraGhid, servicii.tabaraGhid);
     }
     return *this;
 }
