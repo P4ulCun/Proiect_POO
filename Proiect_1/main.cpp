@@ -17,17 +17,18 @@
 // sa se afiseze toate servicile solicitate de un anumit client
 
 struct dateClient{
-    Client *client;
-    Servicii *servicii;
-    Tranzactii *tranzactii;
+    Client client;
+    Servicii servicii;
+    Tranzactii tranzactii;
     dateClient *urmClient;
+
+    dateClient(Client clientNou, Servicii serviciiNoi, Tranzactii tranzactiiNoi) : client(clientNou), 
+    servicii(serviciiNoi), tranzactii(tranzactiiNoi), urmClient(nullptr) {}
+    // constructor pentru struct
 };
 
 void addClientInLista (dateClient*& lista, Client& client, Servicii& servicii, Tranzactii& tranzactii){
-    dateClient *clientNou = new dateClient;
-    clientNou -> client = &client;
-    clientNou -> servicii = &servicii;
-    clientNou -> tranzactii = &tranzactii;
+    dateClient *clientNou = new dateClient(client, servicii, tranzactii); // apelez constructorul
 
     clientNou -> urmClient = lista;
     lista = clientNou;
@@ -36,10 +37,19 @@ void addClientInLista (dateClient*& lista, Client& client, Servicii& servicii, T
 void afisareListaClienti (dateClient* lista){
     dateClient *clientCurent;
     for (clientCurent = lista; clientCurent != NULL; clientCurent = clientCurent -> urmClient){
-        std::cout << *(clientCurent -> client) << '\n';
-        std::cout << *(clientCurent -> servicii) << '\n';
-        std::cout << *(clientCurent -> tranzactii) << '\n';
+        std::cout << clientCurent -> client << '\n';
+        std::cout << clientCurent -> servicii << '\n';
+        std::cout << clientCurent -> tranzactii << '\n';
         std::cout << '\n';
+    }
+}
+
+void clearListaClienti (dateClient* lista){
+    dateClient *clientCurent, *clientUrm;
+    for (clientCurent = lista; clientCurent != NULL; clientCurent = clientUrm -> urmClient){
+        clientUrm = clientCurent;
+
+        delete[] clientCurent;
     }
 }
 
@@ -114,7 +124,6 @@ int main (){
     char temp[10];
     std::cin >> nrClienti;
     std::cin.getline(temp, 10); // ca sa iau endl de la sfarsitul int-ului
-
     for (i = 0; i < nrClienti; i++){
         Client client = citesteClient();
         Servicii servicii = citesteServicii();
@@ -125,6 +134,7 @@ int main (){
 
     afisareListaClienti(listaClienti);
 
+    clearListaClienti(listaClienti);
     // Client client1("cunt", "paul");
     // Client client = Client("sal");
     // client1.setFidelitate(3);
