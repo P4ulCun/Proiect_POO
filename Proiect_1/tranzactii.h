@@ -1,14 +1,17 @@
 #pragma once
 
+// se retin toate detalile despre serviciile oferite clientului ; pretul servicilor
+// si data cand se planuieste vacanta
+
 class Client;
 
 class Tranzactii{
 private:
-    int pretBiletAvion;
-    int pretVacantaWeekend;
-    int pretCityBreak;
-    int pretVacantaCroaziera;
-    int pretTabaraGhid;
+    float pretBiletAvion;
+    float pretVacantaWeekend;
+    float pretCityBreak;
+    float pretVacantaCroaziera;
+    float pretTabaraGhid;
 
     int reducere; // % - procentaj
     // oferita pe mai multe nivele in functie de nivelul de fidelitate a clientului
@@ -18,20 +21,20 @@ private:
     char *dataVacantaCroaziera;
     char *dataTabaraGhid;
 public:
-    Tranzactii (const int pretBiletAvion = -1, const int pretVacantaWeekend = -1, const int pretCityBreak = -1,
-        const int pretVacantaCroaziera = -1, const int pretTabaraGhid = -1, const char *dataVacantaWeekend = NULL, 
+    Tranzactii (const float pretBiletAvion = -1, const float pretVacantaWeekend = -1, const float pretCityBreak = -1,
+        const float pretVacantaCroaziera = -1, const float pretTabaraGhid = -1, const char *dataVacantaWeekend = NULL, 
         const char *dataCityBreak = NULL, const char *dataVacantaCroaziera = NULL, const char *dataTabaraGhid = NULL);
         
     Tranzactii (Tranzactii& tranzactie);
 
     Tranzactii& operator=(const Tranzactii& tranzactie);
 
-    int getPretBiletAvion ();
-    int getPretVacantaWeekend ();
-    int getPretCityBreak ();
-    int getPretVacantaCroaziera ();
-    int getPretTabaraGhid ();
-    int getReducere ();
+    float getPretBiletAvion ();
+    float getPretVacantaWeekend ();
+    float getPretCityBreak ();
+    float getPretVacantaCroaziera ();
+    float getPretTabaraGhid ();
+    float getReducere ();
 
     char* getDataVacantaWeekend ();
     char* getDataCityBreak ();
@@ -39,11 +42,11 @@ public:
     char* getDataTabaraGhid ();
 
     // setters
-    void setPretBiletAvion (const int pretBiletAvion);
-    void setPretVacantaWeekend (const int pretVacantaWeekend);
-    void setPretCityBreak (const int pretCityBreak);
-    void setPretVacantaCroaziera (const int pretVacantaCroaziera);
-    void setPretTabaraGhid (const int pretTabaraGhid);
+    void setPretBiletAvion (const float pretBiletAvion);
+    void setPretVacantaWeekend (const float pretVacantaWeekend);
+    void setPretCityBreak (const float pretCityBreak);
+    void setPretVacantaCroaziera (const float pretVacantaCroaziera);
+    void setPretTabaraGhid (const float pretTabaraGhid);
     void setReducere (Client& client);
     // setez reducerea in functie de nivelul de fidelitate
 

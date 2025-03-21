@@ -3,8 +3,8 @@
 #include "tranzactii.h"
 #include "client.h"
 
-Tranzactii::Tranzactii (const int pretBiletAvion, const int pretVacantaWeekend, const int pretCityBreak,
-    const int pretVacantaCroaziera, const int pretTabaraGhid, const char *dataVacantaWeekend, 
+Tranzactii::Tranzactii (const float pretBiletAvion, const float pretVacantaWeekend, const float pretCityBreak,
+    const float pretVacantaCroaziera, const float pretTabaraGhid, const char *dataVacantaWeekend, 
     const char *dataCityBreak, const char *dataVacantaCroaziera, const char *dataTabaraGhid){
 
         this -> pretBiletAvion = pretBiletAvion;
@@ -99,21 +99,21 @@ Tranzactii& Tranzactii::operator=(const Tranzactii& tranzactie){
 }
 
 // getters
-int Tranzactii::getPretBiletAvion (){
+float Tranzactii::getPretBiletAvion (){
     return pretBiletAvion;
 }
-int Tranzactii::getPretVacantaWeekend (){
+float Tranzactii::getPretVacantaWeekend (){
     return pretVacantaWeekend;
 }
-int Tranzactii::getPretCityBreak (){
+float Tranzactii::getPretCityBreak (){
     return pretCityBreak;
 }
-int Tranzactii::getPretVacantaCroaziera (){
+float Tranzactii::getPretVacantaCroaziera (){
     return pretVacantaCroaziera;
 }
-int Tranzactii::getPretTabaraGhid (){\
+float Tranzactii::getPretTabaraGhid (){\
     return pretTabaraGhid;}
-int Tranzactii::getReducere (){
+float Tranzactii::getReducere (){
     return reducere;
 }
 
@@ -140,19 +140,19 @@ char* Tranzactii::getDataTabaraGhid (){
 
 // setters
 
-void Tranzactii::setPretBiletAvion (const int pretBiletAvion){
+void Tranzactii::setPretBiletAvion (const float pretBiletAvion){
     this -> pretBiletAvion = pretBiletAvion;
 }
-void Tranzactii::setPretVacantaWeekend (const int pretVacantaWeekend){
+void Tranzactii::setPretVacantaWeekend (const float pretVacantaWeekend){
     this -> pretVacantaWeekend = pretVacantaWeekend;
 }
-void Tranzactii::setPretCityBreak (const int pretCityBreak){
+void Tranzactii::setPretCityBreak (const float pretCityBreak){
     this -> pretCityBreak = pretCityBreak;
 }
-void Tranzactii::setPretVacantaCroaziera (const int pretVacantaCroaziera){
+void Tranzactii::setPretVacantaCroaziera (const float pretVacantaCroaziera){
     this -> pretVacantaCroaziera = pretVacantaCroaziera;
 }
-void Tranzactii::setPretTabaraGhid (const int pretTabaraGhid){
+void Tranzactii::setPretTabaraGhid (const float pretTabaraGhid){
     this -> pretTabaraGhid = pretTabaraGhid;
 }
 

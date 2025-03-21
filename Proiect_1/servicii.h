@@ -1,6 +1,6 @@
 #pragma once
 
-// se retin toate serviciile oferite de agentia de turism
+// se retin toate serviciile oferite de agentia de turism pentru un client
 
 class Servicii{
 private:
