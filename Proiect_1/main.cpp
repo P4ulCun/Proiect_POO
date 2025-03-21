@@ -4,6 +4,9 @@
 #include "servicii.h"
 #include "tranzactii.h"
 
+// mi se strica tot programul daca pun include header files primele si dupa
+// include iostream
+
 // cd Desktop\lab_poo\Proiect_POO\Proiect_1 path for files to be compiled
 // g++ *.cpp -o output
 // output < date.in
@@ -111,8 +114,9 @@ Tranzactii citesteTranzactii (){
     char dataTabaraGhide[50];
     std::cin.getline(dataTabaraGhide, 50);
 
-    Tranzactii tranzactii(pretBiletAvion, pretVacantaWeekend, pretCityBreak, pretVacantaCroaziera, pretTabaraGhid, 
-        dataVacantaWeekend, dataCityBreak, dataVacantaCroaziera, dataTabaraGhide);
+    Tranzactii tranzactii(pretBiletAvion, pretVacantaWeekend, pretCityBreak, 
+        pretVacantaCroaziera, pretTabaraGhid, dataVacantaWeekend, dataCityBreak, 
+        dataVacantaCroaziera, dataTabaraGhide);
 
     return tranzactii;
 }
@@ -128,6 +132,7 @@ int main (){
         Client client = citesteClient();
         Servicii servicii = citesteServicii();
         Tranzactii tranzactii = citesteTranzactii();
+        tranzactii.setReducere(client);
 
         addClientInLista(listaClienti, client, servicii, tranzactii);
     }
@@ -135,33 +140,5 @@ int main (){
     afisareListaClienti(listaClienti);
 
     clearListaClienti(listaClienti);
-    // Client client1("cunt", "paul");
-    // Client client = Client("sal");
-    // client1.setFidelitate(3);
-    // std::cout << client << '\n';
-
-    // Client client2 = client1;
-    // client2.setEmail("yoskibi@outlook.dop");
-    // client2.setTelefon("075924000000");
-    // std::cout << client2 << '\n';
-    
-    // Client client3("salut", "skibi", "yahoo_mail@.com", "+40716716831");
-    // std::cout << client3 << '\n';
-
-    // Client client4 = Client(client3);
-    // std::cout << client4 << '\n';
-
-    // Servicii serviciu("avion", "weekend", "city");
-    // serviciu.setVacantaWeekend("Roma");
-    // serviciu.setTabaraGhid("drumetie");
-    // std::cout << serviciu << '\n';
-
-    // Client client6;
-    // std::cout << client6 << '\n';
-
-    // Tranzactii tranzactie1(1000, 2000);
-    // tranzactie1.setReducere(client1);
-
-    // std::cout << tranzactie1 << '\n';
     return 0;
 }

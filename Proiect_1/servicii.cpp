@@ -68,7 +68,8 @@ Servicii::Servicii (const Servicii& newServicii){
 }
 
 // supraincarcare a operatorului = (copiere obiecte)
-Servicii& Servicii::operator=(const Servicii& servicii){  // Servicii este cel de copiat ; this este opiectul nou in care se copiaza
+Servicii& Servicii::operator=(const Servicii& servicii){  
+    // Servicii este cel de copiat ; this este opiectul nou in care se copiaza
     if (this != &servicii){
         delete[] this -> biletAvion;
         this -> biletAvion = new char[strlen(servicii.biletAvion) + 1];

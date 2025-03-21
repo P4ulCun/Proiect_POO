@@ -2,7 +2,9 @@
 #include <cstring>
 #include "client.h"
 // constructor initializare
-Client::Client (const char* nume, const char* prenume, const char* email, const char* telefon, const int nivelFidelitate){
+Client::Client (const char* nume, const char* prenume, const char* email, 
+    const char* telefon, const int nivelFidelitate){
+
     if (nume != NULL){
         this -> nume = new char[strlen(nume) + 1];
         strcpy(this -> nume, nume);
@@ -62,7 +64,8 @@ Client::Client (const Client& newClient){
 }
 
 // supraincarcare a operatorului = (copiere obiecte)
-Client& Client::operator=(const Client& client){  // client este cel de copiat ; this este opiectul nou in care se copiaza
+Client& Client::operator=(const Client& client){  
+    // client este cel de copiat ; this este opiectul nou in care se copiaza
     if (this != &client){
         delete[] this -> nume;
         this -> nume = new char[strlen(client.nume) + 1];
@@ -162,10 +165,4 @@ Client::~Client (){
     delete[] prenume;
     delete[] email;
     delete[] telefon;
-
-    // destructor bufferi
-    // delete[] bufferNume;
-    // delete[] bufferPrenume;
-    // delete[] bufferEmail;
-    // delete[] bufferTelefon;
 }
