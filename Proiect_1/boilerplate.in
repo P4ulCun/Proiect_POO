@@ -1,24 +1,20 @@
+numarul de clienti de introdus: n
 nume
 prenume
 email
 telefon
-nivelFidelitate
-
-biletAvion
-vacantaWeekend
-cityBreak
-vacantaCroaziera
-tabaraGhid
-
-pretBiletAvion
-pretVacantaWeekend
-pretCityBreak
-pretVacantaCroaziera
-pretTabaraGhid
-
-reducere
-
-dataVacantaWeekend
+nivelFidelitate: (0 - 5)
+biletAvion: de unde pana unde
+vacantaWeekend: unde
+cityBreak: unde
+vacantaCroaziera: ce croaziera
+tabaraGhid: ce fel de tabara
+pretBiletAvion: pretul
+pretVacantaWeekend: daca nu am serviciul
+pretCityBreak: voi pune -1
+pretVacantaCroaziera: 500
+pretTabaraGhid: -1
+dataVacantaWeekend: dd.mm.yyyy - dd.mm.yyyy
 dataCityBreak
 dataVacantaCroaziera
 dataTabaraGhid

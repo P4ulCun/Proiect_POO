@@ -162,19 +162,19 @@ void Tranzactii::setReducere (Client& client){
         case 0:
             break;
         case 1:
-            this -> reducere = 10;
+            this -> reducere = 5;
             break;
         case 2:
-            this -> reducere = 20;
+            this -> reducere = 10;
             break;
         case 3:
-            this -> reducere = 30;
+            this -> reducere = 15;
             break;
         case 4:
-            this -> reducere = 40;
+            this -> reducere = 20;
             break;
         case 5:
-            this -> reducere = 55;
+            this -> reducere = 30;
             break;
     }
 }

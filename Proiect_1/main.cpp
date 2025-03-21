@@ -15,7 +15,19 @@
 // definirea problemei
 // sa se afiseze toti clientii care au folosit serviciul de transport acvatic
 // sau
-// sa se calculeze cel mai profiabil serviciu ; avg ( cati clienti au folosit si cat au platit pentru serviciu )
+
+// !!!!!
+// mai trb sa descriu datele de intrare
+// si ce functii am sau sa ma ajute la rezolvarea problemei
+
+// enuntul problemei in mare
+// sa se calculeze cel mai profiabil serviciu ; 
+// avg ( cati clienti au folosit si cat au platit pentru serviciu )
+// si sa se determine care sunt cele mai frecventate luni din an de clienti
+// pentru a ajuta agentia de turism sa isi gestioneze mai bine resursele
+// aka sa stie pe ce sa sa axeze, sau sa introduca mai multe servicii
+// in lunile cele mai frecventate cu servicii ce le aduc cel mai mult profit
+// !!!!!
 
 // sa se afiseze toate servicile solicitate de un anumit client
 
