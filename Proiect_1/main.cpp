@@ -31,6 +31,8 @@
 
 // sa se afiseze toate servicile solicitate de un anumit client
 
+
+// citire si memorare date:
 struct dateClient{
     Client client;
     Servicii servicii;
@@ -133,7 +135,11 @@ Tranzactii citesteTranzactii (){
     return tranzactii;
 }
 
+// rezolvarea problemei: 
+
+
 int main (){
+    // citire date
     dateClient *listaClienti = NULL;
 
     int nrClienti = 0, i = 0;
@@ -148,6 +154,18 @@ int main (){
 
         addClientInLista(listaClienti, client, servicii, tranzactii);
     }
+
+    // rezolvarea problemei:
+    // parcurg lista si memorez pt fiecare serviciu suma totala dupa aplicarea reducerii
+    // si numarul de persoane care au folosit serviciul
+    // la sfarsit fac mediea aritmetica la toate serviciile
+    // si afisez pe cea mai mare
+
+    // mai mult voi memora si luna in care se planuieste vacanta/vacantele
+    // daca voi avea dd.07.yyyy - dd.07.yyyy  voi pune o singura data luna 07
+    // voi face cum ar fi un vector de frercventa
+    // daca voi avea dd.06.yyyy - dd.07.yyyy voi contoriza ambele luni
+    // care luna e cea mai frecventata o voi afisa
 
     afisareListaClienti(listaClienti);
 
