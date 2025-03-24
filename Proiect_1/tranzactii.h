@@ -64,5 +64,7 @@ public:
 
     int countPret (dateServicii& serviciu, float pretServiciu);
 
+    void countMonths (int frecventaMonths[]);
+
     ~Tranzactii ();
 };

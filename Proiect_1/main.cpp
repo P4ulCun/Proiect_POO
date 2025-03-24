@@ -30,8 +30,7 @@
 // aka sa stie pe ce sa sa axeze, sau sa introduca mai multe servicii
 // in lunile cele mai frecventate cu servicii ce le aduc cel mai mult profit
 // !!!!!
-
-// sa se afiseze toate servicile solicitate de un anumit client
+// !!sa se afiseze cel mai fidel client O(1) - fac lista sa se sorteze dupa nivel fidelitate
 
 
 // citire si memorare date:
@@ -137,6 +136,48 @@ Tranzactii citesteTranzactii (){
     return tranzactii;
 }
 
+char* afisareMonth(int month){
+    char *luna = new char[12];
+    switch (month){
+        case 1:
+            strcpy(luna, "IANUARIE");
+            break;
+        case 2:
+            strcpy(luna, "FEBRUARIE");
+            break;
+        case 3:
+            strcpy(luna, "MARTIE");
+            break;
+        case 4:
+            strcpy(luna, "APRILIE");
+            break;
+        case 5:
+            strcpy(luna, "MAI");
+            break;
+        case 6:
+            strcpy(luna, "IUNIE");
+            break;
+        case 7:
+            strcpy(luna, "IULIE");
+            break;
+        case 8:
+            strcpy(luna, "AUGUST");
+            break;
+        case 9:
+            strcpy(luna, "SEPTEMBRIE");
+            break;
+        case 10:
+            strcpy(luna, "OCTOMBRIE");
+            break;
+        case 11:
+            strcpy(luna, "NOIEMBRIE");
+            break;
+        case 12:
+            strcpy(luna, "DECEMBRIE");
+            break;
+        }
+    return luna;
+}
 // rezolvarea problemei: 
 
 int main (){
@@ -165,6 +206,8 @@ int main (){
     strcpy(vacantaCroaziera.numeServiciu, "VACANTELE DE CROAZIERA");
     strcpy(tabaraGhid.numeServiciu, "TABERELE CU GHID");
 
+    int frecventaMonths[13] = {};
+
     dateClient *clientUrm;
     // parcurg lista de clienti
     for (clientUrm = listaClienti; clientUrm != NULL; clientUrm = clientUrm -> urmClient){
@@ -189,6 +232,9 @@ int main (){
         float pretTabaraGhid = clientUrm -> tranzactii.getPretTabaraGhid();
         pretDupaReducere = clientUrm -> tranzactii.countPret(tabaraGhid, pretTabaraGhid);
         clientUrm -> tranzactii.setPretBiletAvion(pretDupaReducere);
+
+        // afla care este cea mai frecventata perioada de calatorit
+        clientUrm -> tranzactii.countMonths(frecventaMonths);
     }
 
     // mai mult voi memora si luna in care se planuieste vacanta/vacantele
@@ -196,7 +242,11 @@ int main (){
     // voi face cum ar fi un vector de frercventa
     // daca voi avea dd.06.yyyy - dd.07.yyyy voi contoriza ambele luni
     // care luna e cea mai frecventata o voi afisa
- 
+
+    // !! sa gasesc cea mai frecventata destinatie?
+
+    // !!sa se afiseze cel mai fidel client O(1) - fac lista sa se sorteze dupa nivel fidelitate
+
     // char nr[3];
     // cin.getline(nr, 3);
     // int luna = nr[0] - '0';
@@ -217,12 +267,32 @@ int main (){
         }
     }
     for (int i = 0; i < 5; i++){
-        if ((int)dateServicii[i].suma == (int)sumaMax){  // pun int ca sa nu am bug uri cu floating point
-            std::cout << "Unele dintre cele mai profitabile servicii au fost " << 
-            dateServicii[i].numeServiciu << " avand un CASTIG de " << dateServicii[i].suma << " lei," << '\n';
-            std::cout << "fiind UTILIZATE de un numar de " << dateServicii[i].nrClienti << " clienti." << '\n';
+        if ((int)dateServicii[i].suma == (int)sumaMax){  
+            // pun int ca sa nu am bug uri cu floating point
+            std::cout << "Unele dintre cele mai profitabile servicii au fost " << '\n' <<
+            dateServicii[i].numeServiciu << " avand un CASTIG de " << dateServicii[i].suma 
+            << " lei," << '\n' << "fiind UTILIZATE de un numar de " 
+            << dateServicii[i].nrClienti << " clienti." << '\n';
         }
     }
+    std::cout << "--------------------------------------------------\n";
+
+    int frecvMax = -1;
+    for (int i = 1; i <= 12; i++){
+        if (frecvMax < frecventaMonths[i]){
+            frecvMax = frecventaMonths[i];
+        }
+    }
+    std::cout << "Cele mai frecventate luni din an" << '\n' << "de catre turisti sunt ";
+    for (int i = 1; i <= 12; i++)
+    {
+        if (frecventaMonths[i] == frecvMax){
+            char *luna = afisareMonth(i);
+            std::cout << luna << " ";
+            delete[] luna;
+        }
+    }
+    std::cout << '\n' << "--------------------------------------------------\n";
 
     clearListaClienti(listaClienti);
     return 0;

@@ -240,6 +240,33 @@ int Tranzactii::countPret (dateServicii& serviciu, float pretServiciu){
     return -1;
 }
 
+int getMonth (char *data, int indexMonth){
+    int luna = data[indexMonth] - '0';
+    luna = luna * 10 + (data[indexMonth + 1] - '0');
+    return luna;
+}
+
+void getMonths(char *data, int *frecventaMonths){
+    if (data[0] == '-')
+        return;
+    
+    int dataSosire = getMonth(data, 3);
+    int dataPlecare = getMonth(data, 16);
+    for (int i = dataSosire; i <= dataPlecare; i++){
+        frecventaMonths[i] ++;
+    }
+}
+
+void Tranzactii::countMonths (int *frecventaMonths){
+    // contorizez luniile distincte de la fiecare serviciu, deci
+    // daca la serviciu 1 am (sosire)dd.06.yyyy - (plecare)dd.06.yyyy voi pune doar 6
+    // daca la urmatorul serviciu am d.05.y - d.06.y voi pune si 5 si 6
+    getMonths(this -> dataVacantaWeekend, frecventaMonths);
+    getMonths(this -> dataCityBreak, frecventaMonths);
+    getMonths(this -> dataVacantaCroaziera, frecventaMonths);
+    getMonths(this -> dataTabaraGhid, frecventaMonths);
+}
+
 Tranzactii::~Tranzactii (){
     delete[] dataVacantaWeekend;
     delete[] dataCityBreak;
