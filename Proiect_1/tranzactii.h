@@ -4,6 +4,11 @@
 // si data cand se planuieste vacanta
 
 class Client;
+struct dateServicii{
+    float suma = 0;
+    int nrClienti = 0;
+    char numeServiciu[24];
+};
 
 class Tranzactii{
 private:
@@ -56,6 +61,8 @@ public:
     void setTabaraGhid (const char *dataTabaraGhid);
 
     friend std::ostream& operator<<(std::ostream& stream, Tranzactii& tranzactie);
+
+    int countPret (dateServicii& serviciu, float pretServiciu);
 
     ~Tranzactii ();
 };

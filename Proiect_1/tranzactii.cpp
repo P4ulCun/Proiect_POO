@@ -227,6 +227,19 @@ std::ostream& operator<<(std::ostream& stream, Tranzactii& tranzactie){
     return stream;
 }
 
+int Tranzactii::countPret (dateServicii& serviciu, float pretServiciu){
+    int reducere = this -> reducere;
+
+    if (pretServiciu != -1){
+        float pretDupaReducere = pretServiciu - pretServiciu * ((float)reducere / 100);
+        serviciu.suma += pretDupaReducere;
+        serviciu.nrClienti ++;
+        return pretDupaReducere;
+    }
+
+    return -1;
+}
+
 Tranzactii::~Tranzactii (){
     delete[] dataVacantaWeekend;
     delete[] dataCityBreak;

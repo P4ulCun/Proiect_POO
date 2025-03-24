@@ -59,7 +59,7 @@ void afisareListaClienti (dateClient* lista){
         std::cout << clientCurent -> client << '\n';
         std::cout << clientCurent -> servicii << '\n';
         std::cout << clientCurent -> tranzactii << '\n';
-        std::cout << '\n';
+        std::cout << "--------------------------------------------------\n";
     }
 }
 
@@ -138,13 +138,6 @@ Tranzactii citesteTranzactii (){
 }
 
 // rezolvarea problemei: 
-struct dateServicii{
-    float suma = 0;
-    int nrClienti = 0;
-    char *numeServiciu;
-    // poate sa am un constructor si un destructor pt string
-    // maybe
-};
 
 int main (){
     // citire date
@@ -164,64 +157,58 @@ int main (){
     }
 
     // rezolvarea problemei:
+    // am structul de dateServicii in tranzactii.h
     dateServicii biletAvion, vacantaWeekend, cityBreak, vacantaCroaziera, tabaraGhid;
+    strcpy(biletAvion.numeServiciu, "BILETELE DE AVION");
+    strcpy(vacantaWeekend.numeServiciu, "VACANTELE DE WEEKEND");
+    strcpy(cityBreak.numeServiciu, "CITY-BREAK-URILE");
+    strcpy(vacantaCroaziera.numeServiciu, "VACANTELE DE CROAZIERA");
+    strcpy(tabaraGhid.numeServiciu, "TABERELE CU GHID");
+
     dateClient *clientUrm;
     // parcurg lista de clienti
     for (clientUrm = listaClienti; clientUrm != NULL; clientUrm = clientUrm -> urmClient){
         int reducere = clientUrm -> tranzactii.getReducere();
 
         float pretBiletAvion = clientUrm -> tranzactii.getPretBiletAvion();
-        if (pretBiletAvion != -1){
-            pretBiletAvion = pretBiletAvion - pretBiletAvion * ((float)reducere / 100);
-            clientUrm -> tranzactii.setPretBiletAvion(pretBiletAvion);
-            biletAvion.suma += pretBiletAvion;
-            biletAvion.nrClienti ++;
-        }
+        float pretDupaReducere = clientUrm -> tranzactii.countPret(biletAvion, pretBiletAvion);
+        clientUrm -> tranzactii.setPretBiletAvion(pretDupaReducere);
+        
         float pretVacantaWeekend = clientUrm -> tranzactii.getPretVacantaWeekend();
-        if (pretVacantaWeekend != -1){
-            pretVacantaWeekend = pretVacantaWeekend - pretVacantaWeekend * ((float)reducere / 100);
-            clientUrm -> tranzactii.setPretVacantaWeekend(pretVacantaWeekend);
-            vacantaWeekend.suma += pretVacantaWeekend;
-            vacantaWeekend.nrClienti ++;
-        }
+        pretDupaReducere = clientUrm -> tranzactii.countPret(vacantaWeekend, pretVacantaWeekend);
+        clientUrm -> tranzactii.setPretBiletAvion(pretDupaReducere);
+        
         float pretCityBreak = clientUrm -> tranzactii.getPretCityBreak();
-        if (pretCityBreak != -1){
-            pretCityBreak = pretCityBreak - pretCityBreak * ((float)reducere / 100);
-            clientUrm -> tranzactii.setPretCityBreak(pretCityBreak);
-            cityBreak.suma += pretCityBreak;
-            cityBreak.nrClienti ++;
-        }
+        pretDupaReducere = clientUrm -> tranzactii.countPret(cityBreak, pretCityBreak);
+        clientUrm -> tranzactii.setPretBiletAvion(pretDupaReducere);
+
         float pretVacantaCroaziera = clientUrm -> tranzactii.getPretVacantaCroaziera();
-        if (pretVacantaCroaziera != -1){
-            pretVacantaCroaziera = pretVacantaCroaziera - pretVacantaCroaziera * ((float)reducere / 100);
-            clientUrm -> tranzactii.setPretVacantaCroaziera(pretVacantaCroaziera);
-            vacantaCroaziera.suma += pretVacantaCroaziera;
-            vacantaCroaziera.nrClienti ++;
-        }
+        pretDupaReducere = clientUrm -> tranzactii.countPret(vacantaCroaziera, pretVacantaCroaziera);
+        clientUrm -> tranzactii.setPretBiletAvion(pretDupaReducere);
+
         float pretTabaraGhid = clientUrm -> tranzactii.getPretTabaraGhid();
-        if (pretTabaraGhid != -1){
-            pretTabaraGhid = pretTabaraGhid - pretTabaraGhid * ((float)reducere / 100);
-            clientUrm -> tranzactii.setPretTabaraGhid(pretTabaraGhid);
-            tabaraGhid.suma += pretTabaraGhid;
-            tabaraGhid.nrClienti ++;
-        }
+        pretDupaReducere = clientUrm -> tranzactii.countPret(tabaraGhid, pretTabaraGhid);
+        clientUrm -> tranzactii.setPretBiletAvion(pretDupaReducere);
     }
-    // std::cout << "salt: " << biletAvion.suma / biletAvion.nrClienti << '\n';
-    // parcurg lista si memorez pt fiecare serviciu suma totala dupa aplicarea reducerii
-    // si numarul de persoane care au folosit serviciul
-    // la sfarsit fac mediea aritmetica la toate serviciile
-    // si afisez pe cea mai mare
-    // fac struct cu servicii unde o sa am mai multe variabile, fiecare un serviciu? - cu suma si nr clienti
 
     // mai mult voi memora si luna in care se planuieste vacanta/vacantele
     // daca voi avea dd.07.yyyy - dd.07.yyyy  voi pune o singura data luna 07
     // voi face cum ar fi un vector de frercventa
     // daca voi avea dd.06.yyyy - dd.07.yyyy voi contoriza ambele luni
     // care luna e cea mai frecventata o voi afisa
+ 
+    // char nr[3];
+    // cin.getline(nr, 3);
+    // int luna = nr[0] - '0';
+    // luna = luna * 10 + (nr[1] - '0');
+    // cout << luna << '\n';
+    // cod pt calcularea lunii;
+    // trb sa fac vector de frecventa
 
     // sa iau pretul serviciului, aplic reducerea si schimb pretul ; folosesc set
     
-    // afisareListaClienti(listaClienti);
+    afisareListaClienti(listaClienti);
+
     dateServicii dateServicii[5] = {biletAvion, vacantaWeekend, cityBreak, vacantaCroaziera, tabaraGhid};
     float sumaMax = -1;
     for (int i = 0; i < 5; i++){
@@ -230,16 +217,12 @@ int main (){
         }
     }
     for (int i = 0; i < 5; i++){
-        if (dateServicii[i].suma == sumaMax){
-            std::cout << "Unul dintre cele mai profitabile servicii a fost{}" << biletAvion.suma << '\n';
+        if ((int)dateServicii[i].suma == (int)sumaMax){  // pun int ca sa nu am bug uri cu floating point
+            std::cout << "Unele dintre cele mai profitabile servicii au fost " << 
+            dateServicii[i].numeServiciu << " avand un CASTIG de " << dateServicii[i].suma << " lei," << '\n';
+            std::cout << "fiind UTILIZATE de un numar de " << dateServicii[i].nrClienti << " clienti." << '\n';
         }
     }
-
-    std::cout << "Pret Bilet Avion: " << biletAvion.suma << '\n';
-    std::cout << "Pret Vacanta Weekend: " << vacantaWeekend.suma << '\n';
-    std::cout << "Pret City-Break: " << cityBreak.suma << '\n';
-    std::cout << "Pret Vacanta Croaziera: " << vacantaCroaziera.suma << '\n';
-    std::cout << "Pret Tabara Ghid: " << tabaraGhid.suma << '\n';
 
     clearListaClienti(listaClienti);
     return 0;
