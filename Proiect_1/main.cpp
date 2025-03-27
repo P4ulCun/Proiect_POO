@@ -2,33 +2,33 @@
 // g++ *.cpp -o output
 // output.exe
 
-// ENUNȚUL PROBLEMEI
-// O agenție de turism dorește să își optimizeze resursele și să își îmbunătățească
-// oferta de servicii, analizând comportamentul și preferințele clienților săi. 
-// Pentru aceasta, trebuie realizată o analiză a datelor despre clienți, reducerile
-// aplicate și popularitatea serviciilor oferite.
+// ENUNTUL PROBLEMEI
+// O agentie de turism doreste sa isi optimizeze resursele si sa isi imbunatateasca
+// oferta de servicii, analizand comportamentul si preferintele clientilor sai. 
+// Pentru aceasta, trebuie realizata o analiza a datelor despre clienti, reducerile
+// aplicate si popularitatea serviciilor oferite.
 
-// CERINȚE
-// 1. Afișarea tuturor clienților împreună cu datele lor relevante, inclusiv prețurile
-// finale plătite după aplicarea reducerilor în funcție de nivelul de fidelitate.
+// CERINTE
+// 1. Afisarea tuturor clientilor impreuna cu datele lor relevante, inclusiv preturile
+// finale platite dupa aplicarea reducerilor in functie de nivelul de fidelitate.
 
-// 2. Determinarea serviciului cel mai profitabil, adică acel serviciu care a generat
+// 2. Determinarea serviciului cel mai profitabil, adica acel serviciu care a generat
 // cel mai mare venit total.
 
-// 3.Identificarea celor mai frecventate luni din an, în funcție de numărul de clienți
-// care au achiziționat servicii în fiecare lună.
+// 3.Identificarea celor mai frecventate luni din an, in functie de numarul de clienti
+// care au achizitionat servicii in fiecare luna.
 
 // DATE DE INTRARE
-// Datele vor fi citite din fișier
-// Se vor introduce date despre client, servicile cerute de client și tranzacțile,
-// câte o informatție pe rând și fără linii goale, după modelul și formatul precizat
-// in fișierul boilerplate.in. Datele dintre 2 clienți nu vor fi separate 
+// Datele vor fi citite din fisier
+// Se vor introduce date despre client, servicile cerute de client si tranzactile,
+// cate o informatie pe rand si fara linii goale, dupa modelul si formatul precizat
+// in fisierul boilerplate.in. Datele dintre 2 clienti nu vor fi separate 
 // printr-o linie goala!!
 
-// DATE DE IEȘIRE
-// 1. Lista clienților cu datele lor și costurile finale plătite după aplicarea reducerilor.
+// DATE DE IESIRE
+// 1. Lista clientilor cu datele lor si costurile finale platite dupa aplicarea reducerilor.
 // 2. Cel mai profitabil serviciu, cu cel mai mare venit total.
-// 3. Cele mai frecventate luni, lunile cu cel mai mare număr de achiziții.
+// 3. Cele mai frecventate luni, lunile cu cel mai mare numar de achizitii.
 
 #include <iostream>
 #include <cstring>
