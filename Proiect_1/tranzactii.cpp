@@ -252,6 +252,7 @@ void getMonths(char *data, int *frecventaMonths){
     
     int dataSosire = getMonth(data, 3);
     int dataPlecare = getMonth(data, 16);
+    // pe indecsii 3 si 16 se afla luna de sosire si luna de plecare
     for (int i = dataSosire; i <= dataPlecare; i++){
         frecventaMonths[i] ++;
     }

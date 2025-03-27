@@ -9,6 +9,7 @@ struct dateServicii{
     int nrClienti = 0;
     char numeServiciu[24];
 };
+// foloses pt countPret, metoda din clasa Tranzactii
 
 class Tranzactii{
 private:

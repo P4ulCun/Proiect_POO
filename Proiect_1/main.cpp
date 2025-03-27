@@ -1,39 +1,48 @@
+// comenzi run
+// g++ *.cpp -o output
+// output.exe
+
+// ENUNȚUL PROBLEMEI
+// O agenție de turism dorește să își optimizeze resursele și să își îmbunătățească
+// oferta de servicii, analizând comportamentul și preferințele clienților săi. 
+// Pentru aceasta, trebuie realizată o analiză a datelor despre clienți, reducerile
+// aplicate și popularitatea serviciilor oferite.
+
+// CERINȚE
+// 1. Afișarea tuturor clienților împreună cu datele lor relevante, inclusiv prețurile
+// finale plătite după aplicarea reducerilor în funcție de nivelul de fidelitate.
+
+// 2. Determinarea serviciului cel mai profitabil, adică acel serviciu care a generat
+// cel mai mare venit total.
+
+// 3.Identificarea celor mai frecventate luni din an, în funcție de numărul de clienți
+// care au achiziționat servicii în fiecare lună.
+
+// DATE DE INTRARE
+// Datele vor fi citite din fișier
+// Se vor introduce date despre client, servicile cerute de client și tranzacțile,
+// câte o informatție pe rând și fără linii goale, după modelul și formatul precizat
+// in fișierul boilerplate.in. Datele dintre 2 clienți nu vor fi separate 
+// printr-o linie goala!!
+
+// DATE DE IEȘIRE
+// 1. Lista clienților cu datele lor și costurile finale plătite după aplicarea reducerilor.
+// 2. Cel mai profitabil serviciu, cu cel mai mare venit total.
+// 3. Cele mai frecventate luni, lunile cu cel mai mare număr de achiziții.
+
 #include <iostream>
 #include <cstring>
+#include <fstream>
 #include "client.h"
 #include "servicii.h"
 #include "tranzactii.h"
+// mi se strica tot programul daca pun include header files primele
+// si dupa include iostream
 
-// mi se strica tot programul daca pun include header files primele si dupa
-// include iostream
-
-// cd Desktop\lab_poo\Proiect_POO\Proiect_1 path for files to be compiled
-// g++ *.cpp -o output
-// output < date.in
-
-
-// definirea problemei
-// sa se afiseze toti clientii care au folosit serviciul de transport acvatic
-// sau
-
-// !!!!!
-// mai trb sa descriu datele de intrare
-// si ce functii am sau sa ma ajute la rezolvarea problemei
-
-// enuntul problemei in mare
-// sa se afiseze toti clientii cu datele lor, dupa reducerea aplicata 
-// apoi 
-// sa se calculeze si afiseze cel mai profiabil serviciu ; 
-// avg ( cati clienti au folosit si cat au platit pentru serviciu )
-// si sa se determine care sunt cele mai frecventate luni din an de clienti
-// pentru a ajuta agentia de turism sa isi gestioneze mai bine resursele
-// aka sa stie pe ce sa sa axeze, sau sa introduca mai multe servicii
-// in lunile cele mai frecventate cu servicii ce le aduc cel mai mult profit
-// !!!!!
-// !!sa se afiseze cel mai fidel client O(1) - fac lista sa se sorteze dupa nivel fidelitate
-
+std::ifstream file;
 
 // citire si memorare date:
+
 struct dateClient{
     Client client;
     Servicii servicii;
@@ -45,6 +54,7 @@ struct dateClient{
     // constructor pentru struct
 };
 
+// inserare eficienta in lista
 void addClientInLista (dateClient*& lista, Client& client, Servicii& servicii, Tranzactii& tranzactii){
     dateClient *clientNou = new dateClient(client, servicii, tranzactii); // apelez constructorul
 
@@ -73,34 +83,34 @@ void clearListaClienti (dateClient* lista){
 
 Client citesteClient (){
     char nume[50];
-    std::cin.getline(nume, 50);
+    file.getline(nume, 50);
     char prenume[50];
-    std::cin.getline(prenume, 50);
+    file.getline(prenume, 50);
     char email[50];
-    std::cin.getline(email, 50);
+    file.getline(email, 50);
     char telefon[50];
-    std::cin.getline(telefon, 50);
+    file.getline(telefon, 50);
     int nivelFidelitate;
-    std::cin >> nivelFidelitate;
+    file >> nivelFidelitate;
 
     Client client(nume, prenume, email, telefon, nivelFidelitate);
 
-    std::cin.getline(nume, 50); // este pentru \n ramas la sfarsitul intului
+    file.getline(nume, 50); // este pentru \n ramas la sfarsitul intului
 
     return client;
 }
 
 Servicii citesteServicii (){
     char biletAvion[50];
-    std::cin.getline(biletAvion, 50);
+    file.getline(biletAvion, 50);
     char vacantaWeekend[50];
-    std::cin.getline(vacantaWeekend, 50);
+    file.getline(vacantaWeekend, 50);
     char cityBreak[50];
-    std::cin.getline(cityBreak, 50);
+    file.getline(cityBreak, 50);
     char vacantaCroaziera[50];
-    std::cin.getline(vacantaCroaziera, 50);
+    file.getline(vacantaCroaziera, 50);
     char tabaraGhid[50];
-    std::cin.getline(tabaraGhid, 50);
+    file.getline(tabaraGhid, 50);
 
     Servicii servicii(biletAvion, vacantaWeekend, cityBreak, vacantaCroaziera, tabaraGhid);
 
@@ -109,25 +119,25 @@ Servicii citesteServicii (){
 
 Tranzactii citesteTranzactii (){
     int pretBiletAvion;
-    std::cin >> pretBiletAvion;
+    file >> pretBiletAvion;
     int pretVacantaWeekend;
-    std::cin >> pretVacantaWeekend;
+    file >> pretVacantaWeekend;
     int pretCityBreak;
-    std::cin >> pretCityBreak;
+    file >> pretCityBreak;
     int pretVacantaCroaziera;
-    std::cin >> pretVacantaCroaziera;
+    file >> pretVacantaCroaziera;
     int pretTabaraGhid;
-    std::cin >> pretTabaraGhid;
+    file >> pretTabaraGhid;
 
     char dataVacantaWeekend[50];
-    std::cin.getline(dataVacantaWeekend, 50); // pentru terminator la int
-    std::cin.getline(dataVacantaWeekend, 50);
+    file.getline(dataVacantaWeekend, 50); // pentru terminator la int
+    file.getline(dataVacantaWeekend, 50);
     char dataCityBreak[50];
-    std::cin.getline(dataCityBreak, 50);
+    file.getline(dataCityBreak, 50);
     char dataVacantaCroaziera[50];
-    std::cin.getline(dataVacantaCroaziera, 50);
+    file.getline(dataVacantaCroaziera, 50);
     char dataTabaraGhide[50];
-    std::cin.getline(dataTabaraGhide, 50);
+    file.getline(dataTabaraGhide, 50);
 
     Tranzactii tranzactii(pretBiletAvion, pretVacantaWeekend, pretCityBreak, 
         pretVacantaCroaziera, pretTabaraGhid, dataVacantaWeekend, dataCityBreak, 
@@ -185,10 +195,11 @@ int main (){
     dateClient *listaClienti = NULL;
 
     int nrClienti = 0, i = 0;
-    char temp[10];
-    std::cin >> nrClienti;
-    std::cin.getline(temp, 10); // ca sa iau endl de la sfarsitul int-ului
-    for (i = 0; i < nrClienti; i++){
+
+    file.open("./date.in", std::ifstream::in); // se deschide doar pt read
+
+    while (!file.eof()){
+        // cat timp am ce sa citesc / fisierul nu e gol
         Client client = citesteClient();
         Servicii servicii = citesteServicii();
         Tranzactii tranzactii = citesteTranzactii();
@@ -196,6 +207,8 @@ int main (){
 
         addClientInLista(listaClienti, client, servicii, tranzactii);
     }
+
+    file.close();
 
     // rezolvarea problemei:
     // am structul de dateServicii in tranzactii.h
@@ -236,26 +249,6 @@ int main (){
         // afla care este cea mai frecventata perioada de calatorit
         clientUrm -> tranzactii.countMonths(frecventaMonths);
     }
-
-    // mai mult voi memora si luna in care se planuieste vacanta/vacantele
-    // daca voi avea dd.07.yyyy - dd.07.yyyy  voi pune o singura data luna 07
-    // voi face cum ar fi un vector de frercventa
-    // daca voi avea dd.06.yyyy - dd.07.yyyy voi contoriza ambele luni
-    // care luna e cea mai frecventata o voi afisa
-
-    // !! sa gasesc cea mai frecventata destinatie?
-
-    // !!sa se afiseze cel mai fidel client O(1) - fac lista sa se sorteze dupa nivel fidelitate
-
-    // char nr[3];
-    // cin.getline(nr, 3);
-    // int luna = nr[0] - '0';
-    // luna = luna * 10 + (nr[1] - '0');
-    // cout << luna << '\n';
-    // cod pt calcularea lunii;
-    // trb sa fac vector de frecventa
-
-    // sa iau pretul serviciului, aplic reducerea si schimb pretul ; folosesc set
     
     afisareListaClienti(listaClienti);
 
