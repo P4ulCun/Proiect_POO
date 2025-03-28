@@ -56,10 +56,36 @@ struct dateClient{
 
 // inserare eficienta in lista
 void addClientInLista (dateClient*& lista, Client& client, Servicii& servicii, Tranzactii& tranzactii){
+    //  inserare nod O(1)
+
+    // dateClient *clientNou = new dateClient(client, servicii, tranzactii); // apelez constructorul
+
+    // clientNou -> urmClient = lista;
+    // lista = clientNou;
+
+    // inserare in oridinea nivelului de fidelitate 
     dateClient *clientNou = new dateClient(client, servicii, tranzactii); // apelez constructorul
 
-    clientNou -> urmClient = lista;
-    lista = clientNou;
+    if(lista == NULL){
+        //inserarea primului nod
+        clientNou -> urmClient = lista;
+        lista = clientNou;
+    }
+    else if(client.getFidelitate() >= lista -> client.getFidelitate()){
+        // inserare inainte de primul nod
+        clientNou -> urmClient = lista;
+        lista = clientNou;
+    }
+    else{
+        dateClient *clientUrm = lista;
+        while(clientUrm -> urmClient != NULL && client.getFidelitate() < clientUrm -> urmClient -> client.getFidelitate()){
+            clientUrm = clientUrm -> urmClient;
+        }
+        // inserare pe parcurs sau la sfarsit
+        clientNou -> urmClient = clientUrm -> urmClient;
+        clientUrm -> urmClient = clientNou;
+        // head - ul nu s-a schimbat
+    } 
 }
 
 void afisareListaClienti (dateClient* lista){
