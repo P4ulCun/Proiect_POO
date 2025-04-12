@@ -64,7 +64,7 @@ else()
 
 endif()
 
-target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES}  "include/items.h" "src/items.cpp" "include/fighterClasses.h" "src/fighterClasses.cpp")
+target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES}  "include/items.h" "src/items.cpp" "include/fighterClasses.h" "src/fighterClasses.cpp"  "include/inventory.h" "src/inventory.cpp")
 
 
 if(MSVC) # If using the VS compiler...

@@ -14,6 +14,15 @@ int main()
 	player.increasePower(10);*/
 
 	//std::cout << player << '\n';
+	std::unique_ptr<Rogue> player = std::make_unique<Rogue>();
+
+	std::shared_ptr<ActiveSword> sabie = std::make_shared<ActiveSword>("Grieving sword", "sabie foarte dureroasa", 10, 50);
+	std::shared_ptr<ActiveHeal> mecanism = std::make_shared<ActiveHeal>("Mekansm", "mecanism ce ofera o salva vindecatoare", 0, 200);
+	sabie->useItemAbility(*player);
+	sabie->applyPassive(*player);
+
+	mecanism->useItemAbility(*player);
+	mecanism->applyPassive(*player);
 
 	return 0;
 }

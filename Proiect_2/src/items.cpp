@@ -2,20 +2,44 @@
 #include <iostream>
 
 
-void BasicSword::applyEffect(Character& player)
+void BasicSword::applyPassive(Character& player)
 {
-	player.increasePower(m_power);
-	std::cout << "applied 10 damage!" << std::endl;
+	player.increaseBasePower(m_power);
+	std::cout << "applied " << m_power << " base damage!" << std::endl;
 }
 
-void BasicHealing::applyEffect(Character& player)
+void BasicHeal::applyPassive(Character& player)
 {
-	player.increaseHP(m_healing);
-	std::cout << "applied 10 healing!" << std::endl;
+	player.increaseBaseHP(m_HP);
+	std::cout << "applied " << m_HP << " base healing!" << std::endl;
 }
 
-void BasicArmour::applyEffect(Character& player)
+void BasicArmour::applyPassive(Character& player)
 {
-	player.increaseArmour(m_armour);
-	std::cout << "applied 10 armour!" << std::endl;
+	player.increaseBaseArmour(m_armour);
+	std::cout << "applied " << m_armour << " base armour!" << std::endl;
 }
+
+
+void ActiveSword::useItemAbility(Character& target)
+{
+	//attack somebody
+	std::cout << "used " << m_itemName << " and dealt " << m_activePower << " damage\n";
+	target.takeDamage(m_activePower);
+	// need to define it
+}
+
+void ActiveHeal::useItemAbility(Character& player)
+{
+	//heal the user
+	std::cout << "used " << m_itemName << " to heal " << m_activeHeal << " HP\n";
+	player.heal(m_activeHeal);
+	// need to define it
+}
+
+
+//void ActiveArmour::useItemAbility(Character& player)
+//{
+//	std::cout << "used Chain Mail to increase armour by " << m_activeArmour << "\n";
+//	// need to define it
+//}
