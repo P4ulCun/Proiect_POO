@@ -6,17 +6,124 @@
 #include "inventory.h"
 #include "fighterClasses.h"
 
+
+#include <SFML/Graphics.hpp>
+#include "imgui.h"
+#include "imgui-SFML.h"
+#include "imguiThemes.h"
+
+namespace windowDetails {
+	constexpr float WINDOW_WIDTH = 1920;
+	constexpr float WINDOW_HEIGHT = 1080;
+}
+
+enum MenuOption { FULLSCREEN, VOLUME, BACK };
+void drawSettingsMenu(sf::RenderWindow& window, sf::Font& font)
+{
+	sf::RectangleShape menu(sf::Vector2f(windowDetails::WINDOW_WIDTH / 3, windowDetails::WINDOW_HEIGHT - 100));
+	menu.setFillColor(sf::Color(139, 69, 19)); // brown
+	menu.setPosition(windowDetails::WINDOW_WIDTH / 3, 50.0f);
+
+	window.draw(menu);
+
+	std::string options[3] = {
+		"Fullscreen: ",
+		"Volume: ",
+		"Back"
+	};
+
+	for (int i = 0; i < 3; ++i)
+	{
+		//make a square
+		sf::RectangleShape button(sf::Vector2f(200, 60));
+		button.setFillColor(sf::Color(100, 100, 250)); // Blue-ish
+		button.setPosition(menu.getPosition().x + menu.getSize().x / 3.0f,
+			menu.getPosition().y + menu.getSize().y / 3.0f + i * 100);
+
+		sf::Text buttonText;
+		buttonText.setFont(font);
+		buttonText.setString(options[i]);
+		buttonText.setCharacterSize(36);
+		buttonText.setFillColor(sf::Color::Yellow);
+
+		// Center text in button
+		sf::FloatRect textRect = buttonText.getLocalBounds();
+		buttonText.setOrigin(textRect.left + textRect.width / 2.0f,
+			textRect.top + textRect.height / 2.0f);
+		buttonText.setPosition(button.getPosition().x + button.getSize().x / 2.0f,
+			button.getPosition().y + button.getSize().y / 2.0f);
+
+
+		window.draw(button);
+		window.draw(buttonText);
+	}
+
+	
+}
+
+
 int main()
 {
-	try
+	//initializer iteme
+	/*try
 	{
 		ItemShop::getInstance().init();
 		ItemShop::getInstance().listItems();
 	}
-	catch (FileLoadError& err) { std::cout << err.what() << "\n"; }
-	//ItemShop itemShop = 5;
+	catch (FileLoadError& err) { std::cout << err.what() << "\n"; }*/
 
-	//initialize item data
+
+	sf::RenderWindow window(sf::VideoMode(windowDetails::WINDOW_WIDTH, windowDetails::WINDOW_HEIGHT), "game!"); // , sf::Style::Fullscreen
+	
+
+	// background
+	sf::Texture backgroundTexture;
+	try 
+	{
+		if (!backgroundTexture.loadFromFile("C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\background_dark_1920-1080.png"))
+			throw TextureLoadError("Couldn't load texture\n");
+	}
+	catch (TextureLoadError& err) { std::cout << err.what(); }
+	
+	sf::Sprite backgroundSprite;
+	backgroundSprite.setTexture(backgroundTexture);
+
+	// font style
+	sf::Font font;
+	try
+	{
+		if (!font.loadFromFile("C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\Feelin_Teachy_TTF.ttf"))
+			throw FontLoadError("Couldn't load font\n");
+	}
+	catch (FontLoadError& err) { std::cout << err.what(); }
+
+	//game loop
+	
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			else if (event.type == sf::Event::Resized)
+			{
+				// Adjust the viewport when the window is resized
+				/*sf::FloatRect visibleArea(200, 200, event.size.width, event.size.height);
+				window.setView(sf::View(visibleArea));*/
+			}
+		}
+
+		window.clear();
+
+		window.draw(backgroundSprite);
+		sf::Vector2u windowSize(window.getSize());
+		drawSettingsMenu(window, font);
+
+		window.display();
+	}
+
+
 	//create window
 	//selection menu
 	//create a character: name, class, items
