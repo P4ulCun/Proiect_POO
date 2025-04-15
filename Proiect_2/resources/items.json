@@ -1,0 +1,68 @@
+{
+	"items": [
+		{
+			"type": "BasicSword",
+			"name": "Iron Blade",
+			"description": "A simple iron sword.",
+			"power": 10
+		},
+		{
+			"type": "BasicSword",
+			"name": "Steel Saber",
+			"description": "Sharper than iron, still lightweight.",
+			"power": 15
+		},
+		{
+			"type": "BasicHeal",
+			"name": "Minor Healing Herb",
+			"description": "Restores a small amount of HP.",
+			"hp": 20
+		},
+		{
+			"type": "BasicHeal",
+			"name": "Healing Potion",
+			"description": "A potion that heals moderate wounds.",
+			"hp": 35
+		},
+		{
+			"type": "BasicArmour",
+			"name": "Leather Vest",
+			"description": "Basic protection made from leather.",
+			"armour": 5
+		},
+		{
+			"type": "BasicArmour",
+			"name": "Chainmail",
+			"description": "Provides decent protection in battle.",
+			"armour": 12
+		},
+		{
+			"type": "ActiveSword",
+			"name": "Grieving Blade",
+			"description": "A cursed sword that causes bleeding.",
+			"power": 12,
+			"activePower": 5
+		},
+		{
+			"type": "ActiveSword",
+			"name": "Crimson Fang",
+			"description": "Fangs of an ancient beast, crit chance boosted.",
+			"power": 18,
+			"activePower": 8
+		},
+		{
+			"type": "ActiveHeal",
+			"name": "Blessed Leaf",
+			"description": "Heals and regenerates health for a few turns.",
+			"hp": 25,
+			"activeHp": 10
+		},
+		{
+			"type": "ActiveHeal",
+			"name": "Divine Elixir",
+			"description": "A powerful potion with healing over time.",
+			"hp": 40,
+			"activeHp": 20
+		}
+	]
+}

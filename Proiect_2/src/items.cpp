@@ -1,6 +1,11 @@
 #include "items.h"
 #include <iostream>
 
+std::ostream& operator<<(std::ostream& out, Item& item)
+{
+	std::cout << item.m_itemName << ": " << item.m_itemDesc << '\n';
+	return out;
+}
 
 void BasicSword::applyPassive(Character& player)
 {

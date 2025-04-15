@@ -1,14 +1,3 @@
+#include "singleton.h"
 
-
-template <typename T>
-class Singleton
-{
-public:
-	Singleton() = default;
-
-	static T& getInstance()
-	{
-		static T instance;
-		return instance;
-	}
-};
+// aici se va compila codul ; pt ca folosesc static

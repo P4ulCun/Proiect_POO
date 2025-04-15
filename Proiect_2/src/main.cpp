@@ -1,20 +1,41 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include "errorHandling.h"
 #include "items.h"
+#include "inventory.h"
 #include "fighterClasses.h"
 
 int main()
 {
-	/*std::shared_ptr<Item> sabie = std::make_shared<BasicSword>("Grieving sword", "sabie foarte dureroasa");
-	sabie -> applyEffect();*/
-	//Character player(60, 120, 2);
-	/*player.increaseArmour(2);
-	player.increaseHP(20);
-	player.increasePower(10);*/
+	try
+	{
+		ItemShop::getInstance().init();
+		ItemShop::getInstance().listItems();
+	}
+	catch (FileLoadError& err) { std::cout << err.what() << "\n"; }
+	//ItemShop itemShop = 5;
 
-	//std::cout << player << '\n';
-	std::unique_ptr<Rogue> player = std::make_unique<Rogue>();
+	//initialize item data
+	//create window
+	//selection menu
+	//create a character: name, class, items
+	//draw this on screen
+
+	//after selection
+	//game loop
+	//turn based
+	//check if alive
+	//update visuals: health bar, player's turn on the top of the screen
+
+	//take and procces input: apply heal, attacks
+
+
+
+		
+	//EXEMPLE DE UTILIZARE BASIC
+
+	/*std::unique_ptr<Rogue> player = std::make_unique<Rogue>();
 
 	std::shared_ptr<ActiveSword> sabie = std::make_shared<ActiveSword>("Grieving sword", "sabie foarte dureroasa", 10, 50);
 	std::shared_ptr<ActiveHeal> mecanism = std::make_shared<ActiveHeal>("Mekansm", "mecanism ce ofera o salva vindecatoare", 0, 200);
@@ -22,7 +43,17 @@ int main()
 	sabie->applyPassive(*player);
 
 	mecanism->useItemAbility(*player);
-	mecanism->applyPassive(*player);
+	mecanism->applyPassive(*player);*/
+
+	/*try
+	{
+		throw TextureLoadError("nume_textura");
+	}
+	catch (TextureLoadError& err)
+	{
+		std::cout << "nu a fost incarcata textura: " << err.what();
+	}*/
+	
 
 	return 0;
 }

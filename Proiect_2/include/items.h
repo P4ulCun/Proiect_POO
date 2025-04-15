@@ -16,6 +16,8 @@ public:
 
 	virtual void applyPassive(Character& player) = 0;
 	virtual void useItemAbility(Character&) {}; // let the active item classes implement this
+	
+	friend std::ostream& operator<<(std::ostream& out, Item& item);
 };
 
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "items.h"
+#include "singleton.h"
 #include <string>
 #include <memory>
 #include <vector>
@@ -9,10 +10,11 @@
 
 class Inventory
 {
-private:
-	std::vector<std::shared_ptr<Item>> items;
+protected:
+	std::vector<std::shared_ptr<Item>> m_items;
 public:
 	Inventory() = default;
+	Inventory(const Inventory& inventory);
 	virtual ~Inventory() = default;
 
 	virtual void addItem(std::shared_ptr<Item> item) = 0;
@@ -21,13 +23,16 @@ public:
 	// asta pt afisare cu sprites si chestii
 };
 
-class ItemShop : public Inventory
+class ItemShop : public Inventory , public Singleton<ItemShop>
 {
 public:
+	ItemShop() : Inventory() {};
+	void init();
 	void addItem(std::shared_ptr<Item> item);
 	void removeItem(std::shared_ptr<Item> item);
+	void listItems();
 
-	void moveToPlayerInventory(int index, Inventory& playerInventory);
+	//void moveToPlayerInventory(int index, Inventory& playerInventory);
 };
 
 class PlayerInventory : public Inventory
@@ -38,6 +43,6 @@ public:
 	void addItem(std::shared_ptr<Item> item);
 	void removeItem(std::shared_ptr<Item> item);
 
-	void usePassive(int index, Character& player);
-	void useActive(int index, Character& player); // can be either target or user
+	/*void usePassive(int index, Character& player);
+	void useActive(int index, Character& player);*/ // can be either target or user
 };

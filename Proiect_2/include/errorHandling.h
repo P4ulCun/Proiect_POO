@@ -21,3 +21,9 @@ class TextureLoadError : public GameError
 public:
 	TextureLoadError(const std::string message) : GameError(message) {};
 };
+
+class FileLoadError : public GameError
+{
+public:
+	FileLoadError(const std::string message) : GameError(message) {};
+};
