@@ -13,4 +13,6 @@ public:
 
 	Player(std::shared_ptr<Inventory> inventory, std::shared_ptr<Character> character, bool isBot)
 		: m_inventory(inventory), m_character(character), m_isBot(isBot) {};
+
+	~Player() = default;
 };
