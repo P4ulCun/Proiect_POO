@@ -41,28 +41,32 @@
 			"name": "Grieving Blade",
 			"description": "A cursed sword that causes bleeding.",
 			"power": 12,
-			"activePower": 5
+			"activePower": 5,
+			"cooldown": 5
 		},
 		{
 			"type": "ActiveSword",
 			"name": "Crimson Fang",
 			"description": "Fangs of an ancient beast, crit chance boosted.",
 			"power": 18,
-			"activePower": 8
+			"activePower": 8,
+			"cooldown": 2
 		},
 		{
 			"type": "ActiveHeal",
 			"name": "Blessed Leaf",
 			"description": "Heals and regenerates health for a few turns.",
 			"hp": 25,
-			"activeHp": 10
+			"activeHp": 10,
+			"cooldown": 3
 		},
 		{
 			"type": "ActiveHeal",
-			"name": "Divine Elixir",
-			"description": "A powerful potion with healing over time.",
-			"hp": 40,
-			"activeHp": 20
+			"name": "Mekansm",
+			"description": "A powerful mechanism that instantly heals the user.",
+			"hp": 0,
+			"activeHp": 100,
+			"cooldown": 3
 		}
 	]
 }

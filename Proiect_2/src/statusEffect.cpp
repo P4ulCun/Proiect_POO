@@ -1,5 +1,8 @@
 #include "statusEffect.h"
 
+void Cooldown::tick() { m_cooldownTime = (m_cooldownTime > 0) ? m_cooldownTime - 1 : 0; }
+bool Cooldown::isOffCooldown() { return (m_cooldownTime <= 0) ? true : false; }
+
 void StatusEffect::tick()
 {
 	m_effectDuration -= 1;
@@ -10,8 +13,12 @@ bool StatusEffect::isExpired()
 	return m_effectDuration <= 0;
 }
 
-void DamagingStatusEffect::applyStatusEffect(Character& player)
+void BleedingStatusEffect::applyStatusEffect(Character& player)
 {
-	player.takeDamage(m_damagePerTurn);
-	std::cout << "took bleeding damage!\n";
+	if (m_effectDuration > 0)
+	{
+		//display icon
+		player.takeDamage(m_damagePerTurn);
+		std::cout << "took bleeding damage!\n";
+	}
 }

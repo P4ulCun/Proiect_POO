@@ -5,16 +5,11 @@
 #include "items.h"
 #include "inventory.h"
 #include "fighterClasses.h"
-
-
-#include <SFML/Graphics.hpp>
-#include "imgui.h"
-#include "imgui-SFML.h"
-#include "imguiThemes.h"
+#include "gameLogic.h"
 
 namespace windowDetails {
-	constexpr float WINDOW_WIDTH = 1920;
-	constexpr float WINDOW_HEIGHT = 1080;
+	constexpr float WINDOW_WIDTH = 1200;
+	constexpr float WINDOW_HEIGHT = 675;
 }
 
 enum MenuOption { FULLSCREEN, VOLUME, BACK };
@@ -64,6 +59,8 @@ void drawSettingsMenu(sf::RenderWindow& window, sf::Font& font)
 
 int main()
 {
+	//size for players 250 x 450 pixels
+
 	//initializer iteme
 	/*try
 	{
@@ -77,16 +74,16 @@ int main()
 	
 
 	// background
-	sf::Texture backgroundTexture;
+	/*sf::Texture backgroundTexture;
 	try 
 	{
-		if (!backgroundTexture.loadFromFile("C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\background_dark_1920-1080.png"))
+		if (!backgroundTexture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\background_bamboo_1200_cut.png"))
 			throw TextureLoadError("Couldn't load texture\n");
 	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
+	catch (TextureLoadError& err) { std::cout << err.what(); }*/
 	
-	sf::Sprite backgroundSprite;
-	backgroundSprite.setTexture(backgroundTexture);
+	/*sf::Sprite backgroundSprite;
+	backgroundSprite.setTexture(backgroundTexture);*/
 
 	// font style
 	sf::Font font;
@@ -97,31 +94,46 @@ int main()
 	}
 	catch (FontLoadError& err) { std::cout << err.what(); }
 
+
+	sf::Texture player1Texture;
+	try
+	{
+		if (!player1Texture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\astarion_250-450.png"))
+			throw TextureLoadError("Couldn't load texture\n");
+	}
+	catch (TextureLoadError& err) { std::cout << err.what(); }
+
+	sf::Sprite player1Sprite;
+	player1Sprite.setTexture(player1Texture);
+	player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
 	//game loop
 	
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-			else if (event.type == sf::Event::Resized)
-			{
-				// Adjust the viewport when the window is resized
-				/*sf::FloatRect visibleArea(200, 200, event.size.width, event.size.height);
-				window.setView(sf::View(visibleArea));*/
-			}
-		}
+	//Game::getInstance().init();
 
-		window.clear();
+	//while (window.isOpen())
+	//{
+	//	sf::Event event;
+	//	while (window.pollEvent(event))
+	//	{
+	//		if (event.type == sf::Event::Closed)
+	//			window.close();
+	//		else if (event.type == sf::Event::Resized)
+	//		{
+	//			// Adjust the viewport when the window is resized
+	//			/*sf::FloatRect visibleArea(200, 200, event.size.width, event.size.height);
+	//			window.setView(sf::View(visibleArea));*/
+	//		}
+	//	}
 
-		window.draw(backgroundSprite);
-		sf::Vector2u windowSize(window.getSize());
-		drawSettingsMenu(window, font);
+	//	window.clear();
 
-		window.display();
-	}
+	//	//window.draw(backgroundSprite);
+	//	window.draw(player1Sprite);
+	//	//drawSettingsMenu(window, font);
+	//	//Game::getInstance().draw(window);
+
+	//	window.display();
+	//}
 
 
 	//create window

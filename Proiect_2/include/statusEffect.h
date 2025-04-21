@@ -2,9 +2,21 @@
 #include "fighterClasses.h"
 #include <string>
 
-class StatusEffect
+class Cooldown
 {
 private:
+	int m_cooldownTime;
+public:
+	Cooldown(int cooldownTime) : m_cooldownTime(cooldownTime) {};
+	virtual ~Cooldown() = default;
+
+	virtual void tick();
+	virtual bool isOffCooldown();
+};
+
+class StatusEffect
+{
+protected:
 	std::string m_effectName;
 	int m_effectDuration; // in rounds ; 2 turns
 public:
@@ -30,12 +42,12 @@ public:
 	void applyStatusEffect(Character& player) override;
 };
 
-class DamagingStatusEffect : public StatusEffect
+class BleedingStatusEffect : public StatusEffect
 {
 private:
 	int m_damagePerTurn;
 public:
-	DamagingStatusEffect(std::string name, int duration, int damage) 
+	BleedingStatusEffect(std::string name, int duration, int damage)
 		: StatusEffect(name, duration), m_damagePerTurn(damage) {};
 	void applyStatusEffect(Character& player) override;
 };

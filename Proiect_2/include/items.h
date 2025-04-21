@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
-
+#include "statusEffect.h"
 #include "fighterClasses.h"
 // item selection will also be turn based
+
 class Item
 {
 protected:
@@ -52,25 +53,25 @@ public:
 
 
 // ACTIVE abilities need a button press to apply an effect
-class ActiveSword : public BasicSword
+class ActiveSword : public BasicSword, public Cooldown
 {
 	// bleeding, crit chance
 	int m_activePower;
 public:
-	ActiveSword(std::string itemName, std::string itemDesc, int power, int activePower)
-		: BasicSword(itemName, itemDesc, power), m_activePower(activePower) {
-	};
+	ActiveSword(std::string itemName, std::string itemDesc, int power, int activePower, int cooldown)
+		: BasicSword(itemName, itemDesc, power), m_activePower(activePower),
+		Cooldown(cooldown) {};
 	void useItemAbility(Character& target) override;
 };
 
-class ActiveHeal : public BasicHeal
+class ActiveHeal : public BasicHeal, public Cooldown
 {
 	// more heal for druid maybe
 	int m_activeHeal;
 public:
-	ActiveHeal(std::string itemName, std::string itemDesc, int HP, int activeHeal)
-		: BasicHeal(itemName, itemDesc, HP), m_activeHeal(activeHeal) {
-	};
+	ActiveHeal(std::string itemName, std::string itemDesc, int HP, int activeHeal, int cooldown)
+		: BasicHeal(itemName, itemDesc, HP), m_activeHeal(activeHeal),
+		Cooldown(cooldown) {};
 	void useItemAbility(Character& player) override;
 };
 

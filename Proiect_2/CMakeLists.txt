@@ -1,6 +1,6 @@
 
 
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.16)	
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -64,7 +64,7 @@ else()
 
 endif()
 
-target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES}  "include/items.h" "src/items.cpp" "include/fighterClasses.h" "src/fighterClasses.cpp"  "include/inventory.h" "src/inventory.cpp" "include/player.h" "src/player.cpp" "include/errorHandling.h" "src/singleton.cpp" "include/gameLogic.h" "include/singleton.h" "src/itemFactory.cpp" "include/json.hpp" "include/statusEffect.h" "src/statusEffect.cpp")
+target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES}  "include/items.h" "src/items.cpp" "include/fighterClasses.h" "src/fighterClasses.cpp"  "include/inventory.h" "src/inventory.cpp" "include/player.h" "src/player.cpp" "include/errorHandling.h" "src/singleton.cpp" "include/gameLogic.h" "include/singleton.h"  "include/json.hpp" "include/statusEffect.h" "src/statusEffect.cpp" "src/gameLogic.cpp")
 
 
 if(MSVC) # If using the VS compiler...

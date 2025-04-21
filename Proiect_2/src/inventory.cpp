@@ -68,12 +68,14 @@ void ItemShop::init()
 		else if (type == "ActiveSword") {
 			int power = jItem["power"];
 			int activePower = jItem["activePower"];
-			m_items.push_back(std::make_shared<ActiveSword>(name, desc, power, activePower));
+			int cooldown = jItem["cooldown"];
+			m_items.push_back(std::make_shared<ActiveSword>(name, desc, power, activePower, cooldown));
 		}
 		else if (type == "ActiveHeal") {
 			int hp = jItem["hp"];
 			int activeHp = jItem["activeHp"];
-			m_items.push_back(std::make_shared<ActiveHeal>(name, desc, hp, activeHp));
+			int cooldown = jItem["cooldown"];
+			m_items.push_back(std::make_shared<ActiveHeal>(name, desc, hp, activeHp, cooldown));
 		}
 	}
 }
