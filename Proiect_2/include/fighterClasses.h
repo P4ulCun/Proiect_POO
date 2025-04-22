@@ -94,15 +94,15 @@ public:
 	// charge ceva
 };
 
-class Paladin : public Character
-{
-	// average ALL ; proficiency with holy items
-public:
-	Paladin() : Character(CharacterStats::PALADIN_HP, CharacterStats::PALADIN_POWER, CharacterStats::PALADIN_ARMOR) {};
-
-	/*void basicAttack();
-	void specialAttack1();
-	void specialAttack2();*/
-	//smite
-	//holy(divine) ceva - poate heal
-};
+//class Paladin : public Character
+//{
+//	// average ALL ; proficiency with holy items
+//public:
+//	Paladin() : Character(CharacterStats::PALADIN_HP, CharacterStats::PALADIN_POWER, CharacterStats::PALADIN_ARMOR) {};
+//
+//	/*void basicAttack();
+//	void specialAttack1();
+//	void specialAttack2();*/
+//	//smite
+//	//holy(divine) ceva - poate heal
+//};

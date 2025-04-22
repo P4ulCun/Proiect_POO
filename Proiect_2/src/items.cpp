@@ -29,16 +29,23 @@ void BasicArmour::applyPassive(Character& player)
 void ActiveSword::useItemAbility(Character& target)
 {
 	//attack somebody
-	std::cout << "used " << m_itemName << " and dealt " << m_activePower << " damage\n";
-	target.takeDamage(m_activePower);
+	if (isOffCooldown())
+	{
+		std::cout << "used " << m_itemName << " and dealt " << m_activePower << " damage\n";
+		target.takeDamage(m_activePower);
+		applyCooldown();
+	}
 	// need to define it
 }
 
 void ActiveHeal::useItemAbility(Character& player)
 {
 	//heal the user
-	std::cout << "used " << m_itemName << " to heal " << m_activeHeal << " HP\n";
-	player.heal(m_activeHeal);
+	if (isOffCooldown()) {
+		std::cout << "used " << m_itemName << " to heal " << m_activeHeal << " HP\n";
+		player.heal(m_activeHeal);
+		applyCooldown();
+	}
 	// need to define it
 }
 

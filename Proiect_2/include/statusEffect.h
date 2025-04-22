@@ -5,13 +5,15 @@
 class Cooldown
 {
 private:
+	int m_cooldownTotalDuration;
 	int m_cooldownTime;
-public:
-	Cooldown(int cooldownTime) : m_cooldownTime(cooldownTime) {};
+protected:
+	Cooldown(int cooldownTime) : m_cooldownTotalDuration(cooldownTime), m_cooldownTime(0) {};
 	virtual ~Cooldown() = default;
 
 	virtual void tick();
 	virtual bool isOffCooldown();
+	virtual void applyCooldown();
 };
 
 class StatusEffect
