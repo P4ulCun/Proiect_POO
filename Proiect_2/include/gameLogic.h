@@ -18,7 +18,7 @@ public:
 	~Game() = default;
 
 	void init();
-	void proccesEvents();
-	void update();
+	/*void proccesEvents();
+	void update();*/
 	void draw(sf::RenderWindow& window);
 };

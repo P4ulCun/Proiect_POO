@@ -1,53 +1,67 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <memory>
+#include "statusEffect.h"
 
 //Compile-time constants
 namespace CharacterStats {
 	constexpr int ROGUE_HP = 100;
 	constexpr int ROGUE_POWER = 23;
 	constexpr int ROGUE_ARMOR = 1;
+	constexpr int ROGUE_SPECIAL1_COOLDOWN = 2;
 
 	constexpr int DRUID_HP = 120;
 	constexpr int DRUID_POWER = 13;
 	constexpr int DRUID_ARMOR = 5;
+	constexpr int DRUID_SPECIAL1_COOLDOWN = 3;
 
 	constexpr int WARRIOR_HP = 160;
 	constexpr int WARRIOR_POWER = 15;
 	constexpr int WARRIOR_ARMOR = 3;
+	constexpr int WARRIOR_SPECIAL1_COOLDOWN = 1;
 
 	constexpr int PALADIN_HP = 130;
 	constexpr int PALADIN_POWER = 18;
 	constexpr int PALADIN_ARMOR = 4;
 }
 
+template<typename T>
+void increaseStats(T& stat, T& boost);
+
 class Character
 {
 private:
 	int m_baseHP;
-	int m_basePower;
-	int m_baseArmour;
+	int m_basePower; // no limit
+	int m_baseArmour; // max base armour 7
 	// int m_stamina;
+protected:
+	Cooldown m_special1Cooldown;
 	int m_currHP;
 	int m_currPower;
 	int m_currArmour;
 public:
-	Character(int HP, int power, int armour) : m_baseHP(HP), m_basePower(power), m_baseArmour(armour), 
-	m_currHP(HP), m_currPower(power), m_currArmour(armour) {};
+	Character(int HP, int power, int armour, int cooldown1) : m_baseHP(HP), m_basePower(power), m_baseArmour(armour), 
+	m_currHP(HP), m_currPower(power), m_currArmour(armour), m_special1Cooldown(cooldown1) {};
 	virtual ~Character() = default;
 
 
-	void increaseBaseHP(int value);
-	void increaseBasePower(int value);
-	void increaseBaseArmour(int value);
+	virtual void increaseBaseHP(int value);
+	virtual void increaseBasePower(int value);
+	virtual int increaseBaseArmour(int value);
+
+	//OR
+	//LINE 24
+	
 	// for item passives
 
-	void takeDamage(int value);
-	void heal(int value);
+	virtual void takeDamage(int value);
+	virtual int heal(int value);
 
 	virtual void basicAttack(Character& target);
-	/*virtual void specialAttack1() = 0;
-	virtual void specialAttack2() = 0;*/
+	virtual void specialAttack1(Character& target) = 0;
+	//virtual void specialAttack2() = 0;
 
 	
 
@@ -59,11 +73,11 @@ class Rogue : public Character
 {
 	// high damage ; lower hp/armour ; proficiency with daggers
 public:
-	Rogue() : Character(CharacterStats::ROGUE_HP, CharacterStats::ROGUE_POWER, CharacterStats::ROGUE_ARMOR) {};
+	Rogue() : Character(CharacterStats::ROGUE_HP, CharacterStats::ROGUE_POWER, CharacterStats::ROGUE_ARMOR, 
+		CharacterStats::ROGUE_SPECIAL1_COOLDOWN) {};
 
-	/*void basicAttack();
-	void specialAttack1();
-	void specialAttack2();*/
+	void specialAttack1(Character& target) override; // backstab
+	//void specialAttack2();
 	//backstab
 	//knife throw ?
 };
@@ -72,11 +86,11 @@ class Druid : public Character
 {
 	//  high armour ; average health/dmg ; improved healing (proficiency with ALL healing items)
 public:
-	Druid() : Character(CharacterStats::DRUID_HP, CharacterStats::DRUID_POWER, CharacterStats::DRUID_ARMOR) {};
+	Druid() : Character(CharacterStats::DRUID_HP, CharacterStats::DRUID_POWER, CharacterStats::DRUID_ARMOR,
+		CharacterStats::DRUID_SPECIAL1_COOLDOWN) {};
 
-	/*void basicAttack();
-	void specialAttack1();
-	void specialAttack2();*/
+	void specialAttack1(Character& target) override;
+	//void specialAttack2();
 	// bear claw
 	// wolf bite
 };
@@ -85,11 +99,11 @@ class Warrior : public Character
 {
 	// high healh ; average dmg/armour ; proficiency with GreatSwords
 public:
-	Warrior() : Character(CharacterStats::WARRIOR_HP, CharacterStats::WARRIOR_POWER, CharacterStats::WARRIOR_ARMOR) {};
+	Warrior() : Character(CharacterStats::WARRIOR_HP, CharacterStats::WARRIOR_POWER, CharacterStats::WARRIOR_ARMOR,
+		CharacterStats::WARRIOR_SPECIAL1_COOLDOWN) {};
 
-	/*void basicAttack();
-	void specialAttack1();
-	void specialAttack2();*/
+	void specialAttack1(Character& target) override;
+	//void specialAttack2();
 	// shield bash
 	// charge ceva
 };

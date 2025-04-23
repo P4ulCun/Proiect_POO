@@ -3,7 +3,7 @@
 
 void Game::init()
 {
-	m_player1Turn = false;
+	m_player1Turn = true;
 
 	sf::Texture backgroundTexture;
 	try

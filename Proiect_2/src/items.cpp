@@ -9,12 +9,14 @@ std::ostream& operator<<(std::ostream& out, Item& item)
 
 void BasicSword::applyPassive(Character& player)
 {
+	//increaseStats(player.m_basePower, m_power);
 	player.increaseBasePower(m_power);
 	std::cout << "applied " << m_power << " base damage!" << std::endl;
 }
 
 void BasicHeal::applyPassive(Character& player)
 {
+	//increaseStats(player.m_baseHP, m_HP);
 	player.increaseBaseHP(m_HP);
 	std::cout << "applied " << m_HP << " base healing!" << std::endl;
 }

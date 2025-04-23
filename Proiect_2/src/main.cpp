@@ -59,6 +59,7 @@ void drawSettingsMenu(sf::RenderWindow& window, sf::Font& font)
 
 int main()
 {
+	std::cout << "skibidi";
 	//size for players 250 x 450 pixels
 
 	//initializer iteme
@@ -70,7 +71,7 @@ int main()
 	catch (FileLoadError& err) { std::cout << err.what() << "\n"; }*/
 
 
-	sf::RenderWindow window(sf::VideoMode(windowDetails::WINDOW_WIDTH, windowDetails::WINDOW_HEIGHT), "game!"); // , sf::Style::Fullscreen
+	//sf::RenderWindow window(sf::VideoMode(windowDetails::WINDOW_WIDTH, windowDetails::WINDOW_HEIGHT), "game!"); // , sf::Style::Fullscreen
 	
 
 	// background
@@ -86,7 +87,7 @@ int main()
 	backgroundSprite.setTexture(backgroundTexture);*/
 
 	// font style
-	sf::Font font;
+	/*sf::Font font;
 	try
 	{
 		if (!font.loadFromFile("C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\Feelin_Teachy_TTF.ttf"))
@@ -105,7 +106,7 @@ int main()
 
 	sf::Sprite player1Sprite;
 	player1Sprite.setTexture(player1Texture);
-	player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
+	player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);*/
 	//game loop
 	
 	//Game::getInstance().init();
