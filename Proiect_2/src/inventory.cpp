@@ -27,6 +27,15 @@ std::shared_ptr<Item> ItemShop::getItem(int index)
 {
 	return m_items[index];
 }
+std::shared_ptr<Item> ItemShop::getItem(std::string itemName)
+{
+	for (const auto& item : m_items)
+	{
+		if (item->getName() == itemName)
+			return item;
+	}
+	return nullptr;
+}
 
 void PlayerInventory::addItem(std::shared_ptr<Item> item) 
 { 
@@ -45,8 +54,11 @@ void PlayerInventory::removeItem(std::shared_ptr<Item> item)
 
 void Inventory::listItems()
 {
-	for (const auto& item : m_items)
-		std::cout << *item;
+	/*for (const auto& item : m_items)
+		std::cout << *item << std::endl;*/
+
+	for (int index = 0; index < m_items.size(); index++)
+		std::cout << index << ". " << *m_items[index] << std::endl;
 }
 
 

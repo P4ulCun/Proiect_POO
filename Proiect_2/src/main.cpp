@@ -6,9 +6,9 @@
 #include "inventory.h"
 #include "fighterClasses.h"
 #include "gameLogic.h"
+#include "player.h"
 
-#include "characterFactory.h"
-#include "inventoryBuilder.h"
+#include "playerMaker.h"
 
 namespace windowDetails {
 	constexpr float WINDOW_WIDTH = 1200;
@@ -62,25 +62,11 @@ void drawSettingsMenu(sf::RenderWindow& window, sf::Font& font)
 
 int main()
 {
-	std::cout << "skibidi";
 	//TODO: Create player builder for selection of character class and select items for inventory, max 3
-	std::string className = "Druid";
-	std::string name = "paul";
-	std::string className2 = "Warrior";
-	auto character1 = CharacterFactory::createCharacter(className, name);
-	auto character2 = CharacterFactory::createCharacter(className2, name);
-	character1->specialAttack1(*character2);
-	//Druid skibi("paul");
 
 	ItemShop::getInstance().init();
 
-	InventoryBuilder build;
-	build.addItem(ItemShop::getInstance().getItem(1))
-		.addItem(ItemShop::getInstance().getItem(2))
-		.addItem(ItemShop::getInstance().getItem(3));
-		//.addItem(ItemShop::getInstance().getItem(4));
-	auto inventory = build.build();
-	inventory->listItems();
+	Player player1 = createPlayer();
 
 	//size for players 250 x 450 pixels
 

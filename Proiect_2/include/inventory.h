@@ -29,9 +29,10 @@ class ItemShop : public Inventory , public Singleton<ItemShop>
 public:
 	ItemShop() : Inventory() {};
 	void init();
-	void addItem(std::shared_ptr<Item> item);
-	void removeItem(std::shared_ptr<Item> item);
+	void addItem(std::shared_ptr<Item> item) override;
+	void removeItem(std::shared_ptr<Item> item) override;
 	std::shared_ptr<Item> getItem(int index);
+	std::shared_ptr<Item> getItem(std::string itemName);
 
 	//void moveToPlayerInventory(int index, Inventory& playerInventory);
 };
@@ -42,8 +43,8 @@ class PlayerInventory : public Inventory
 	int m_maxNumItems;
 public:
 	PlayerInventory() : m_currNumItems(0), m_maxNumItems(MAX_ITEMS) {};
-	void addItem(std::shared_ptr<Item> item);
-	void removeItem(std::shared_ptr<Item> item);
+	void addItem(std::shared_ptr<Item> item) override;
+	void removeItem(std::shared_ptr<Item> item) override;
 
 	/*void usePassive(int index, Character& player);
 	void useActive(int index, Character& player);*/ // can be either target or user
