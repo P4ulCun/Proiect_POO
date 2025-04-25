@@ -26,7 +26,7 @@ void Character::takeDamage(int value) { m_currHP -= value; }
 int Character::heal(int value)
 { 
 	//returns the actual heal amount, accounting for the overflow of base health
-	if (m_baseHP - m_currArmour >= value)
+	if (m_baseHP - m_currHP >= value)
 	{
 		//heal the value amount
 		int actualHealAmount = value;
@@ -45,6 +45,7 @@ int Character::heal(int value)
 void Character::basicAttack(Character& target)
 {
 	target.takeDamage(m_currPower);
+	std::cout << "took " << m_currPower << " damage!\n";
 }
 
 //std::ostream& operator<<(std::ostream& out, FighterClass player)
@@ -73,7 +74,7 @@ void Druid::specialAttack1(Character& target)
 	if (m_special1Cooldown.isOffCooldown())
 	{
 		target.takeDamage(m_currPower + 5);
-		std::cout << "used Direwolf Bite to inflict " << m_currPower + 5 << " damage";
+		std::cout << "used Sabre-Toothed Tiger bite to inflict " << m_currPower + 5 << " damage";
 		
 		int actualHealAmount = this->heal(20);
 		std::cout << " and heal for " << actualHealAmount << " HP!!\n";

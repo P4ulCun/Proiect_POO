@@ -4,22 +4,22 @@ void Cooldown::tick() { m_cooldownTime = (m_cooldownTime > 0) ? m_cooldownTime -
 bool Cooldown::isOffCooldown() { return (m_cooldownTime <= 0) ? true : false; }
 void Cooldown::applyCooldown() { m_cooldownTime = m_cooldownTotalDuration; }
 
-void StatusEffect::tick()
-{
-	m_effectDuration -= 1;
-}
-
-bool StatusEffect::isExpired()
-{
-	return m_effectDuration <= 0;
-}
-
-void BleedingStatusEffect::applyStatusEffect(Character& player)
-{
-	if (m_effectDuration > 0)
-	{
-		//display icon
-		player.takeDamage(m_damagePerTurn);
-		std::cout << "took bleeding damage!\n";
-	}
-}
+//void StatusEffect::tick()
+//{
+//	m_effectDuration -= 1;
+//}
+//
+//bool StatusEffect::isExpired()
+//{
+//	return m_effectDuration <= 0;
+//}
+//
+//void BleedingStatusEffect::applyStatusEffect(Character& player)
+//{
+//	if (m_effectDuration > 0)
+//	{
+//		//display icon
+//		player.takeDamage(m_damagePerTurn);
+//		std::cout << "took bleeding damage!\n";
+//	}
+//}

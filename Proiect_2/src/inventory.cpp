@@ -23,14 +23,27 @@ void ItemShop::removeItem(std::shared_ptr<Item> item)
 	// hide element
 }
 
-void PlayerInventory::addItem(std::shared_ptr<Item> item) { m_items.push_back(item); }
+std::shared_ptr<Item> ItemShop::getItem(int index)
+{
+	return m_items[index];
+}
+
+void PlayerInventory::addItem(std::shared_ptr<Item> item) 
+{ 
+	if (m_currNumItems < m_maxNumItems)
+	{
+		m_items.push_back(item);
+		m_currNumItems += 1;
+	}
+	else std::cout << "can't add more than " << m_maxNumItems << " items to player inventory\n";
+}
 void PlayerInventory::removeItem(std::shared_ptr<Item> item)
 {
 	// remove by searching the pointer to the item or remove by index
 	// actual remove
 }
 
-void ItemShop::listItems()
+void Inventory::listItems()
 {
 	for (const auto& item : m_items)
 		std::cout << *item;

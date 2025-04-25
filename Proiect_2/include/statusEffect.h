@@ -1,5 +1,5 @@
 #pragma once
-#include "fighterClasses.h"
+//#include "fighterClasses.h"
 #include <string>
 
 class Cooldown

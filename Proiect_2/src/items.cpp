@@ -6,6 +6,10 @@ std::ostream& operator<<(std::ostream& out, Item& item)
 	std::cout << item.m_itemName << ": " << item.m_itemDesc << '\n';
 	return out;
 }
+std::string Item::getName()
+{
+	return m_itemName;
+}
 
 void BasicSword::applyPassive(Character& player)
 {

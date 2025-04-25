@@ -1,8 +1,8 @@
 #pragma once
+#include "statusEffect.h"
 #include <string>
 #include <iostream>
 #include <memory>
-#include "statusEffect.h"
 
 //Compile-time constants
 namespace CharacterStats {
@@ -41,9 +41,12 @@ protected:
 	int m_currHP;
 	int m_currPower;
 	int m_currArmour;
+	std::string m_name;
 public:
-	Character(int HP, int power, int armour, int cooldown1) : m_baseHP(HP), m_basePower(power), m_baseArmour(armour), 
-	m_currHP(HP), m_currPower(power), m_currArmour(armour), m_special1Cooldown(cooldown1) {};
+	Character() = default;
+	Character(std::string name, int HP, int power, int armour, int cooldown1) : m_name(name), m_baseHP(HP), 
+		m_basePower(power), m_baseArmour(armour), m_currHP(HP), m_currPower(power), 
+		m_currArmour(armour), m_special1Cooldown(cooldown1) {};
 	virtual ~Character() = default;
 
 
@@ -73,8 +76,8 @@ class Rogue : public Character
 {
 	// high damage ; lower hp/armour ; proficiency with daggers
 public:
-	Rogue() : Character(CharacterStats::ROGUE_HP, CharacterStats::ROGUE_POWER, CharacterStats::ROGUE_ARMOR, 
-		CharacterStats::ROGUE_SPECIAL1_COOLDOWN) {};
+	Rogue(std::string name) : Character(name, CharacterStats::ROGUE_HP, CharacterStats::ROGUE_POWER, 
+		CharacterStats::ROGUE_ARMOR, CharacterStats::ROGUE_SPECIAL1_COOLDOWN) {};
 
 	void specialAttack1(Character& target) override; // backstab
 	//void specialAttack2();
@@ -86,8 +89,8 @@ class Druid : public Character
 {
 	//  high armour ; average health/dmg ; improved healing (proficiency with ALL healing items)
 public:
-	Druid() : Character(CharacterStats::DRUID_HP, CharacterStats::DRUID_POWER, CharacterStats::DRUID_ARMOR,
-		CharacterStats::DRUID_SPECIAL1_COOLDOWN) {};
+	Druid(std::string name) : Character(name, CharacterStats::DRUID_HP, CharacterStats::DRUID_POWER, 
+		CharacterStats::DRUID_ARMOR, CharacterStats::DRUID_SPECIAL1_COOLDOWN) {};
 
 	void specialAttack1(Character& target) override;
 	//void specialAttack2();
@@ -99,8 +102,8 @@ class Warrior : public Character
 {
 	// high healh ; average dmg/armour ; proficiency with GreatSwords
 public:
-	Warrior() : Character(CharacterStats::WARRIOR_HP, CharacterStats::WARRIOR_POWER, CharacterStats::WARRIOR_ARMOR,
-		CharacterStats::WARRIOR_SPECIAL1_COOLDOWN) {};
+	Warrior(std::string name) : Character(name, CharacterStats::WARRIOR_HP, CharacterStats::WARRIOR_POWER, 
+		CharacterStats::WARRIOR_ARMOR, CharacterStats::WARRIOR_SPECIAL1_COOLDOWN) {};
 
 	void specialAttack1(Character& target) override;
 	//void specialAttack2();
