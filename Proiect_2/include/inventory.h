@@ -31,7 +31,6 @@ public:
 	void init();
 	void addItem(std::shared_ptr<Item> item) override;
 	void removeItem(std::shared_ptr<Item> item) override;
-	std::shared_ptr<Item> getItem(int index);
 	std::shared_ptr<Item> getItem(std::string itemName);
 
 	//void moveToPlayerInventory(int index, Inventory& playerInventory);

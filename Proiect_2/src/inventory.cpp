@@ -23,12 +23,15 @@ void ItemShop::removeItem(std::shared_ptr<Item> item)
 	// hide element
 }
 
-std::shared_ptr<Item> ItemShop::getItem(int index)
-{
-	return m_items[index];
-}
 std::shared_ptr<Item> ItemShop::getItem(std::string itemName)
 {
+	//if (itemName[0] >= '0' && itemName[0] <= '9')
+	//{
+	//	// daca e 1 2 3 4,, index
+	//	int num = itemName;
+	//	return m_items[(itemName)]
+	//}
+
 	for (const auto& item : m_items)
 	{
 		if (item->getName() == itemName)
