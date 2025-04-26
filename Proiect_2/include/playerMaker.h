@@ -50,11 +50,18 @@ Player createPlayer()
 	player.m_character->showSpecs();*/
 
 	//apply item stats to player
-	for (const auto& item : (*player.m_inventory).m_items) // trec prin itemele selectate de player
+	//for (const auto& item : (*player.m_inventory).m_items) // trec prin itemele selectate de player
+	//{
+	//	//si aplic statusurile
+	//	(*item).applyPassive(*player.m_character);
+	//}
+
+	for (int i = 0; i < MAX_ITEMS; i++) // trec prin itemele selectate de player
 	{
 		//si aplic statusurile
-		(*item).applyPassive(*player.m_character);
+		player.m_inventory->usePassive(i, *player.m_character);
 	}
+
 	std::cout << "Character specs after item passives: \n\n";
 	player.m_character->showSpecs();
 
