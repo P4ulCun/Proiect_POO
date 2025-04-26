@@ -17,6 +17,11 @@ Inventory::Inventory(const Inventory& inventory)
 void ItemShop::addItem(std::shared_ptr<Item> item) { m_items.push_back(item); }
 void ItemShop::removeItem(std::shared_ptr<Item> item)
 {
+	m_items.erase(
+		std::remove(m_items.begin(), m_items.end(), item),
+		m_items.end()
+	);
+
 	// remove by searching the pointer to the item or remove by index
 	// idk yet
 	// remove as in can't be selected in the shop, but it's still there
@@ -56,6 +61,11 @@ void PlayerInventory::removeItem(std::shared_ptr<Item> item)
 {
 	// remove by searching the pointer to the item or remove by index
 	// actual remove
+}
+
+void PlayerInventory::usePassive(int index, Character& player)
+{
+	m_items[index]->applyPassive(player);
 }
 
 void Inventory::listItems()

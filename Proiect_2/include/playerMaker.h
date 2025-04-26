@@ -39,15 +39,24 @@ Player createPlayer()
 		.addItem(item3_ptr);
 	auto inventory = build.build();
 
+	ItemShop::getInstance().removeItem(item1_ptr);
+	ItemShop::getInstance().removeItem(item2_ptr);
+	ItemShop::getInstance().removeItem(item3_ptr);
+
 	std::cout << "Character created successfully!\n";
 	Player player(inventory, character);
+
+	/*std::cout << "Character specs: \n";
+	player.m_character->showSpecs();*/
 
 	//apply item stats to player
 	for (const auto& item : (*player.m_inventory).m_items) // trec prin itemele selectate de player
 	{
 		//si aplic statusurile
-		(*item).applyPassive(player.m_character);
+		(*item).applyPassive(*player.m_character);
 	}
+	std::cout << "Character specs after item passives: \n\n";
+	player.m_character->showSpecs();
 
 	return player;
 }

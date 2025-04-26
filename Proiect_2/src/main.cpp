@@ -72,7 +72,13 @@ int main()
 
 	auto player1 = createPlayer();
 
-	player1.m_character->increaseBaseHP(20);
+	auto player2 = createPlayer();
+
+	//not a use case ; only for testing
+	/*(*player1.m_inventory).m_items[0]->useItemAbility(*player2.m_character);
+	(*player2.m_inventory).m_items[0]->useItemAbility(*player1.m_character);*/
+	//i need to remove the items from the shop
+	//2 players will have the same item, the same object
 
 	//size for players 250 x 450 pixels
 

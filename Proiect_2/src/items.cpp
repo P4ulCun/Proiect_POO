@@ -15,20 +15,20 @@ void BasicSword::applyPassive(Character& player)
 {
 	//increaseStats(player.m_basePower, m_power);
 	player.increaseBasePower(m_power);
-	std::cout << "applied " << m_power << " base damage!" << std::endl;
+	//std::cout << "applied " << m_power << " base damage!" << std::endl;
 }
 
 void BasicHeal::applyPassive(Character& player)
 {
 	//increaseStats(player.m_baseHP, m_HP);
 	player.increaseBaseHP(m_HP);
-	std::cout << "applied " << m_HP << " base healing!" << std::endl;
+	//std::cout << "applied " << m_HP << " base healing!" << std::endl;
 }
 
 void BasicArmour::applyPassive(Character& player)
 {
 	player.increaseBaseArmour(m_armour);
-	std::cout << "applied " << m_armour << " base armour!" << std::endl;
+	//std::cout << "applied " << m_armour << " base armour!" << std::endl;
 }
 
 
@@ -42,6 +42,9 @@ void ActiveSword::useItemAbility(Character& target)
 		applyCooldown();
 	}
 	// need to define it
+
+	//std::cout << "active sowrd attack!\n" << m_cooldownTime << std::endl;
+	tick();
 }
 
 void ActiveHeal::useItemAbility(Character& player)

@@ -6,7 +6,7 @@ void increaseStats(T& stat, T& boost)
 	stat += boost;
 }
 
-void Character::increaseBaseHP(int value) { m_baseHP += value; std::cout << "healed " << value << std::endl; }
+void Character::increaseBaseHP(int value) { m_baseHP += value; }
 void Character::increaseBasePower(int value) { m_basePower += value; }
 int Character::increaseBaseArmour(int value) 
 { 
@@ -48,11 +48,17 @@ void Character::basicAttack(Character& target)
 	std::cout << "took " << m_currPower << " damage!\n";
 }
 
-//std::ostream& operator<<(std::ostream& out, FighterClass player)
+void Character::showSpecs()
+{
+	std::cout << "player HP: " << m_baseHP << std::endl
+			<< "player power: " << m_basePower << std::endl
+			<< "player armour: " << m_baseArmour << std::endl;
+}
+//std::ostream& operator<<(std::ostream& out, Character player)
 //{
-//	std::cout << player.m_HP << '\n'
-//		<< player.m_power << '\n'
-//		<< player.m_armour << '\n';
+//	std::cout << player.m_baseHP << '\n'
+//		<< player.m_basePower << '\n'
+//		<< player.m_baseArmour << '\n';
 //	return out;
 //}
 

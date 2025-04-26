@@ -45,6 +45,6 @@ public:
 	void addItem(std::shared_ptr<Item> item) override;
 	void removeItem(std::shared_ptr<Item> item) override;
 
-	/*void usePassive(int index, Character& player);
-	void useActive(int index, Character& player);*/ // can be either target or user
+	void usePassive(int index, Character& player);
+	//void useActive(int index, Character& player); // can be either target or user
 };

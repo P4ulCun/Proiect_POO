@@ -66,9 +66,9 @@ public:
 	virtual void specialAttack1(Character& target) = 0;
 	//virtual void specialAttack2() = 0;
 
-	
+	virtual void showSpecs();
 
-	//friend std::ostream& operator<<(std::ostream& out, FighterClass player);
+	//friend std::ostream& operator<<(std::ostream& out, Character player);
 };
 
 // SPECIFIC CLASSES

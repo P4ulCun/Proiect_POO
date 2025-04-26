@@ -28,13 +28,13 @@
 			"type": "BasicArmour",
 			"name": "Leather Vest",
 			"description": "Basic protection made from leather.",
-			"armour": 5
+			"armour": 2
 		},
 		{
 			"type": "BasicArmour",
 			"name": "Chainmail",
 			"description": "Provides decent protection in battle.",
-			"armour": 12
+			"armour": 3
 		},
 		{
 			"type": "ActiveSword",
