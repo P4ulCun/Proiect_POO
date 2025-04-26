@@ -6,7 +6,7 @@ void increaseStats(T& stat, T& boost)
 	stat += boost;
 }
 
-void Character::increaseBaseHP(int value) { m_baseHP += value; }
+void Character::increaseBaseHP(int value) { m_baseHP += value; std::cout << "healed " << value << std::endl; }
 void Character::increaseBasePower(int value) { m_basePower += value; }
 int Character::increaseBaseArmour(int value) 
 { 

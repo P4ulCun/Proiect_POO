@@ -3,12 +3,12 @@
 #include "inventoryBuilder.h"
 #include "player.h"
 
-Player& createPlayer()
+Player createPlayer()
 {
 	std::string className;
 	std::string characterName;
 
-	std::cout << "Introdu clasa pe care o doresti: ";
+	std::cout << "Introdu clasa pe care o doresti: (Rogue, Druid, Warrior)\n";
 	std::getline(std::cin, className);
 	//std::cout << std::endl;
 
@@ -18,6 +18,7 @@ Player& createPlayer()
 
 	auto character = CharacterFactory::createCharacter(className, characterName);
 
+
 	// assuming item shop is initialized
 	std::cout << std::endl;
 	std::cout << "Select what items you want from the shop: (select 3) (select by index or by name)\n\n";
@@ -25,15 +26,28 @@ Player& createPlayer()
 
 	std::string item1, item2, item3;
 	std::getline(std::cin, item1);
+	std::shared_ptr<Item> item1_ptr = ItemShop::getInstance().getItem(item1);
 	std::getline(std::cin, item2);
+	std::shared_ptr<Item> item2_ptr = ItemShop::getInstance().getItem(item2);
 	std::getline(std::cin, item3);
+	std::shared_ptr<Item> item3_ptr = ItemShop::getInstance().getItem(item3);
+
 
 	InventoryBuilder build;
-	build.addItem(ItemShop::getInstance().getItem(item1))
-		.addItem(ItemShop::getInstance().getItem(item2))
-		.addItem(ItemShop::getInstance().getItem(item3));
+	build.addItem(item1_ptr)
+		.addItem(item2_ptr)
+		.addItem(item3_ptr);
 	auto inventory = build.build();
 
 	std::cout << "Character created successfully!\n";
-	return Player(inventory, character);
+	Player player(inventory, character);
+
+	//apply item stats to player
+	for (const auto& item : (*player.m_inventory).m_items) // trec prin itemele selectate de player
+	{
+		//si aplic statusurile
+		(*item).applyPassive(player.m_character);
+	}
+
+	return player;
 }

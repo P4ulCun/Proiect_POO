@@ -63,10 +63,16 @@ void drawSettingsMenu(sf::RenderWindow& window, sf::Font& font)
 int main()
 {
 	//TODO: Create player builder for selection of character class and select items for inventory, max 3
+	try
+	{
+		ItemShop::getInstance().init();
+	}
+	catch (FileLoadError& err) { std::cout << err.what() << std::endl; }
 
-	ItemShop::getInstance().init();
 
-	Player player1 = createPlayer();
+	auto player1 = createPlayer();
+
+	player1.m_character->increaseBaseHP(20);
 
 	//size for players 250 x 450 pixels
 
@@ -80,44 +86,43 @@ int main()
 
 
 	//sf::RenderWindow window(sf::VideoMode(windowDetails::WINDOW_WIDTH, windowDetails::WINDOW_HEIGHT), "game!"); // , sf::Style::Fullscreen
-	
 
-	// background
-	/*sf::Texture backgroundTexture;
-	try 
-	{
-		if (!backgroundTexture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\background_bamboo_1200_cut.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }*/
-	
-	/*sf::Sprite backgroundSprite;
-	backgroundSprite.setTexture(backgroundTexture);*/
+	////// background
+	//sf::Texture backgroundTexture;
+	//try 
+	//{
+	//	if (!backgroundTexture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\background_bamboo_1200_cut.png"))
+	//		throw TextureLoadError("Couldn't load texture\n");
+	//}
+	//catch (TextureLoadError& err) { std::cout << err.what(); }
+	//
+	//sf::Sprite backgroundSprite;
+	//backgroundSprite.setTexture(backgroundTexture);
 
-	// font style
-	/*sf::Font font;
-	try
-	{
-		if (!font.loadFromFile("C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\Feelin_Teachy_TTF.ttf"))
-			throw FontLoadError("Couldn't load font\n");
-	}
-	catch (FontLoadError& err) { std::cout << err.what(); }
+	//// font style
+	//sf::Font font;
+	//try
+	//{
+	//	if (!font.loadFromFile("C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\Feelin_Teachy_TTF.ttf"))
+	//		throw FontLoadError("Couldn't load font\n");
+	//}
+	//catch (FontLoadError& err) { std::cout << err.what(); }
 
 
-	sf::Texture player1Texture;
-	try
-	{
-		if (!player1Texture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\astarion_250-450.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
+	//sf::Texture player1Texture;
+	//try
+	//{
+	//	if (!player1Texture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\astarion_250-450.png"))
+	//		throw TextureLoadError("Couldn't load texture\n");
+	//}
+	//catch (TextureLoadError& err) { std::cout << err.what(); }
 
-	sf::Sprite player1Sprite;
-	player1Sprite.setTexture(player1Texture);
-	player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);*/
-	//game loop
-	
-	//Game::getInstance().init();
+	//sf::Sprite player1Sprite;
+	//player1Sprite.setTexture(player1Texture);
+	//player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
+	////game loop
+	//
+	////Game::getInstance().init();
 
 	//while (window.isOpen())
 	//{
@@ -136,7 +141,7 @@ int main()
 
 	//	window.clear();
 
-	//	//window.draw(backgroundSprite);
+	//	window.draw(backgroundSprite);
 	//	window.draw(player1Sprite);
 	//	//drawSettingsMenu(window, font);
 	//	//Game::getInstance().draw(window);

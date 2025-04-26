@@ -10,7 +10,7 @@
 
 class Inventory
 {
-protected:
+public:
 	std::vector<std::shared_ptr<Item>> m_items;
 public:
 	Inventory() = default;

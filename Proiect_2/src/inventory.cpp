@@ -25,12 +25,15 @@ void ItemShop::removeItem(std::shared_ptr<Item> item)
 
 std::shared_ptr<Item> ItemShop::getItem(std::string itemName)
 {
-	//if (itemName[0] >= '0' && itemName[0] <= '9')
-	//{
-	//	// daca e 1 2 3 4,, index
-	//	int num = itemName;
-	//	return m_items[(itemName)]
-	//}
+	if (itemName[0] >= '0' && itemName[0] <= '9')
+	{
+		// daca e 1 2 3 4,, index
+		int index = std::stoi(itemName);
+		if (index < m_items.size())
+			return m_items[index];
+
+		return nullptr;
+	}
 
 	for (const auto& item : m_items)
 	{
@@ -69,7 +72,7 @@ void Inventory::listItems()
 //INITIALIZING all the ITEMS
 void ItemShop::init()
 {
-	std::string filename = "C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\items.json";
+	std::string filename = "C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\items.json";
 	std::ifstream file(filename);
 	if (!file)
 		throw FileLoadError("couldn't load file: " + filename);
