@@ -1,9 +1,8 @@
 #include "gamelogic.h"
-#include <iostream>
 
 void Game::init()
 {
-	m_player1Turn = true;
+	/*m_player1Turn = true;
 
 	sf::Texture backgroundTexture;
 	try
@@ -12,11 +11,26 @@ void Game::init()
 			throw TextureLoadError("Couldn't load texture\n");
 		m_backgroundSprite.setTexture(backgroundTexture);
 	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
+	catch (TextureLoadError& err) { std::cout << err.what(); }*/
+
+	try
+	{
+		//load items from json and pu them in the shop
+		ItemShop::getInstance().init();
+	}
+	catch (FileLoadError& err) { std::cout << err.what() << std::endl; }
+
+	//CHARACTER CREATION
+
+	std::cout << "PLAYER 1 - MAKE YOUR CHARACTER!\n\n";
+	player1 = createPlayer();
+
+	std::cout << "PLAYER 2 - YOUR TURN!\n\n";
+	player2 = createPlayer();
 }
 
 void Game::draw(sf::RenderWindow& window)
 {
-	window.draw(m_backgroundSprite);
-	std::cout << m_player1Turn << '\n';
+	/*window.draw(m_backgroundSprite);
+	std::cout << m_player1Turn << '\n';*/
 }

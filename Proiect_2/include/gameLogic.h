@@ -6,13 +6,13 @@
 #include "imguiThemes.h"
 
 #include "errorHandling.h"
-// singleton?
+#include "playerMaker.h"
 
 class Game : public Singleton<Game>
 {
 private:
-	bool m_player1Turn;
-	sf::Sprite m_backgroundSprite;
+	Player player1;
+	Player player2;
 public:
 	Game() = default;
 	~Game() = default;

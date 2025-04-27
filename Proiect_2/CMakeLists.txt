@@ -64,7 +64,7 @@ else()
 
 endif()
 
-target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES}  "include/items.h" "src/items.cpp" "include/fighterClasses.h" "src/fighterClasses.cpp"  "include/inventory.h" "src/inventory.cpp" "include/player.h" "src/player.cpp" "include/errorHandling.h"  "include/gameLogic.h" "include/singleton.h"  "include/json.hpp" "include/statusEffect.h" "src/statusEffect.cpp" "src/gameLogic.cpp" "include/characterFactory.h" "include/inventoryBuilder.h" "include/playerMaker.h")
+target_sources("${CMAKE_PROJECT_NAME}" PRIVATE ${MY_SOURCES}  "include/items.h" "src/items.cpp" "include/fighterClasses.h" "src/fighterClasses.cpp"  "include/inventory.h" "src/inventory.cpp" "include/player.h" "src/player.cpp" "include/errorHandling.h"  "include/gameLogic.h" "include/singleton.h"  "include/json.hpp" "include/statusEffect.h" "src/statusEffect.cpp" "src/gameLogic.cpp" "include/characterFactory.h" "include/inventoryBuilder.h" "include/playerMaker.h" "src/inventoryBuilder.cpp"  "src/playerMaker.cpp")
 
 
 if(MSVC) # If using the VS compiler...

@@ -48,11 +48,18 @@ void Character::basicAttack(Character& target)
 	std::cout << "took " << m_currPower << " damage!\n";
 }
 
-void Character::showSpecs()
+void Character::showStats()
 {
 	std::cout << "HP: " << m_baseHP << std::endl
 			<< "Power: " << m_basePower << std::endl
 			<< "Armour: " << m_baseArmour << std::endl;
+}
+
+bool Character::isAlive()
+{
+	if (m_currHP <= 0)
+		return false;
+	return true;
 }
 
 std::string& Character::getName()
@@ -68,7 +75,7 @@ std::string& Character::getName()
 //	return out;
 //}
 
-void Rogue::specialAttack1(Character& target)
+int Rogue::specialAttack1(Character& target)
 {
 	//+15 damage
 	if (m_special1Cooldown.isOffCooldown())
@@ -76,10 +83,12 @@ void Rogue::specialAttack1(Character& target)
 		std::cout << "used Backstab to inflict " << m_currPower + 15 << " damage!!\n";
 		target.takeDamage(m_currPower + 15);
 		m_special1Cooldown.applyCooldown();
+		return 1; // successful 
 	}
+	return 0; // unsuccessful
 }
 
-void Druid::specialAttack1(Character& target)
+int Druid::specialAttack1(Character& target)
 {
 	//+ 5 damage
 	//+20 HP
@@ -92,10 +101,12 @@ void Druid::specialAttack1(Character& target)
 		std::cout << " and heal for " << actualHealAmount << " HP!!\n";
 
 		m_special1Cooldown.applyCooldown();
+		return 1;
 	}
+	return 0;
 }
 
-void Warrior::specialAttack1(Character& target)
+int Warrior::specialAttack1(Character& target)
 {
 	if (m_special1Cooldown.isOffCooldown())
 	{
@@ -112,5 +123,7 @@ void Warrior::specialAttack1(Character& target)
 		}
 
 		m_special1Cooldown.applyCooldown();
+		return 1;
 	}
+	return 0;
 }

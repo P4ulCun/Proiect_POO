@@ -5,16 +5,9 @@ class InventoryBuilder
 {
 	std::shared_ptr<PlayerInventory> inventory;
 public:
-	InventoryBuilder() { inventory = std::make_shared<PlayerInventory>(); };
+	InventoryBuilder();
 
-	InventoryBuilder& addItem(const std::shared_ptr<Item>& item)
-	{
-		inventory->addItem(item);
-		return *this;
-	}
+	InventoryBuilder& addItem(const std::shared_ptr<Item>& item);
 
-	std::shared_ptr<PlayerInventory> build()
-	{
-		return inventory;
-	}
+	std::shared_ptr<PlayerInventory> build();
 };

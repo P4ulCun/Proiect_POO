@@ -8,7 +8,7 @@
 #include "gameLogic.h"
 #include "player.h"
 
-#include "playerMaker.h"
+#include "playerMaker.h" 
 
 namespace windowDetails {
 	constexpr float WINDOW_WIDTH = 1200;
@@ -62,18 +62,87 @@ void drawSettingsMenu(sf::RenderWindow& window, sf::Font& font)
 
 int main()
 {
-	//TODO: Create player builder for selection of character class and select items for inventory, max 3
-	try
+	//TODO: have items that provide bonuses to a specific class ; use dynamic_cast to check 
+	//what class is the player
+	
+	Game::getInstance().init();
+
+	// MAIN GAME LOOP
+	//std::cout << "GET READY!\n\n" << "FIGHT!\n\n";
+	//while (player1.m_character->isAlive() && player2.m_character->isAlive())
+	//{
+	//	//player1 goes first
+	//	std::cout << std::endl << player1.m_character->getName() << "'S TURN!";
+
+	//	bool makingAMove = true;
+	//	while (makingAMove)
+	//	{
+	//		std::cout << player1.m_character->getName() << ", make your move!\n" << "('q' for a basic attack)\n"
+	//			<< "('w' for special attack)\n" << "('1', '2', '3' for item active effects)\n"
+	//			<< "('i' to check inventory)\n" << "('s' to check player stats)\n\n";
+
+	//		std::string input;
+	//		std::getline(std::cin, input);
+
+	//		if (input == "i" || input == "I")
+	//		{
+	//			//check inventory
+	//			player1.m_inventory->listItems();
+
+	//			makingAMove = true; // the turn is still player1's
+	//		}
+	//		else if (input == "S" || input == "s")
+	//		{
+	//			player1.m_character->showStats();
+	//			makingAMove = true;
+	//		}
+	//		else if (input == "Q" || input == "q")
+	//		{
+	//			player1.m_character->basicAttack(*player2.m_character);
+	//			makingAMove = false;
+	//		}
+	//		else if (input == "W" || input == "w")
+	//		{
+	//			if (!player1.m_character->specialAttack1(*player2.m_character))
+	//			{
+	//				//if unsuccessful
+	//				std::cout << "Special attack 1 is still on cooldown! Choose another ability!\n";
+	//				makingAMove = true;
+	//			}
+	//			else
+	//			{
+	//				//successful
+	//				makingAMove = false;
+	//			}
+	//		}
+	//		else if (input == "1" || input == "2" || input == "3")
+	//		{
+	//			if (!player1.m_inventory->useActive(std::stoi(input), *player1.m_character, *player2.m_character))
+	//			{
+	//				std::cout << "Item " << input << " is still on cooldown or does not"
+	//					<< " have an active ability! Choose another ability or item!\n";
+	//				makingAMove = true;
+	//			}
+	//			else
+	//			{
+	//				//successful
+	//				makingAMove = false;
+	//			}
+	//		}
+	//	}
+	//	//done making moves for player1 ; apply cooldown ticks for player 1?
+	//	std::cout << std::endl << player2.m_character->getName() << "'S TURN!";
+
+	//}
+
+	/*if (player1.m_character->isAlive())
 	{
-		ItemShop::getInstance().init();
+		std::cout << "CONGRATS " << player1.m_character->getName() << " , YOU'VE WON!!!\n";
 	}
-	catch (FileLoadError& err) { std::cout << err.what() << std::endl; }
-
-	std::cout << "PLAYER 1 - MAKE YOUR CHARACTER!\n\n";
-	auto player1 = createPlayer();
-
-	std::cout << "PLAYER 2 - YOUR TURN!\n\n";
-	auto player2 = createPlayer();
+	else
+	{
+		std::cout << "CONGRATS " << player2.m_character->getName() << " , YOU'VE WON!!!\n";
+	}*/
 
 	//not a use case ; only for testing
 	/*(*player1.m_inventory).m_items[0]->useItemAbility(*player2.m_character);

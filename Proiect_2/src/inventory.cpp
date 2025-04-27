@@ -34,6 +34,7 @@ std::shared_ptr<Item> ItemShop::getItem(std::string itemName)
 	{
 		// daca e 1 2 3 4,, index
 		int index = std::stoi(itemName);
+		index--;
 		if (index < m_items.size())
 			return m_items[index];
 
@@ -68,13 +69,30 @@ void PlayerInventory::usePassive(int index, Character& player)
 	m_items[index]->applyPassive(player);
 }
 
+int PlayerInventory::useActive(int index, Character& player1, Character& player2) // can be either target or user(player)
+{	
+	index--;
+	if (auto sword = dynamic_cast<ActiveSword*>(m_items[index].get()))
+	{
+		//the selected item is an active sword
+		return m_items[index]->useItemAbility(player2); // attack;
+	}
+	else if (auto sword = dynamic_cast<ActiveHeal*>(m_items[index].get()))
+	{
+		//the selected item is an active heal
+		return m_items[index]->useItemAbility(player1); // heal
+	}
+	else
+		return 0;
+}
+
 void Inventory::listItems()
 {
 	/*for (const auto& item : m_items)
 		std::cout << *item << std::endl;*/
 
 	for (int index = 0; index < m_items.size(); index++)
-		std::cout << index << ". " << *m_items[index] << std::endl;
+		std::cout << index + 1 << ". " << *m_items[index] << std::endl;
 }
 
 

@@ -63,10 +63,11 @@ public:
 	virtual int heal(int value);
 
 	virtual void basicAttack(Character& target);
-	virtual void specialAttack1(Character& target) = 0;
+	virtual int specialAttack1(Character& target) = 0;
 	//virtual void specialAttack2() = 0;
 
-	virtual void showSpecs();
+	virtual void showStats();
+	virtual bool isAlive();
 	virtual std::string& getName();
 
 	//friend std::ostream& operator<<(std::ostream& out, Character player);
@@ -80,7 +81,7 @@ public:
 	Rogue(std::string name) : Character(name, CharacterStats::ROGUE_HP, CharacterStats::ROGUE_POWER, 
 		CharacterStats::ROGUE_ARMOR, CharacterStats::ROGUE_SPECIAL1_COOLDOWN) {};
 
-	void specialAttack1(Character& target) override; // backstab
+	int specialAttack1(Character& target) override; // backstab
 	//void specialAttack2();
 	//backstab
 	//knife throw ?
@@ -93,7 +94,7 @@ public:
 	Druid(std::string name) : Character(name, CharacterStats::DRUID_HP, CharacterStats::DRUID_POWER, 
 		CharacterStats::DRUID_ARMOR, CharacterStats::DRUID_SPECIAL1_COOLDOWN) {};
 
-	void specialAttack1(Character& target) override;
+	int specialAttack1(Character& target) override;
 	//void specialAttack2();
 	// bear claw
 	// wolf bite
@@ -106,7 +107,7 @@ public:
 	Warrior(std::string name) : Character(name, CharacterStats::WARRIOR_HP, CharacterStats::WARRIOR_POWER, 
 		CharacterStats::WARRIOR_ARMOR, CharacterStats::WARRIOR_SPECIAL1_COOLDOWN) {};
 
-	void specialAttack1(Character& target) override;
+	int specialAttack1(Character& target) override;
 	//void specialAttack2();
 	// shield bash
 	// charge ceva
