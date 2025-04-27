@@ -69,9 +69,10 @@ int main()
 	}
 	catch (FileLoadError& err) { std::cout << err.what() << std::endl; }
 
-
+	std::cout << "PLAYER 1 - MAKE YOUR CHARACTER!\n\n";
 	auto player1 = createPlayer();
 
+	std::cout << "PLAYER 2 - YOUR TURN!\n\n";
 	auto player2 = createPlayer();
 
 	//not a use case ; only for testing

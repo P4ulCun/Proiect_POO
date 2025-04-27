@@ -50,10 +50,16 @@ void Character::basicAttack(Character& target)
 
 void Character::showSpecs()
 {
-	std::cout << "player HP: " << m_baseHP << std::endl
-			<< "player power: " << m_basePower << std::endl
-			<< "player armour: " << m_baseArmour << std::endl;
+	std::cout << "HP: " << m_baseHP << std::endl
+			<< "Power: " << m_basePower << std::endl
+			<< "Armour: " << m_baseArmour << std::endl;
 }
+
+std::string& Character::getName()
+{
+	return m_name;
+}
+
 //std::ostream& operator<<(std::ostream& out, Character player)
 //{
 //	std::cout << player.m_baseHP << '\n'

@@ -67,6 +67,7 @@ public:
 	//virtual void specialAttack2() = 0;
 
 	virtual void showSpecs();
+	virtual std::string& getName();
 
 	//friend std::ostream& operator<<(std::ostream& out, Character player);
 };

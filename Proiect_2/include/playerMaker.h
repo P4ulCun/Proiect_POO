@@ -8,7 +8,7 @@ Player createPlayer()
 	std::string className;
 	std::string characterName;
 
-	std::cout << "Introdu clasa pe care o doresti: (Rogue, Druid, Warrior)\n";
+	std::cout << "Introdu clasa pe care o doresti (Rogue, Druid, Warrior): ";
 	std::getline(std::cin, className);
 	//std::cout << std::endl;
 
@@ -62,8 +62,9 @@ Player createPlayer()
 		player.m_inventory->usePassive(i, *player.m_character);
 	}
 
-	std::cout << "Character specs after item passives: \n\n";
+	std::cout << player.m_character->getName() << " has the folowing stats:\n";
 	player.m_character->showSpecs();
+	std::cout << std::endl;
 
 	return player;
 }
