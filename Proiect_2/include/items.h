@@ -16,9 +16,10 @@ public:
 	virtual ~Item() = default;
 
 	virtual void applyPassive(Character& player) = 0;
-	virtual int useItemAbility(Character&) = 0; // let the active item classes implement this
+	virtual int useItemAbility(Character&) = 0; // let the active item classes implement 
+	virtual int getItemCooldown() = 0;
 	virtual std::string getName();
-	
+
 	friend std::ostream& operator<<(std::ostream& out, Item& item);
 };
 
@@ -31,7 +32,8 @@ private:
 public:
 	BasicSword(std::string itemName, std::string itemDesc, int power) : Item(itemName, itemDesc), m_power(power) {};
 	void applyPassive(Character& player) override;
-	int useItemAbility(Character&) { return -1; };
+	int useItemAbility(Character&) override { return -1; };
+	int getItemCooldown() override { return -2; };
 };
 
 class BasicHeal : public Item
@@ -42,7 +44,8 @@ private:
 public:
 	BasicHeal(std::string itemName, std::string itemDesc, int HP) : Item(itemName, itemDesc), m_HP(HP) {};
 	void applyPassive(Character& player) override;
-	int useItemAbility(Character&) { return -1; };
+	int useItemAbility(Character&) override { return -1; };
+	int getItemCooldown() override { return -2; };
 };
 
 class BasicArmour : public Item
@@ -52,7 +55,8 @@ private:
 public:
 	BasicArmour(std::string itemName, std::string itemDesc, int armour) : Item(itemName, itemDesc), m_armour(armour) {};
 	void applyPassive(Character& player) override;
-	int useItemAbility(Character&) { return -1; };
+	int useItemAbility(Character&) override { return -1; };
+	int getItemCooldown() override { return -2; };
 };
 
 
@@ -66,6 +70,7 @@ public:
 		: BasicSword(itemName, itemDesc, power), m_activePower(activePower),
 		Cooldown(cooldown) {};
 	int useItemAbility(Character& target);
+	int getItemCooldown() override;
 };
 
 class ActiveHeal : public BasicHeal, public Cooldown
@@ -77,6 +82,7 @@ public:
 		: BasicHeal(itemName, itemDesc, HP), m_activeHeal(activeHeal),
 		Cooldown(cooldown) {};
 	int useItemAbility(Character& player);
+	int getItemCooldown() override;
 };
 
 

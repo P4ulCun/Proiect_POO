@@ -69,6 +69,8 @@ public:
 	virtual void showStats();
 	virtual bool isAlive();
 	virtual std::string& getName();
+	virtual void applyAbilityCooldownTicks();
+	virtual int getCooldown();
 
 	//friend std::ostream& operator<<(std::ostream& out, Character player);
 };

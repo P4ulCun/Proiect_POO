@@ -14,6 +14,7 @@ public:
 	virtual void tick();
 	virtual bool isOffCooldown();
 	virtual void applyCooldown();
+	virtual int getCooldown();
 };
 
 //class StatusEffect

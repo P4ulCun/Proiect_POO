@@ -77,13 +77,36 @@ int PlayerInventory::useActive(int index, Character& player1, Character& player2
 		//the selected item is an active sword
 		return m_items[index]->useItemAbility(player2); // attack;
 	}
-	else if (auto sword = dynamic_cast<ActiveHeal*>(m_items[index].get()))
+	else if (auto heal = dynamic_cast<ActiveHeal*>(m_items[index].get()))
 	{
 		//the selected item is an active heal
 		return m_items[index]->useItemAbility(player1); // heal
 	}
 	else
-		return 0;
+		return 2; // not an active ability
+}
+
+int PlayerInventory::getItemCooldown(int index)
+{
+	index--;
+	return m_items[index]->getItemCooldown();
+}
+
+void PlayerInventory::applyItemsCooldownTicks()
+{
+	for (auto& item : m_items)
+	{
+		if (auto sword = dynamic_cast<ActiveSword*>(item.get()))
+		{
+			//the selected item is an active sword
+			sword->tick();
+		}
+		else if (auto heal = dynamic_cast<ActiveHeal*>(item.get()))
+		{
+			//the selected item is an active heal
+			heal->tick();
+		}
+	}
 }
 
 void Inventory::listItems()

@@ -47,4 +47,6 @@ public:
 
 	void usePassive(int index, Character& player);
 	int useActive(int index, Character& player1, Character& player2);
+	void applyItemsCooldownTicks();
+	int getItemCooldown(int index);
 };

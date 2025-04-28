@@ -2,7 +2,7 @@
 
 void processEventsForPlayerTurn(Player player1, Player player2) // player1 e turn ul lui, player2 e enemy
 {
-	std::cout << std::endl << player1.m_character->getName() << "'S TURN!\n";
+	std::cout << std::endl << player1.m_character->getName() << "'S TURN!\n\n";
 
 	bool makingAMove = true;
 	while (makingAMove)
@@ -36,7 +36,9 @@ void processEventsForPlayerTurn(Player player1, Player player2) // player1 e tur
 			if (!player1.m_character->specialAttack1(*player2.m_character))
 			{
 				//if unsuccessful
-				std::cout << "Special attack 1 is still on cooldown! Choose another ability!\n";
+				std::cout << "Special attack 1 is still on cooldown" 
+					<< "(" << player1.m_character->getCooldown() << ")" 
+					<< "! Choose another ability!\n";
 				makingAMove = true;
 			}
 			else
@@ -47,10 +49,17 @@ void processEventsForPlayerTurn(Player player1, Player player2) // player1 e tur
 		}
 		else if (input == "1" || input == "2" || input == "3")
 		{
-			if (!player1.m_inventory->useActive(std::stoi(input), *player1.m_character, *player2.m_character))
+			int result = player1.m_inventory->useActive(std::stoi(input), *player1.m_character, *player2.m_character);
+			if (result == 2)
 			{
-				std::cout << "Item " << input << " is still on cooldown or does not"
-					<< " have an active ability! Choose another ability or item!\n";
+				std::cout << "Item " << input << " does not have an active ability! Choose another ability or item!\n";
+				makingAMove = true;
+			}
+			else if (result == 0)
+			{
+				std::cout << "Item " << input << " is still on cooldown" 
+					<< "(" << player1.m_inventory->getItemCooldown(result) << ")" 
+					<< "! Choose another ability or item!\n";
 				makingAMove = true;
 			}
 			else
@@ -85,24 +94,48 @@ void Game::init()
 	//CHARACTER CREATION
 
 	std::cout << "PLAYER 1 - MAKE YOUR CHARACTER!\n\n";
-	player1 = createPlayer();
+	m_player1 = createPlayer();
 
 	std::cout << "PLAYER 2 - YOUR TURN!\n\n";
-	player2 = createPlayer();
+	m_player2 = createPlayer();
 
-	std::cout << "GET READY!\n\n" << "FIGHT!\n\n";
+	std::cout << "GET READY!\n\n" << "FIGHT!\n";
 }
 
 bool Game::playersAreAlive()
 {
-	return player1.m_character->isAlive() && player2.m_character->isAlive();
+	return m_player1.m_character->isAlive() && m_player2.m_character->isAlive();
 }
 
 void Game::processEvents() // for first players turn
 {
-	processEventsForPlayerTurn(player1, player2); // process events on player1's turn
+	std::cout << "\n\n---------It is now round " << m_round << "!!!---------\n\n";
+	processEventsForPlayerTurn(m_player1, m_player2); // process events on player1's turn
 
-	processEventsForPlayerTurn(player2, player1); // now for player2
+	processEventsForPlayerTurn(m_player2, m_player1); // now for player2
+
+	m_round++;
+}
+
+void Game::applyCooldownTicks()
+{
+	m_player1.m_character->applyAbilityCooldownTicks();
+	m_player1.m_inventory->applyItemsCooldownTicks();
+
+	m_player2.m_character->applyAbilityCooldownTicks();
+	m_player2.m_inventory->applyItemsCooldownTicks();
+}
+
+void Game::showWinner()
+{
+	if (m_player1.m_character->isAlive())
+	{
+		std::cout << "-------CONGRATS " << m_player1.m_character->getName() << ", YOU'VE WON!!-------\n";
+	}
+	else
+	{
+		std::cout << "-------CONGRATS " << m_player2.m_character->getName() << ", YOU'VE WON!!-------\n";
+	}
 }
 
 void Game::draw(sf::RenderWindow& window)

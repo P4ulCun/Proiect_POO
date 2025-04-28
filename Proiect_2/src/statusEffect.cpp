@@ -4,6 +4,7 @@ void Cooldown::tick() { m_cooldownTime = (m_cooldownTime > 0) ? m_cooldownTime -
 bool Cooldown::isOffCooldown() { return (m_cooldownTime <= 0) ? true : false; }
 void Cooldown::applyCooldown() { m_cooldownTime = m_cooldownTotalDuration; }
 
+int Cooldown::getCooldown() { return m_cooldownTime; }
 //void StatusEffect::tick()
 //{
 //	m_effectDuration -= 1;

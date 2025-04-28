@@ -6,18 +6,20 @@ void increaseStats(T& stat, T& boost)
 	stat += boost;
 }
 
-void Character::increaseBaseHP(int value) { m_baseHP += value; }
-void Character::increaseBasePower(int value) { m_basePower += value; }
+void Character::increaseBaseHP(int value) { m_baseHP += value; m_currHP = m_baseHP; }
+void Character::increaseBasePower(int value) { m_basePower += value; m_currPower = m_basePower; }
 int Character::increaseBaseArmour(int value) 
 { 
 	if (m_baseArmour + value > 7)
 	{
 		m_baseArmour = 7;
+		m_currArmour = m_baseArmour;
 		return 1; // increase unsuccessful
 	}
 	else
 	{
 		m_baseArmour += value;
+		m_currArmour = m_baseArmour;
 		return 0; // increase successful
 	}
 }
@@ -50,9 +52,14 @@ void Character::basicAttack(Character& target)
 
 void Character::showStats()
 {
-	std::cout << "HP: " << m_baseHP << std::endl
-			<< "Power: " << m_basePower << std::endl
-			<< "Armour: " << m_baseArmour << std::endl;
+	std::cout << "HP: " << m_currHP << std::endl
+			<< "Power: " << m_currPower << std::endl
+			<< "Armour: " << m_currArmour << std::endl;
+}
+
+int Character::getCooldown() 
+{
+	return m_special1Cooldown.getCooldown();
 }
 
 bool Character::isAlive()
@@ -65,6 +72,12 @@ bool Character::isAlive()
 std::string& Character::getName()
 {
 	return m_name;
+}
+
+void Character::applyAbilityCooldownTicks()
+{
+	m_special1Cooldown.tick();
+	//special2Cooldown
 }
 
 //std::ostream& operator<<(std::ostream& out, Character player)

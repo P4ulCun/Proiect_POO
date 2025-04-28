@@ -61,7 +61,14 @@ int ActiveHeal::useItemAbility(Character& player)
 	// need to define it
 }
 
-
+int ActiveSword::getItemCooldown()
+{
+	return getCooldown(); // from status effect Cooldown
+}
+int ActiveHeal::getItemCooldown()
+{
+	return getCooldown();
+}
 //void ActiveArmour::useItemAbility(Character& player)
 //{
 //	std::cout << "used Chain Mail to increase armour by " << m_activeArmour << "\n";

@@ -73,7 +73,10 @@ int main()
 		Game::getInstance().processEvents();
 		// both players turns have passed
 		//next round, and apply cooldown ticks
+		Game::getInstance().applyCooldownTicks();
 	}
+
+	Game::getInstance().showWinner();
 
 	/*if (player1.m_character->isAlive())
 	{

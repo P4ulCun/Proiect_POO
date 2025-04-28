@@ -40,9 +40,9 @@
 			"type": "ActiveSword",
 			"name": "Grieving Blade",
 			"description": "A cursed sword that causes bleeding.",
-			"power": 12,
-			"activePower": 5,
-			"cooldown": 5
+			"power": 0,
+			"activePower": 40,
+			"cooldown": 3
 		},
 		{
 			"type": "ActiveSword",
@@ -56,9 +56,9 @@
 			"type": "ActiveHeal",
 			"name": "Blessed Leaf",
 			"description": "Heals and regenerates health for a few turns.",
-			"hp": 25,
-			"activeHp": 10,
-			"cooldown": 3
+			"hp": 35,
+			"activeHp": 45,
+			"cooldown": 2
 		},
 		{
 			"type": "ActiveHeal",

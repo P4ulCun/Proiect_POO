@@ -11,8 +11,9 @@
 class Game : public Singleton<Game>
 {
 private:
-	Player player1;
-	Player player2;
+	Player m_player1;
+	Player m_player2;
+	int m_round = 1;
 public:
 	Game() = default;
 	~Game() = default;
@@ -20,6 +21,8 @@ public:
 	void init();
 	bool playersAreAlive();
 	void processEvents();
+	void applyCooldownTicks();
+	void showWinner();
 	/*void proccesEvents();
 	void update();*/
 	void draw(sf::RenderWindow& window);
