@@ -18,7 +18,11 @@ public:
 	~Game() = default;
 
 	void init();
+	bool playersAreAlive();
+	void processEvents();
 	/*void proccesEvents();
 	void update();*/
 	void draw(sf::RenderWindow& window);
 };
+
+void processEventsForPlayerTurn(Player player1, Player player2);
