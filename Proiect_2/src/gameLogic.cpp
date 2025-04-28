@@ -58,7 +58,7 @@ void processEventsForPlayerTurn(Player& player1, Player& player2) // player1 e t
 			else if (result == 0)
 			{
 				std::cout << "Item " << input << " is still on cooldown" 
-					<< "(" << player1.m_inventory->getItemCooldown(result) << ")" 
+					<< "(" << player1.m_inventory->getItemCooldown(std::stoi(input)) << ")" 
 					<< "! Choose another ability or item!\n";
 				makingAMove = true;
 			}

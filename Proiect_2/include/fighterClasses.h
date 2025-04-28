@@ -3,17 +3,18 @@
 #include <string>
 #include <iostream>
 #include <memory>
+#include <cmath>
 
 //Compile-time constants
 namespace CharacterStats {
 	constexpr int ROGUE_HP = 100;
 	constexpr int ROGUE_POWER = 23;
-	constexpr int ROGUE_ARMOR = 1;
+	constexpr int ROGUE_ARMOR = 2;
 	constexpr int ROGUE_SPECIAL1_COOLDOWN = 2;
 
 	constexpr int DRUID_HP = 120;
 	constexpr int DRUID_POWER = 13;
-	constexpr int DRUID_ARMOR = 5;
+	constexpr int DRUID_ARMOR = 4;
 	constexpr int DRUID_SPECIAL1_COOLDOWN = 3;
 
 	constexpr int WARRIOR_HP = 160;
@@ -26,8 +27,8 @@ namespace CharacterStats {
 	constexpr int PALADIN_ARMOR = 4;
 }
 
-template<typename T>
-void increaseStats(T& stat, T& boost);
+//template<typename T>
+//void increaseStats(T& stat, T& boost);
 
 class Character
 {
@@ -59,7 +60,7 @@ public:
 	
 	// for item passives
 
-	virtual void takeDamage(int value);
+	virtual int takeDamage(int value);
 	virtual int heal(int value);
 
 	virtual void basicAttack(Character& target);

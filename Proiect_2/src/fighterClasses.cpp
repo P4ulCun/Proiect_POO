@@ -1,10 +1,10 @@
 #include "fighterClasses.h"
 
-template<typename T>
-void increaseStats(T& stat, T& boost)
-{
-	stat += boost;
-}
+//template<typename T>
+//void increaseStats(T& stat, T& boost)
+//{
+//	stat += boost;
+//}
 
 void Character::increaseBaseHP(int value) { m_baseHP += value; m_currHP = m_baseHP; }
 void Character::increaseBasePower(int value) { m_basePower += value; m_currPower = m_basePower; }
@@ -24,7 +24,13 @@ int Character::increaseBaseArmour(int value)
 	}
 }
 
-void Character::takeDamage(int value) { m_currHP -= value; }
+int Character::takeDamage(int value) 
+{ 
+	// need to occount for armour (damage reduction by %) : (m_armour + 1)^2
+	value = (int)((value * pow(m_currArmour + 1, 2)) / 100);
+	m_currHP -= value; 
+	return value;
+}
 int Character::heal(int value)
 { 
 	//returns the actual heal amount, accounting for the overflow of base health
@@ -46,15 +52,17 @@ int Character::heal(int value)
 
 void Character::basicAttack(Character& target)
 {
-	target.takeDamage(m_currPower);
-	std::cout << "took " << m_currPower << " damage!\n";
+	int actualDMG = target.takeDamage(m_currPower);
+	std::cout << "took " << actualDMG << " damage!\n";
 }
 
 void Character::showStats()
 {
+	std::cout << std::endl;
 	std::cout << "HP: " << m_currHP << std::endl
 			<< "Power: " << m_currPower << std::endl
 			<< "Armour: " << m_currArmour << std::endl;
+	std::cout << std::endl;
 }
 
 int Character::getCooldown() 
@@ -93,8 +101,8 @@ int Rogue::specialAttack1(Character& target)
 	//+15 damage
 	if (m_special1Cooldown.isOffCooldown())
 	{
-		std::cout << "used Backstab to inflict " << m_currPower + 15 << " damage!!\n";
-		target.takeDamage(m_currPower + 15);
+		int actualDMG = target.takeDamage(m_currPower + 15);
+		std::cout << "used Backstab to inflict " << actualDMG << " damage!!\n";
 		m_special1Cooldown.applyCooldown();
 		return 1; // successful 
 	}
@@ -107,8 +115,8 @@ int Druid::specialAttack1(Character& target)
 	//+20 HP
 	if (m_special1Cooldown.isOffCooldown())
 	{
-		target.takeDamage(m_currPower + 5);
-		std::cout << "used Sabre-Toothed Tiger bite to inflict " << m_currPower + 5 << " damage";
+		int actualDMG = target.takeDamage(m_currPower + 5);
+		std::cout << "used Sabre-Toothed Tiger bite to inflict " << actualDMG << " damage";
 		
 		int actualHealAmount = this->heal(20);
 		std::cout << " and heal for " << actualHealAmount << " HP!!\n";
@@ -123,8 +131,8 @@ int Warrior::specialAttack1(Character& target)
 {
 	if (m_special1Cooldown.isOffCooldown())
 	{
-		target.takeDamage(m_currPower + 5);
-		std::cout << "used Shield Bash to inflict " << m_currPower + 5 << " damage";
+		int actualDMG = target.takeDamage(m_currPower + 10);
+		std::cout << "used Shield Bash to inflict " << actualDMG << " damage";
 
 		if (this->increaseBaseArmour(1) == 0)
 		{

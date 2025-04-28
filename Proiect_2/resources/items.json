@@ -2,32 +2,32 @@
 	"items": [
 		{
 			"type": "BasicSword",
-			"name": "Iron Blade",
-			"description": "A simple iron sword.",
-			"power": 10
+			"name": "Obsidian Dagger",
+			"description": "A simple dagger made from obsidian.",
+			"power": 15
 		},
 		{
 			"type": "BasicSword",
-			"name": "Steel Saber",
-			"description": "Sharper than iron, still lightweight.",
+			"name": "Rapier",
+			"description": "Razor-thin blade with a pointy tip. Be careful!",
 			"power": 15
 		},
 		{
 			"type": "BasicHeal",
-			"name": "Minor Healing Herb",
-			"description": "Restores a small amount of HP.",
-			"hp": 20
+			"name": "Belt of strength",
+			"description": "Increases base amount of HP.",
+			"hp": 45
 		},
 		{
 			"type": "BasicHeal",
-			"name": "Healing Potion",
-			"description": "A potion that heals moderate wounds.",
-			"hp": 35
+			"name": "Health ring",
+			"description": "A ring that increases base HP.",
+			"hp": 50
 		},
 		{
 			"type": "BasicArmour",
-			"name": "Leather Vest",
-			"description": "Basic protection made from leather.",
+			"name": "Turtle shell",
+			"description": "Basic protection made from the shell of a tortoise.",
 			"armour": 2
 		},
 		{
@@ -39,26 +39,26 @@
 		{
 			"type": "ActiveSword",
 			"name": "Grieving Blade",
-			"description": "A cursed sword that causes bleeding.",
+			"description": "A cursed sword that causes major damage.",
 			"power": 0,
-			"activePower": 40,
-			"cooldown": 3
+			"activePower": 45,
+			"cooldown": 2
 		},
 		{
 			"type": "ActiveSword",
 			"name": "Crimson Fang",
-			"description": "Fangs of an ancient beast, crit chance boosted.",
+			"description": "Fangs of an ancient beast, increase base armour and can pierce enemies.",
 			"power": 18,
-			"activePower": 8,
-			"cooldown": 2
+			"activePower": 30,
+			"cooldown": 3
 		},
 		{
 			"type": "ActiveHeal",
-			"name": "Blessed Leaf",
-			"description": "Heals and regenerates health for a few turns.",
-			"hp": 35,
-			"activeHp": 45,
-			"cooldown": 2
+			"name": "Faerie Fire",
+			"description": "Provides base health and can be consumed to heal.",
+			"hp": 20,
+			"activeHp": 40,
+			"cooldown": 3
 		},
 		{
 			"type": "ActiveHeal",

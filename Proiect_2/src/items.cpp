@@ -37,8 +37,8 @@ int ActiveSword::useItemAbility(Character& target)
 	//attack somebody
 	if (isOffCooldown())
 	{
-		std::cout << "used " << m_itemName << " and dealt " << m_activePower << " damage\n";
-		target.takeDamage(m_activePower);
+		int actualDMG = target.takeDamage(m_activePower);
+		std::cout << "used " << m_itemName << " and dealt " << actualDMG << " damage\n";
 		applyCooldown();
 		return 1; //successful
 	}
@@ -52,8 +52,8 @@ int ActiveHeal::useItemAbility(Character& player)
 {
 	//heal the user
 	if (isOffCooldown()) {
-		std::cout << "used " << m_itemName << " to heal " << m_activeHeal << " HP\n";
-		player.heal(m_activeHeal);
+		int actualHealAmount = player.heal(m_activeHeal);
+		std::cout << "used " << m_itemName << " to heal " << actualHealAmount << " HP\n";
 		applyCooldown();
 		return 1;
 	}

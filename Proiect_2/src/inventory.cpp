@@ -89,6 +89,7 @@ int PlayerInventory::useActive(int index, Character& player1, Character& player2
 int PlayerInventory::getItemCooldown(int index)
 {
 	index--;
+	std::cout << "GET ITEM COOLDOWN AT INDEX: " << index << std::endl;
 	return m_items[index]->getItemCooldown();
 }
 
