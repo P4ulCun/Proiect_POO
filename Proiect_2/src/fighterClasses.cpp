@@ -27,7 +27,7 @@ int Character::increaseBaseArmour(int value)
 int Character::takeDamage(int value) 
 { 
 	// need to occount for armour (damage reduction by %) : (m_armour + 1)^2
-	value = (int)((value * pow(m_currArmour + 1, 2)) / 100);
+	value = value - (int)((value * pow(m_currArmour + 1, 2)) / 100);
 	m_currHP -= value; 
 	return value;
 }
