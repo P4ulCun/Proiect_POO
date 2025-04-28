@@ -70,13 +70,25 @@ int main()
 
 	while (Game::getInstance().playersAreAlive())
 	{
+		//2 while cicles(turns) = 1 round
+		//first is player 1
 		Game::getInstance().processEvents();
-		// both players turns have passed
-		//next round, and apply cooldown ticks
 		Game::getInstance().applyCooldownTicks();
-	}
 
+
+		Game::getInstance().changeTurn();
+	}
 	Game::getInstance().showWinner();
+
+	//while (Game::getInstance().playersAreAlive())
+	//{
+	//	Game::getInstance().processEvents();
+	//	// both players turns have passed
+	//	//next round, and apply cooldown ticks
+	//	Game::getInstance().applyCooldownTicks();
+	//}
+
+	//Game::getInstance().showWinner();
 
 	/*if (player1.m_character->isAlive())
 	{

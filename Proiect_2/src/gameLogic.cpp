@@ -1,6 +1,6 @@
 #include "gamelogic.h"
 
-void processEventsForPlayerTurn(Player player1, Player player2) // player1 e turn ul lui, player2 e enemy
+void processEventsForPlayerTurn(Player& player1, Player& player2) // player1 e turn ul lui, player2 e enemy
 {
 	std::cout << std::endl << player1.m_character->getName() << "'S TURN!\n\n";
 
@@ -107,23 +107,42 @@ bool Game::playersAreAlive()
 	return m_player1.m_character->isAlive() && m_player2.m_character->isAlive();
 }
 
-void Game::processEvents() // for first players turn
+bool Game::isPlayer1sTurn()
 {
-	std::cout << "\n\n---------It is now round " << m_round << "!!!---------\n\n";
-	processEventsForPlayerTurn(m_player1, m_player2); // process events on player1's turn
-
-	processEventsForPlayerTurn(m_player2, m_player1); // now for player2
-
-	m_round++;
+	return m_player1sTurn;
 }
 
-void Game::applyCooldownTicks()
+void Game::processEvents() // for first players turn
 {
-	m_player1.m_character->applyAbilityCooldownTicks();
-	m_player1.m_inventory->applyItemsCooldownTicks();
+	if (m_player1sTurn)
+	{
+		std::cout << "\n\n---------It is now round " << m_round << "!!!---------\n\n";
+		m_round++;
+		processEventsForPlayerTurn(m_player1, m_player2); // process events on player1's turn
+	}
+	else
+	{
+		processEventsForPlayerTurn(m_player2, m_player1); // now for player2
+	}
+}
 
-	m_player2.m_character->applyAbilityCooldownTicks();
-	m_player2.m_inventory->applyItemsCooldownTicks();
+void Game::applyCooldownTicks() // 1 or 2
+{
+	if (m_player1sTurn)
+	{
+		m_player1.m_character->applyAbilityCooldownTicks();
+		m_player1.m_inventory->applyItemsCooldownTicks();
+	}
+	else
+	{
+		m_player2.m_character->applyAbilityCooldownTicks();
+		m_player2.m_inventory->applyItemsCooldownTicks();
+	}
+}
+
+void Game::changeTurn()
+{
+	m_player1sTurn = !m_player1sTurn;
 }
 
 void Game::showWinner()
