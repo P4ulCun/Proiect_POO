@@ -6,4 +6,4 @@
 - Inspiration for the project from Hall of Fame: https://github.com/mcmarius/poo/blob/master/HoF.md \
 in specific, Slay The Spire by Sebastian Mihalache
 
-- Assets taken from: craftpix.net
+- Assets taken from: [craftpix.net](https://craftpix.net/)
