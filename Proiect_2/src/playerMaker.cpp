@@ -5,11 +5,11 @@ Player createPlayer()
 	std::string className;
 	std::string characterName;
 
-	std::cout << "Introdu clasa pe care o doresti (Rogue, Druid, Warrior): ";
+	std::cout << "Choose your desired class (Rogue, Druid, Warrior): ";
 	std::getline(std::cin, className);
 	//std::cout << std::endl;
 
-	std::cout << "Introdu numele dorit: ";
+	std::cout << "Choose player name: ";
 	std::getline(std::cin, characterName);
 	//std::cout << std::endl;
 
@@ -22,7 +22,7 @@ Player createPlayer()
 
 	// assuming item shop is initialized
 	std::cout << std::endl;
-	std::cout << "Select what items you want from the shop: (select 3) (select by index or by name)\n\n";
+	std::cout << "Select what items you want from the shop (select 3) (select by index or by name): \n\n";
 	ItemShop::getInstance().listItems();
 
 	std::string item1, item2, item3;
