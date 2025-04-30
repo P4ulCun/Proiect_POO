@@ -8,7 +8,7 @@
 #include "errorHandling.h"
 #include "playerMaker.h"
 
-class Game : public Singleton<Game>
+class Game_CLI : public Singleton<Game_CLI>
 {
 private:
 	Player m_player1;
@@ -16,8 +16,8 @@ private:
 	bool m_player1sTurn = true;
 	int m_round = 1;
 public:
-	Game() = default;
-	~Game() = default;
+	Game_CLI() = default;
+	~Game_CLI() = default;
 
 	void init();
 	bool playersAreAlive();

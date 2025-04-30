@@ -1,4 +1,4 @@
-#include "gamelogic.h"
+#include "gameLogic_CLI.h"
 
 void processEventsForPlayerTurn(Player& player1, Player& player2) // player1 e turn ul lui, player2 e enemy
 {
@@ -71,7 +71,7 @@ void processEventsForPlayerTurn(Player& player1, Player& player2) // player1 e t
 	}
 }
 
-void Game::init()
+void Game_CLI::init()
 {
 	/*m_player1Turn = true;
 
@@ -102,17 +102,17 @@ void Game::init()
 	std::cout << "GET READY!\n\n" << "FIGHT!\n";
 }
 
-bool Game::playersAreAlive()
+bool Game_CLI::playersAreAlive()
 {
 	return m_player1.m_character->isAlive() && m_player2.m_character->isAlive();
 }
 
-bool Game::isPlayer1sTurn()
+bool Game_CLI::isPlayer1sTurn()
 {
 	return m_player1sTurn;
 }
 
-void Game::processEvents() // for first players turn
+void Game_CLI::processEvents() // for first players turn
 {
 	if (m_player1sTurn)
 	{
@@ -126,7 +126,7 @@ void Game::processEvents() // for first players turn
 	}
 }
 
-void Game::applyCooldownTicks() // 1 or 2
+void Game_CLI::applyCooldownTicks() // 1 or 2
 {
 	if (m_player1sTurn)
 	{
@@ -140,12 +140,12 @@ void Game::applyCooldownTicks() // 1 or 2
 	}
 }
 
-void Game::changeTurn()
+void Game_CLI::changeTurn()
 {
 	m_player1sTurn = !m_player1sTurn;
 }
 
-void Game::showWinner()
+void Game_CLI::showWinner()
 {
 	if (m_player1.m_character->isAlive())
 	{
@@ -157,7 +157,7 @@ void Game::showWinner()
 	}
 }
 
-void Game::draw(sf::RenderWindow& window)
+void Game_CLI::draw(sf::RenderWindow& window)
 {
 	/*window.draw(m_backgroundSprite);
 	std::cout << m_player1Turn << '\n';*/

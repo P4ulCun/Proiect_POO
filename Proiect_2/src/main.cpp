@@ -5,11 +5,13 @@
 #include "items.h"
 #include "inventory.h"
 #include "fighterClasses.h"
-#include "gameLogic.h"
+#include "gameLogic_CLI.h"
 #include "player.h"
 
 #include "playerMaker.h" 
 #include "characterAnimation.h"
+
+std::string PATH = "C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\";
 
 namespace windowDetails {
 	constexpr float WINDOW_WIDTH = 1200;
@@ -66,47 +68,23 @@ int main()
 	//TODO: have items that provide bonuses to a specific class ; use dynamic_cast to check 
 	//what class is the player
 	
-	//initialize game environment and characters
-	//Game::getInstance().init();
+	/*----------------------------------------- CLI GAME LOOP START -----------------------------------------*/
 
-	//while (Game::getInstance().playersAreAlive())
+	//Game_CLI::getInstance().init();
+
+	//while (Game_CLI::getInstance().playersAreAlive())
 	//{
 	//	//2 while cicles(turns) = 1 round
 	//	//first is player 1
-	//	Game::getInstance().processEvents();
-	//	Game::getInstance().applyCooldownTicks();
+	//	Game_CLI::getInstance().processEvents();
+	//	Game_CLI::getInstance().applyCooldownTicks();
 
 
-	//	Game::getInstance().changeTurn();
+	//	Game_CLI::getInstance().changeTurn();
 	//}
-	//Game::getInstance().showWinner();
+	//Game_CLI::getInstance().showWinner();
 
-	//while (Game::getInstance().playersAreAlive())
-	//{
-	//	Game::getInstance().processEvents();
-	//	// both players turns have passed
-	//	//next round, and apply cooldown ticks
-	//	Game::getInstance().applyCooldownTicks();
-	//}
-
-	//Game::getInstance().showWinner();
-
-	/*if (player1.m_character->isAlive())
-	{
-		std::cout << "CONGRATS " << player1.m_character->getName() << " , YOU'VE WON!!!\n";
-	}
-	else
-	{
-		std::cout << "CONGRATS " << player2.m_character->getName() << " , YOU'VE WON!!!\n";
-	}*/
-
-	//not a use case ; only for testing
-	/*(*player1.m_inventory).m_items[0]->useItemAbility(*player2.m_character);
-	(*player2.m_inventory).m_items[0]->useItemAbility(*player1.m_character);*/
-	//i need to remove the items from the shop
-	//2 players will have the same item, the same object
-
-	//size for players 250 x 450 pixels
+	/*----------------------------------------- CLI GAME LOOP END -----------------------------------------*/
 
 	//initializer iteme
 	/*try
@@ -140,7 +118,51 @@ int main()
 	}
 	catch (FontLoadError& err) { std::cout << err.what(); }
 
+	//SIGN START
+	sf::Texture signTexture;
+	try
+	{
+		//if (!signTexture.loadFromFile())
+			throw TextureLoadError("Couldn't load texture\n");
+	}
+	catch (TextureLoadError& err) { std::cout << err.what(); }
 
+	sf::RectangleShape sign(sf::Vector2f(360, 200));
+	sign.setPosition(windowDetails::WINDOW_WIDTH / 2 - sign.getSize().x / 2, 0);
+	//sign.setFillColor(sf::Color::Transparent);
+	//sf::Sprite sign;
+	sign.setTexture(&signTexture);
+
+	sf::Text signText;
+	signText.setFont(font);
+	signText.setString("Player 1's TURN");
+	//signText.setColor(sf::Color::);
+	signText.setCharacterSize(36);
+
+	// Center text in button
+	sf::FloatRect textRect = signText.getLocalBounds();
+	signText.setOrigin(textRect.left + textRect.width / 2.0f,
+		textRect.top + textRect.height / 2.0f);
+	signText.setPosition(sign.getPosition().x + sign.getSize().x / 2.0f,
+		sign.getPosition().y + sign.getSize().y / 2.0f);
+
+	//SIGN END
+
+	//ITEM FRAME START
+
+	sf::Texture itemFrameTexture;
+	try
+	{
+		if (!itemFrameTexture.loadFromFile(PATH + "item_frame_80-80.png"))
+			throw TextureLoadError("Couldn't load texture\n");
+	}
+	catch (TextureLoadError& err) { std::cout << err.what(); }
+
+	sf::RectangleShape itemFrame(sf::Vector2f(80, 80));
+	itemFrame.setTexture(&itemFrameTexture);
+	//ITEM FRAME END
+
+	//PLAYER START
 	sf::Texture player1Texture;
 	try
 	{
@@ -165,6 +187,8 @@ int main()
 
 	float deltaTime = 0.0f;
 	sf::Clock clock;
+
+	//PLAYER END
 
 	//game loop
 	
@@ -194,6 +218,9 @@ int main()
 		animationPlayer1.update(0, deltaTime); // first animation aka row 0
 		player1.setTextureRect(animationPlayer1.m_uvRect);
 		window.draw(player1);
+		window.draw(sign);
+		window.draw(signText);
+		window.draw(itemFrame);
 
 		//window.draw(player1Sprite);
 		//drawSettingsMenu(window, font);
