@@ -62,6 +62,27 @@ void drawSettingsMenu(sf::RenderWindow& window, sf::Font& font)
 	
 }
 
+void drawItemFrames(sf::RenderWindow& window, sf::Texture& texture, float signHeight)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		sf::RectangleShape itemFrame(sf::Vector2f(80, 80));
+		itemFrame.setTexture(&texture);
+		itemFrame.setPosition(60 + i * 120, signHeight - itemFrame.getSize().y * 4 / 3);
+
+		window.draw(itemFrame);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		sf::RectangleShape itemFrame(sf::Vector2f(80, 80));
+		itemFrame.setTexture(&texture);
+		itemFrame.setPosition(windowDetails::WINDOW_WIDTH - 60 - itemFrame.getSize().x - i * 120, 
+							signHeight - itemFrame.getSize().y * 4 / 3);
+
+		window.draw(itemFrame);
+	}
+}
 
 int main()
 {
@@ -101,7 +122,7 @@ int main()
 	sf::Texture backgroundTexture;
 	try 
 	{
-		if (!backgroundTexture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\background_bamboo_1200_cut.png"))
+		if (!backgroundTexture.loadFromFile(PATH + "background_bamboo_1200_cut.png"))
 			throw TextureLoadError("Couldn't load texture\n");
 	}
 	catch (TextureLoadError& err) { std::cout << err.what(); }
@@ -113,7 +134,7 @@ int main()
 	sf::Font font;
 	try
 	{
-		if (!font.loadFromFile("C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\Feelin_Teachy_TTF.ttf"))
+		if (!font.loadFromFile(PATH + "Feelin_Teachy_TTF.ttf"))
 			throw FontLoadError("Couldn't load font\n");
 	}
 	catch (FontLoadError& err) { std::cout << err.what(); }
@@ -122,7 +143,7 @@ int main()
 	sf::Texture signTexture;
 	try
 	{
-		//if (!signTexture.loadFromFile())
+		if (!signTexture.loadFromFile(PATH + "wood_sign_360-200.png"))
 			throw TextureLoadError("Couldn't load texture\n");
 	}
 	catch (TextureLoadError& err) { std::cout << err.what(); }
@@ -153,20 +174,20 @@ int main()
 	sf::Texture itemFrameTexture;
 	try
 	{
-		if (!itemFrameTexture.loadFromFile(PATH + "item_frame_80-80.png"))
+		if (!itemFrameTexture.loadFromFile(PATH + "item_frame_3.png"))
 			throw TextureLoadError("Couldn't load texture\n");
 	}
 	catch (TextureLoadError& err) { std::cout << err.what(); }
 
-	sf::RectangleShape itemFrame(sf::Vector2f(80, 80));
-	itemFrame.setTexture(&itemFrameTexture);
+	
+	
 	//ITEM FRAME END
 
 	//PLAYER START
 	sf::Texture player1Texture;
 	try
 	{
-		if (!player1Texture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\astarion_idle_sprite.png"))
+		if (!player1Texture.loadFromFile(PATH + "astarion_idle_sprite.png"))
 			throw TextureLoadError("Couldn't load texture\n");
 	}
 	catch (TextureLoadError& err) { std::cout << err.what(); }
@@ -220,7 +241,8 @@ int main()
 		window.draw(player1);
 		window.draw(sign);
 		window.draw(signText);
-		window.draw(itemFrame);
+		//window.draw(itemFrame);
+		drawItemFrames(window, itemFrameTexture, sign.getSize().y);
 
 		//window.draw(player1Sprite);
 		//drawSettingsMenu(window, font);
