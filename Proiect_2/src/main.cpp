@@ -9,6 +9,7 @@
 #include "player.h"
 
 #include "playerMaker.h" 
+#include "characterAnimation.h"
 
 namespace windowDetails {
 	constexpr float WINDOW_WIDTH = 1200;
@@ -66,19 +67,19 @@ int main()
 	//what class is the player
 	
 	//initialize game environment and characters
-	Game::getInstance().init();
+	//Game::getInstance().init();
 
-	while (Game::getInstance().playersAreAlive())
-	{
-		//2 while cicles(turns) = 1 round
-		//first is player 1
-		Game::getInstance().processEvents();
-		Game::getInstance().applyCooldownTicks();
+	//while (Game::getInstance().playersAreAlive())
+	//{
+	//	//2 while cicles(turns) = 1 round
+	//	//first is player 1
+	//	Game::getInstance().processEvents();
+	//	Game::getInstance().applyCooldownTicks();
 
 
-		Game::getInstance().changeTurn();
-	}
-	Game::getInstance().showWinner();
+	//	Game::getInstance().changeTurn();
+	//}
+	//Game::getInstance().showWinner();
 
 	//while (Game::getInstance().playersAreAlive())
 	//{
@@ -116,69 +117,90 @@ int main()
 	catch (FileLoadError& err) { std::cout << err.what() << "\n"; }*/
 
 
-	//sf::RenderWindow window(sf::VideoMode(windowDetails::WINDOW_WIDTH, windowDetails::WINDOW_HEIGHT), "game!"); // , sf::Style::Fullscreen
+	sf::RenderWindow window(sf::VideoMode(windowDetails::WINDOW_WIDTH, windowDetails::WINDOW_HEIGHT), "game!"); // , sf::Style::Fullscreen
 
-	////// background
-	//sf::Texture backgroundTexture;
-	//try 
-	//{
-	//	if (!backgroundTexture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\background_bamboo_1200_cut.png"))
-	//		throw TextureLoadError("Couldn't load texture\n");
-	//}
-	//catch (TextureLoadError& err) { std::cout << err.what(); }
-	//
-	//sf::Sprite backgroundSprite;
-	//backgroundSprite.setTexture(backgroundTexture);
+	//// background
+	sf::Texture backgroundTexture;
+	try 
+	{
+		if (!backgroundTexture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\background_bamboo_1200_cut.png"))
+			throw TextureLoadError("Couldn't load texture\n");
+	}
+	catch (TextureLoadError& err) { std::cout << err.what(); }
+	
+	sf::Sprite backgroundSprite;
+	backgroundSprite.setTexture(backgroundTexture);
 
-	//// font style
-	//sf::Font font;
-	//try
-	//{
-	//	if (!font.loadFromFile("C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\Feelin_Teachy_TTF.ttf"))
-	//		throw FontLoadError("Couldn't load font\n");
-	//}
-	//catch (FontLoadError& err) { std::cout << err.what(); }
+	// font style
+	sf::Font font;
+	try
+	{
+		if (!font.loadFromFile("C:\\Users\\Paul\\Desktop\\lab_poo\\Proiect_POO\\Proiect_2\\resources\\Feelin_Teachy_TTF.ttf"))
+			throw FontLoadError("Couldn't load font\n");
+	}
+	catch (FontLoadError& err) { std::cout << err.what(); }
 
 
-	//sf::Texture player1Texture;
-	//try
-	//{
-	//	if (!player1Texture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\astarion_250-450.png"))
-	//		throw TextureLoadError("Couldn't load texture\n");
-	//}
-	//catch (TextureLoadError& err) { std::cout << err.what(); }
+	sf::Texture player1Texture;
+	try
+	{
+		if (!player1Texture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\astarion_idle_sprite.png"))
+			throw TextureLoadError("Couldn't load texture\n");
+	}
+	catch (TextureLoadError& err) { std::cout << err.what(); }
 
-	//sf::Sprite player1Sprite;
-	//player1Sprite.setTexture(player1Texture);
-	//player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
-	////game loop
-	//
-	////Game::getInstance().init();
+	sf::Sprite player1Sprite;
+	player1Sprite.setTexture(player1Texture);
+	player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
 
-	//while (window.isOpen())
-	//{
-	//	sf::Event event;
-	//	while (window.pollEvent(event))
-	//	{
-	//		if (event.type == sf::Event::Closed)
-	//			window.close();
-	//		else if (event.type == sf::Event::Resized)
-	//		{
-	//			// Adjust the viewport when the window is resized
-	//			/*sf::FloatRect visibleArea(200, 200, event.size.width, event.size.height);
-	//			window.setView(sf::View(visibleArea));*/
-	//		}
-	//	}
+	CharacterAnimation animationPlayer1(1, player1Texture, sf::Vector2u(2, 1), 0.5f);
 
-	//	window.clear();
+	sf::Sprite player1;
+	player1.setTexture(player1Texture);
 
-	//	window.draw(backgroundSprite);
-	//	window.draw(player1Sprite);
-	//	//drawSettingsMenu(window, font);
-	//	//Game::getInstance().draw(window);
+	if (animationPlayer1.m_choosePlayer == 1)
+		player1.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
+	else
+		player1.setPosition(windowDetails::WINDOW_WIDTH - player1Texture.getSize().x / 2 - 100, windowDetails::WINDOW_HEIGHT - 450);
 
-	//	window.display();
-	//}
+	float deltaTime = 0.0f;
+	sf::Clock clock;
+
+	//game loop
+	
+	//Game::getInstance().init();
+
+	while (window.isOpen())
+	{
+		deltaTime = clock.restart().asSeconds();
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			else if (event.type == sf::Event::Resized)
+			{
+				// Adjust the viewport when the window is resized
+				/*sf::FloatRect visibleArea(200, 200, event.size.width, event.size.height);
+				window.setView(sf::View(visibleArea));*/
+			}
+		}
+
+		window.clear();
+
+		window.draw(backgroundSprite);
+
+		animationPlayer1.update(0, deltaTime); // first animation aka row 0
+		player1.setTextureRect(animationPlayer1.m_uvRect);
+		window.draw(player1);
+
+		//window.draw(player1Sprite);
+		//drawSettingsMenu(window, font);
+		//Game::getInstance().draw(window);
+
+		window.display();
+	}
 
 
 	//create window
