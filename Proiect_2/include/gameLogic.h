@@ -4,6 +4,7 @@
 
 #include "errorHandling.h"
 #include "playerMaker.h"
+#include "resourceHandler.h"
 
 namespace windowDetails {
 	constexpr float WINDOW_WIDTH = 1200;
@@ -18,12 +19,9 @@ private:
 	bool m_player1sTurn = true;
 	int m_round = 1;
 private:
-	std::string PATH = "C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\";
-	sf::Font m_font;
 	sf::Sprite m_backgroundSprite;
 	sf::RectangleShape m_sign;
 	sf::Text m_signText;
-	sf::Texture m_itemFrameTexture;
 
 public:
 	Game() = default;

@@ -11,7 +11,7 @@
 #include "playerMaker.h" 
 #include "characterAnimation.h"
 #include "gameLogic.h"
-
+#include "resourceHandler.h"
 //std::string PATH = "C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\";
 
 //namespace windowDetails {
@@ -87,6 +87,7 @@ void drawItemFrames(sf::RenderWindow& window, sf::Texture& texture, float signHe
 
 int main()
 {
+	
 	//TODO: have items that provide bonuses to a specific class ; use dynamic_cast to check 
 	//what class is the player
 	
@@ -119,6 +120,29 @@ int main()
 
 	sf::RenderWindow window(sf::VideoMode(windowDetails::WINDOW_WIDTH, windowDetails::WINDOW_HEIGHT), "game!"); // , sf::Style::Fullscreen
 
+	//RESOURCE LOADING START
+	try
+	{
+		Resources::getInstance().initTextures();
+	}
+	catch (TextureLoadError& err) { std::cout << err.what() << std::endl; }
+
+	try
+	{
+		Resources::getInstance().initFont();
+	}
+	catch (FontLoadError& err) { std::cout << err.what() << std::endl; }
+	//RESOURCES LOADING STOP
+
+	//ITEM SHOP START
+	try
+	{
+		//load items from json and pu them in the shop
+		ItemShop::getInstance().init();
+	}
+	catch (FileLoadError& err) { std::cout << err.what() << std::endl; }
+	//ITEM SHOP END
+	// 
 	//// background
 
 	// font style
@@ -173,7 +197,7 @@ int main()
 
 	while (window.isOpen())
 	{
-		//deltaTime = clock.restart().asSeconds();
+	//	//deltaTime = clock.restart().asSeconds();
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -188,7 +212,7 @@ int main()
 			}
 		}
 		//Game::getInstance().update();
-		window.clear(sf::Color::Black);
+		Game::getInstance().update();
 		Game::getInstance().drawFrame(window);
 		window.display();
 		

@@ -73,41 +73,17 @@
 
 void Game::init()
 {
-	//FONT START
-	try
-	{
-		if (!m_font.loadFromFile(PATH + "Feelin_Teachy_TTF.ttf"))
-			throw FontLoadError("Couldn't load font\n");
-	}
-	catch (FontLoadError& err) { std::cout << err.what(); }
-	//FONT END
-	
 	//BACKGROUND START
-	sf::Texture backgroundTexture;
-	try
-	{
-		if (!backgroundTexture.loadFromFile(PATH + "background_bamboo_1200_cut.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
-
-	m_backgroundSprite.setTexture(backgroundTexture);
+	m_backgroundSprite.setTexture(Resources::getInstance().getBGTexture());
 	//BACKGROUND END
 
 	//SIGN START
-	sf::Texture signTexture;
-	try
-	{
-		if (!signTexture.loadFromFile(PATH + "wood_sign_360-200.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
 
 	m_sign = sf::RectangleShape(sf::Vector2f(360, 200));
 	m_sign.setPosition(windowDetails::WINDOW_WIDTH / 2 - m_sign.getSize().x / 2, 0);
-	m_sign.setTexture(&signTexture);
+	m_sign.setTexture(&Resources::getInstance().getSignTexture());
 
-	m_signText.setFont(m_font);
+	m_signText.setFont(Resources::getInstance().getFont());
 	m_signText.setString("Player 1's TURN");
 	//signText.setColor(sf::Color::);
 	m_signText.setCharacterSize(36);
@@ -119,24 +95,6 @@ void Game::init()
 	m_signText.setPosition(m_sign.getPosition().x + m_sign.getSize().x / 2.0f,
 		m_sign.getPosition().y + m_sign.getSize().y / 2.0f);
 	//SIGN END
-
-	//ITEM FRAME START
-	try
-	{
-		if (!m_itemFrameTexture.loadFromFile(PATH + "item_frame_3.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
-	//ITEM FRAME END
-
-	//ITEM SHOP START
-	try
-	{
-		//load items from json and pu them in the shop
-		ItemShop::getInstance().init();
-	}
-	catch (FileLoadError& err) { std::cout << err.what() << std::endl; }
-	//ITEM SHOP END
 
 	//CHARACTER CREATION
 
@@ -159,12 +117,10 @@ void Game::update()
 
 void Game::drawFrame(sf::RenderWindow& window)
 {
-	window.clear(sf::Color::Cyan);
-	//m_backgroundSprite.setTexture(m_itemFrameTexture);
+	window.clear();
 	window.draw(m_backgroundSprite);
-	/*window.draw(m_sign);
-	window.draw(m_signText);*/
-	/*window.display();*/
+	window.draw(m_sign);
+	window.draw(m_signText);
 }
 //bool Game_CLI::playersAreAlive()
 //{
