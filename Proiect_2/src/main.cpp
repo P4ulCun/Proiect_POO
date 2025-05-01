@@ -5,18 +5,19 @@
 #include "items.h"
 #include "inventory.h"
 #include "fighterClasses.h"
-#include "gameLogic_CLI.h"
+//#include "gameLogic_CLI.h"
 #include "player.h"
 
 #include "playerMaker.h" 
 #include "characterAnimation.h"
+#include "gameLogic.h"
 
-std::string PATH = "C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\";
+//std::string PATH = "C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\";
 
-namespace windowDetails {
-	constexpr float WINDOW_WIDTH = 1200;
-	constexpr float WINDOW_HEIGHT = 675;
-}
+//namespace windowDetails {
+//	constexpr float WINDOW_WIDTH = 1200;
+//	constexpr float WINDOW_HEIGHT = 675;
+//}
 
 enum MenuOption { FULLSCREEN, VOLUME, BACK };
 void drawSettingsMenu(sf::RenderWindow& window, sf::Font& font)
@@ -119,72 +120,27 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(windowDetails::WINDOW_WIDTH, windowDetails::WINDOW_HEIGHT), "game!"); // , sf::Style::Fullscreen
 
 	//// background
-	sf::Texture backgroundTexture;
-	try 
-	{
-		if (!backgroundTexture.loadFromFile(PATH + "background_bamboo_1200_cut.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
-	
-	sf::Sprite backgroundSprite;
-	backgroundSprite.setTexture(backgroundTexture);
 
 	// font style
-	sf::Font font;
-	try
-	{
-		if (!font.loadFromFile(PATH + "Feelin_Teachy_TTF.ttf"))
-			throw FontLoadError("Couldn't load font\n");
-	}
-	catch (FontLoadError& err) { std::cout << err.what(); }
+	
 
 	//SIGN START
-	sf::Texture signTexture;
-	try
-	{
-		if (!signTexture.loadFromFile(PATH + "wood_sign_360-200.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
+	
 
-	sf::RectangleShape sign(sf::Vector2f(360, 200));
-	sign.setPosition(windowDetails::WINDOW_WIDTH / 2 - sign.getSize().x / 2, 0);
-	//sign.setFillColor(sf::Color::Transparent);
-	//sf::Sprite sign;
-	sign.setTexture(&signTexture);
-
-	sf::Text signText;
-	signText.setFont(font);
-	signText.setString("Player 1's TURN");
-	//signText.setColor(sf::Color::);
-	signText.setCharacterSize(36);
-
-	// Center text in button
-	sf::FloatRect textRect = signText.getLocalBounds();
-	signText.setOrigin(textRect.left + textRect.width / 2.0f,
-		textRect.top + textRect.height / 2.0f);
-	signText.setPosition(sign.getPosition().x + sign.getSize().x / 2.0f,
-		sign.getPosition().y + sign.getSize().y / 2.0f);
+	
 
 	//SIGN END
 
 	//ITEM FRAME START
 
-	sf::Texture itemFrameTexture;
-	try
-	{
-		if (!itemFrameTexture.loadFromFile(PATH + "item_frame_3.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
+	
 
 	
 	
 	//ITEM FRAME END
 
 	//PLAYER START
-	sf::Texture player1Texture;
+	/*sf::Texture player1Texture;
 	try
 	{
 		if (!player1Texture.loadFromFile(PATH + "astarion_idle_sprite.png"))
@@ -207,17 +163,17 @@ int main()
 		player1.setPosition(windowDetails::WINDOW_WIDTH - player1Texture.getSize().x / 2 - 100, windowDetails::WINDOW_HEIGHT - 450);
 
 	float deltaTime = 0.0f;
-	sf::Clock clock;
+	sf::Clock clock;*/
 
 	//PLAYER END
 
 	//game loop
 	
-	//Game::getInstance().init();
+	Game::getInstance().init();
 
 	while (window.isOpen())
 	{
-		deltaTime = clock.restart().asSeconds();
+		//deltaTime = clock.restart().asSeconds();
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -231,24 +187,30 @@ int main()
 				window.setView(sf::View(visibleArea));*/
 			}
 		}
+		//Game::getInstance().update();
+		window.clear(sf::Color::Black);
+		Game::getInstance().drawFrame(window);
+		window.display();
+		
 
-		window.clear();
+		//window.clear();
 
-		window.draw(backgroundSprite);
+		//window.draw(backgroundSprite);
 
-		animationPlayer1.update(0, deltaTime); // first animation aka row 0
-		player1.setTextureRect(animationPlayer1.m_uvRect);
-		window.draw(player1);
-		window.draw(sign);
-		window.draw(signText);
-		//window.draw(itemFrame);
-		drawItemFrames(window, itemFrameTexture, sign.getSize().y);
+		//animationPlayer1.update(0, deltaTime); // first animation aka row 0
+		//player1.setTextureRect(animationPlayer1.m_uvRect);
+		//window.draw(player1);
+		//window.draw(sign);
+		//window.draw(signText);
+		////window.draw(itemFrame);
+		//drawItemFrames(window, itemFrameTexture, sign.getSize().y);
+
 
 		//window.draw(player1Sprite);
 		//drawSettingsMenu(window, font);
 		//Game::getInstance().draw(window);
 
-		window.display();
+		//window.display();
 	}
 
 
