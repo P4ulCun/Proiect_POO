@@ -1,5 +1,9 @@
 #include "gameLogic.h"
 
+void drawClassSelectionScreen()
+{
+
+}
 //void processEventsForPlayerTurn(Player& player1, Player& player2) // player1 e turn ul lui, player2 e enemy
 //{
 //	std::cout << std::endl << player1.m_character->getName() << "'S TURN!\n\n";
@@ -96,6 +100,22 @@ void Game::init()
 		m_sign.getPosition().y + m_sign.getSize().y / 2.0f);
 	//SIGN END
 
+	//PLAYER START
+	sf::Texture &player1Texture = Resources::getInstance().getPlayer1Texture();
+	player1Sprite.setTexture(player1Texture);
+
+	if (animationPlayer1.m_choosePlayer == 1)
+		player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
+	else
+		player1Sprite.setPosition(windowDetails::WINDOW_WIDTH - player1Texture.getSize().x / 2 - 100, 
+			windowDetails::WINDOW_HEIGHT - 450);
+
+	//PLAYER END
+
+	//CLASS SELECTION BUTTONS START
+	initClassSelectionButtons(Resources::getInstance().getFont());
+	//CLASS SELECTION BUTTONS END
+	
 	//CHARACTER CREATION
 
 	/*std::cout << "PLAYER 1 - MAKE YOUR CHARACTER!\n\n";
@@ -107,20 +127,50 @@ void Game::init()
 	std::cout << "GET READY!\n\n" << "FIGHT!\n";*/
 }
 
+float Game::getDeltaTime() { return m_deltaTime; }
+
+void Game::updateDeltaTime()
+{
+	m_deltaTime = m_clock.restart().asSeconds();
+}
+
 void Game::update()
 {
 	if (m_player1sTurn)
 		m_signText.setString("Player 1's TURN");
 	else
 		m_signText.setString("Player 2's TURN");
+
+	if (m_selectionPhase == true)
+	{
+
+	}
+	else
+	{
+		animationPlayer1.update(0, m_deltaTime); // first animation aka row 0
+		player1Sprite.setTextureRect(animationPlayer1.m_uvRect);
+	}
 }
 
 void Game::drawFrame(sf::RenderWindow& window)
 {
 	window.clear();
+
 	window.draw(m_backgroundSprite);
 	window.draw(m_sign);
 	window.draw(m_signText);
+
+	if (m_selectionPhase == true)
+	{
+		for (auto& btn : buttons)
+			btn.draw(window);
+	}
+	else
+	{
+		window.draw(player1Sprite);
+	}
+	
+	window.display();
 }
 //bool Game_CLI::playersAreAlive()
 //{

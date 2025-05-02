@@ -165,12 +165,6 @@ int main()
 
 	//PLAYER START
 	/*sf::Texture player1Texture;
-	try
-	{
-		if (!player1Texture.loadFromFile(PATH + "astarion_idle_sprite.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }
 
 	sf::Sprite player1Sprite;
 	player1Sprite.setTexture(player1Texture);
@@ -197,7 +191,8 @@ int main()
 
 	while (window.isOpen())
 	{
-	//	//deltaTime = clock.restart().asSeconds();
+		//deltaTime = clock.restart().asSeconds();
+		Game::getInstance().updateDeltaTime();
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -214,7 +209,6 @@ int main()
 		//Game::getInstance().update();
 		Game::getInstance().update();
 		Game::getInstance().drawFrame(window);
-		window.display();
 		
 
 		//window.clear();

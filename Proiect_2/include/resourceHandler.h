@@ -11,6 +11,7 @@ private:
 	sf::Texture m_backgroundTexture;
 	sf::Texture m_signTexture;
 	sf::Texture m_itemFrameTexture;
+	sf::Texture m_player1Texture;
 
 public:
 	Resources() = default;
@@ -21,5 +22,6 @@ public:
 	sf::Texture& getBGTexture();
 	sf::Texture& getSignTexture();
 	sf::Texture& getItemFrameTexture();
+	sf::Texture& getPlayer1Texture();
 	sf::Font& getFont();
 };

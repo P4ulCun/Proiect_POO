@@ -15,6 +15,7 @@ private:
 	float m_switchTime;
 
 public:
+	//CharacterAnimation();
 	CharacterAnimation(int choosePlayer, sf::Texture texture, sf::Vector2u imageCount, float switchTime);
 	~CharacterAnimation();
 

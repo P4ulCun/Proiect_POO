@@ -1,5 +1,10 @@
 #include "characterAnimation.h"
 
+//CharacterAnimation::CharacterAnimation()
+//{
+//
+//}
+
 CharacterAnimation::CharacterAnimation(int choosePlayer, sf::Texture texture, sf::Vector2u imageCount, float switchTime)
 {
 	m_choosePlayer = choosePlayer;
