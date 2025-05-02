@@ -21,12 +21,14 @@ class Game : public Singleton<Game>
 private:
 	Player m_player1;
 	Player m_player2;
-	bool m_selectionPhase = true;
+	bool m_selectClass = true;
+	bool m_selectItems = false;
 	bool m_player1sTurn = true;
 	int m_round = 1;
 	sf::Vector2f m_mousePosition;
 private:
 	std::vector<Button> m_classSelectionButtons;
+	std::vector<Button> m_itemSelectionButtons;
 	sf::Sprite m_backgroundSprite;
 	sf::RectangleShape m_sign;
 	sf::Text m_signText;

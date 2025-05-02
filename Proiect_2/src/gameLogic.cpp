@@ -82,10 +82,11 @@ void Game::init()
 	//BACKGROUND END
 
 	//SIGN START
+	sf::Texture& signTexture = Resources::getInstance().getSignTexture();
 
-	m_sign = sf::RectangleShape(sf::Vector2f(360, 200));
+	m_sign = sf::RectangleShape(sf::Vector2f(signTexture.getSize().x, signTexture.getSize().y));
 	m_sign.setPosition(windowDetails::WINDOW_WIDTH / 2 - m_sign.getSize().x / 2, 0);
-	m_sign.setTexture(&Resources::getInstance().getSignTexture());
+	m_sign.setTexture(&signTexture);
 
 	m_signText.setFont(Resources::getInstance().getFont());
 	m_signText.setString("Player 1's TURN");
@@ -112,9 +113,10 @@ void Game::init()
 
 	//PLAYER END
 
-	//CLASS SELECTION BUTTONS START
+	//SELECTION BUTTONS START
 	m_classSelectionButtons = initClassSelectionButtons(Resources::getInstance().getFont());
-	//CLASS SELECTION BUTTONS END
+	m_itemSelectionButtons = initItemSelectionButtons(Resources::getInstance().getFont());
+	//SELECTION BUTTONS END
 	
 	//CHARACTER CREATION
 
@@ -132,10 +134,20 @@ void Game::getMousePosition(sf::RenderWindow& window) { m_mousePosition = sf::Ve
 
 void Game::resetClassSelectionButtons()
 {
+	if (m_selectClass == false)
+		return;
+
 	for (auto& btn : m_classSelectionButtons)
 	{
-		btn.hovered = false;
-		btn.selected = false;
+		if (btn.selected == true)
+		{
+			btn.hovered = false;
+			btn.selected = false;
+			//player chose CLASS!!!
+			m_player1sTurn = !m_player1sTurn;
+			m_selectClass = false;
+			m_selectItems = true;
+		}
 	}
 }
 
@@ -146,12 +158,12 @@ void Game::updateDeltaTime()
 
 void Game::update()
 {
-	if (m_player1sTurn)
+	if (m_player1sTurn == true)
 		m_signText.setString("Player 1's TURN");
 	else
 		m_signText.setString("Player 2's TURN");
 
-	if (m_selectionPhase == true)
+	if (m_selectClass == true)
 	{
 		//if is selected do smth w/ class selection buttons
 	}
@@ -170,13 +182,17 @@ void Game::drawFrame(sf::RenderWindow& window)
 	window.draw(m_sign);
 	window.draw(m_signText);
 
-	if (m_selectionPhase == true)
+	if (m_selectClass == true)
 	{
 		for (auto& btn : m_classSelectionButtons)
 			btn.draw(window);
 	}
 	else
 	{
+		if (m_selectItems == true)
+			for (auto& btn : m_itemSelectionButtons)
+				btn.draw(window);
+
 		window.draw(player1Sprite);
 	}
 	

@@ -194,6 +194,7 @@ int main()
 	while (window.isOpen())
 	{
 		//deltaTime = clock.restart().asSeconds();
+		Game::getInstance().resetClassSelectionButtons();
 		Game::getInstance().updateDeltaTime();
 		Game::getInstance().getMousePosition(window);
 
