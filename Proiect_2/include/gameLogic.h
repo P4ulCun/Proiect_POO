@@ -55,10 +55,14 @@ public:
 	void handleInputs(sf::Event& event);
 	void drawFrame(sf::RenderWindow& window);
 	void update();
+
 	void updateDeltaTime();
+
 	float getDeltaTime();
 	void getMousePosition(sf::RenderWindow& window);
+
 	void resetClassSelectionButtons();
+	void resetItemSelectionButtons();
 };
 
 //void processEventsForPlayerTurn(Player& player1, Player& player2);

@@ -138,16 +138,53 @@ void Game::resetClassSelectionButtons()
 		return;
 
 	for (auto& btn : m_classSelectionButtons)
-	{
 		if (btn.selected == true)
 		{
 			btn.hovered = false;
 			btn.selected = false;
 			//player chose CLASS!!!
-			m_player1sTurn = !m_player1sTurn;
 			m_selectClass = false;
 			m_selectItems = true;
 		}
+}
+
+void Game::resetItemSelectionButtons()
+{
+	if (m_selectItems == false)
+		return;
+
+	int selectedCnt = 0;
+	for (auto& btn : m_itemSelectionButtons)
+		if (btn.selected == true)
+			selectedCnt++;
+
+	if (selectedCnt > 3)
+		std::cout << "prea multe iteme!! eroare!!\n";
+	else if (selectedCnt == 3)
+	{
+		if (m_player1sTurn == false)
+		{
+			//gata cu selctionul
+			m_selectClass = false;
+			m_selectItems = false;
+			//pune itemele la player2!!
+		}
+		else
+		{
+			//pune itemele la player1!!
+			//si scoatele din inventar
+
+			//doar am scos butonale din gui
+			for (auto item = m_itemSelectionButtons.begin(); item != m_itemSelectionButtons.end(); )
+				if ((*item).selected)
+					item = m_itemSelectionButtons.erase(item);
+				else
+					item++;
+
+			m_selectItems = false;
+			m_selectClass = true;
+		}
+		m_player1sTurn = !m_player1sTurn;
 	}
 }
 
@@ -201,7 +238,7 @@ void Game::drawFrame(sf::RenderWindow& window)
 
 void Game::handleInputs(sf::Event& event)
 {
-	// Mouse hover
+	// Mouse hover Class Select Buttons
 	for (int i = 0; i < m_classSelectionButtons.size(); i++) {
 		if (m_classSelectionButtons[i].contains(m_mousePosition)) {
 			m_classSelectionButtons[i].hovered = true;
@@ -212,11 +249,33 @@ void Game::handleInputs(sf::Event& event)
 		}
 	}
 
-	// Mouse click
+	// Mouse hover Item Select Buttons  (ITEM SOHP)
+	for (int i = 0; i < m_itemSelectionButtons.size(); i++) {
+		if (m_itemSelectionButtons[i].contains(m_mousePosition)) {
+			m_itemSelectionButtons[i].hovered = true;
+		}
+		else
+		{
+			m_itemSelectionButtons[i].hovered = false;
+		}
+	}
+
+	// Mouse click Class Select
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-		for (size_t i = 0; i < m_classSelectionButtons.size(); ++i) {
+		for (int i = 0; i < m_classSelectionButtons.size(); i++) {
 			if (m_classSelectionButtons[i].contains(m_mousePosition)) {
 				m_classSelectionButtons[i].selected = true;
+				std::cout << "pressed " << i << "nd button!\n";
+				//std::cout << "Selected: " << labels[i] << std::endl;
+			}
+		}
+	}
+
+	// Mouse click (ITEM SOHP)
+	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+		for (int i = 0; i < m_itemSelectionButtons.size(); i++) {
+			if (m_itemSelectionButtons[i].contains(m_mousePosition)) {
+				m_itemSelectionButtons[i].selected = true;
 				std::cout << "pressed " << i << "nd button!\n";
 				//std::cout << "Selected: " << labels[i] << std::endl;
 			}

@@ -2,7 +2,23 @@
 
 void Button::draw(sf::RenderWindow& window)
 {
-    shape.setFillColor((hovered) ? hoverColor : color);
+    if (shape.getTexture() == nullptr)
+        shape.setFillColor((hovered) ? hoverColor : color);
+    else
+    {
+        //mai complicat
+        //trb sa schimb pozitia
+        /*if (hovered)
+            shape.setScale(1.2, 1.2);
+        else
+            shape.setScale(1, 1);*/
+
+        shape.setOutlineThickness(2);
+        if (hovered || selected)
+            shape.setOutlineColor(sf::Color::Magenta);
+        else
+            shape.setOutlineColor(sf::Color::Transparent);
+    }
     window.draw(shape);
     window.draw(text);
 }
@@ -51,6 +67,8 @@ std::vector<Button> initItemSelectionButtons(sf::Font& font)
         for (int j = 0; j < col; j++)
         {
             Button btn;
+            /*btn.color = sf::Color::Transparent;
+            btn.hoverColor = sf::Color::Transparent;*/
             btn.shape.setSize(sf::Vector2f(ItemButtonWidth, ItemButtonHeight));
 
             if (j % 2)

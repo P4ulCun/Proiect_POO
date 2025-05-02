@@ -14,6 +14,8 @@
 #include "resourceHandler.h"
 
 #include "nameSpaces.h"
+
+const float inputCooldown = 0.2f;
 //std::string PATH = "C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\";
 
 //namespace windowDetails {
@@ -195,6 +197,8 @@ int main()
 	{
 		//deltaTime = clock.restart().asSeconds();
 		Game::getInstance().resetClassSelectionButtons();
+		Game::getInstance().resetItemSelectionButtons();
+
 		Game::getInstance().updateDeltaTime();
 		Game::getInstance().getMousePosition(window);
 
@@ -210,6 +214,8 @@ int main()
 				window.setView(sf::View(visibleArea));*/
 			}
 
+			if (Game::getInstance().getDeltaTime() < inputCooldown)
+				break;
 			Game::getInstance().handleInputs(event);
 		}
 		//Game::getInstance().update();
