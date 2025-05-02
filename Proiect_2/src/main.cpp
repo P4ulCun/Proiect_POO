@@ -12,6 +12,8 @@
 #include "characterAnimation.h"
 #include "gameLogic.h"
 #include "resourceHandler.h"
+
+#include "nameSpaces.h"
 //std::string PATH = "C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\";
 
 //namespace windowDetails {

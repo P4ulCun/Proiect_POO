@@ -8,10 +8,11 @@
 #include "characterAnimation.h"
 #include "button.h"
 
-namespace windowDetails {
-	constexpr float WINDOW_WIDTH = 1200;
-	constexpr float WINDOW_HEIGHT = 675;
-}
+#include "nameSpaces.h"
+//namespace windowDetails {
+//	constexpr float WINDOW_WIDTH = 1200;
+//	constexpr float WINDOW_HEIGHT = 675;
+//}
 
 void drawClassSelectionScreen();
 

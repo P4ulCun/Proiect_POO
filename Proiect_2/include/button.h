@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include "nameSpaces.h"
+
 struct Button {
     sf::RectangleShape shape;
     sf::Text text;
