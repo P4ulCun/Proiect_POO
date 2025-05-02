@@ -21,7 +21,8 @@ std::vector<Button> initClassSelectionButtons(sf::Font& font)
     for (int i = 0; i < labels.size(); i++) {
         Button btn;
         btn.shape.setSize(sf::Vector2f(buttonWidth, buttonHeight));
-        btn.shape.setPosition(100, startY + i * (buttonHeight + 20));
+        btn.shape.setPosition((windowDetails::WINDOW_WIDTH - buttonWidth) / 2, 
+            windowDetails::WINDOW_HEIGHT / 2 + i * (buttonHeight + 20));
 
         btn.text.setFont(font);
         btn.text.setString(labels[i]);

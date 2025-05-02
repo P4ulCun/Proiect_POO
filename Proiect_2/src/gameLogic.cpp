@@ -128,6 +128,16 @@ void Game::init()
 }
 
 float Game::getDeltaTime() { return m_deltaTime; }
+void Game::getMousePosition(sf::RenderWindow& window) { m_mousePosition = sf::Vector2f(sf::Mouse::getPosition(window)); }
+
+void Game::resetClassSelectionButtons()
+{
+	for (auto& btn : m_classSelectionButtons)
+	{
+		btn.hovered = false;
+		btn.selected = false;
+	}
+}
 
 void Game::updateDeltaTime()
 {
@@ -143,7 +153,7 @@ void Game::update()
 
 	if (m_selectionPhase == true)
 	{
-
+		//if is selected do smth w/ class selection buttons
 	}
 	else
 	{
@@ -172,6 +182,32 @@ void Game::drawFrame(sf::RenderWindow& window)
 	
 	window.display();
 }
+
+void Game::handleInputs(sf::Event& event)
+{
+	// Mouse hover
+	for (int i = 0; i < m_classSelectionButtons.size(); i++) {
+		if (m_classSelectionButtons[i].contains(m_mousePosition)) {
+			m_classSelectionButtons[i].hovered = true;
+		}
+		else
+		{
+			m_classSelectionButtons[i].hovered = false;
+		}
+	}
+
+	// Mouse click
+	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+		for (size_t i = 0; i < m_classSelectionButtons.size(); ++i) {
+			if (m_classSelectionButtons[i].contains(m_mousePosition)) {
+				m_classSelectionButtons[i].selected = true;
+				std::cout << "pressed " << i << "nd button!\n";
+				//std::cout << "Selected: " << labels[i] << std::endl;
+			}
+		}
+	}
+}
+
 //bool Game_CLI::playersAreAlive()
 //{
 //	return m_player1.m_character->isAlive() && m_player2.m_character->isAlive();

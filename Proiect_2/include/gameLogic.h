@@ -24,6 +24,7 @@ private:
 	bool m_selectionPhase = true;
 	bool m_player1sTurn = true;
 	int m_round = 1;
+	sf::Vector2f m_mousePosition;
 private:
 	std::vector<Button> m_classSelectionButtons;
 	sf::Sprite m_backgroundSprite;
@@ -41,18 +42,21 @@ public:
 	~Game() = default;
 
 	void init();
-	bool playersAreAlive();
+	/*bool playersAreAlive();
 	bool isPlayer1sTurn();
 	void changeTurn();
 	void processEvents();
 	void applyCooldownTicks();
-	void showWinner();
+	void showWinner();*/
 	/*void proccesEvents();
 	void update();*/
+	void handleInputs(sf::Event& event);
 	void drawFrame(sf::RenderWindow& window);
 	void update();
 	void updateDeltaTime();
 	float getDeltaTime();
+	void getMousePosition(sf::RenderWindow& window);
+	void resetClassSelectionButtons();
 };
 
 //void processEventsForPlayerTurn(Player& player1, Player& player2);

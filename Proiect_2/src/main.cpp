@@ -195,6 +195,7 @@ int main()
 	{
 		//deltaTime = clock.restart().asSeconds();
 		Game::getInstance().updateDeltaTime();
+		Game::getInstance().getMousePosition(window);
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -207,6 +208,8 @@ int main()
 				/*sf::FloatRect visibleArea(200, 200, event.size.width, event.size.height);
 				window.setView(sf::View(visibleArea));*/
 			}
+
+			Game::getInstance().handleInputs(event);
 		}
 		//Game::getInstance().update();
 		Game::getInstance().update();

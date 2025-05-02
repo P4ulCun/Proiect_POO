@@ -10,6 +10,7 @@ struct Button {
     sf::RectangleShape shape;
     sf::Text text;
     bool hovered = false;
+    bool selected = false;
 
     void draw(sf::RenderWindow& window);
 
