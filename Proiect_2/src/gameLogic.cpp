@@ -113,7 +113,7 @@ void Game::init()
 	//PLAYER END
 
 	//CLASS SELECTION BUTTONS START
-	initClassSelectionButtons(Resources::getInstance().getFont());
+	m_classSelectionButtons = initClassSelectionButtons(Resources::getInstance().getFont());
 	//CLASS SELECTION BUTTONS END
 	
 	//CHARACTER CREATION
@@ -162,7 +162,7 @@ void Game::drawFrame(sf::RenderWindow& window)
 
 	if (m_selectionPhase == true)
 	{
-		for (auto& btn : buttons)
+		for (auto& btn : m_classSelectionButtons)
 			btn.draw(window);
 	}
 	else

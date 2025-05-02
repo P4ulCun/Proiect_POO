@@ -24,6 +24,7 @@ private:
 	bool m_player1sTurn = true;
 	int m_round = 1;
 private:
+	std::vector<Button> m_classSelectionButtons;
 	sf::Sprite m_backgroundSprite;
 	sf::RectangleShape m_sign;
 	sf::Text m_signText;

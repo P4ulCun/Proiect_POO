@@ -12,8 +12,12 @@ bool Button::contains(sf::Vector2f point)
     return shape.getGlobalBounds().contains(point);
 }
 
-void initClassSelectionButtons(sf::Font font)
+std::vector<std::string> labels = { "Rogue", "Druid", "Warrior" };
+
+
+std::vector<Button> initClassSelectionButtons(sf::Font& font)
 {
+    std::vector<Button> buttons;
     for (int i = 0; i < labels.size(); i++) {
         Button btn;
         btn.shape.setSize(sf::Vector2f(buttonWidth, buttonHeight));
@@ -29,4 +33,5 @@ void initClassSelectionButtons(sf::Font font)
 
         buttons.push_back(btn);
     }
+    return buttons;
 }
