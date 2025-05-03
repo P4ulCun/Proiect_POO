@@ -6,6 +6,7 @@
 #include <vector>
 #define MAX_ITEMS 3
 
+#include "button.h"
 //class Item;
 
 class Inventory
@@ -40,6 +41,7 @@ class PlayerInventory : public Inventory
 {
 	int m_currNumItems;
 	int m_maxNumItems;
+	//std::vector<Button> m_playerInventoryButtons;
 public:
 	PlayerInventory() : m_currNumItems(0), m_maxNumItems(MAX_ITEMS) {};
 	void addItem(std::shared_ptr<Item> item) override;

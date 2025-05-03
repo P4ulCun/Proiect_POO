@@ -7,14 +7,14 @@
 #include "resourceHandler.h"
 #include "characterAnimation.h"
 #include "button.h"
+#include "characterFactory.h"
+#include "inventoryBuilder.h"
 
 #include "nameSpaces.h"
 //namespace windowDetails {
 //	constexpr float WINDOW_WIDTH = 1200;
 //	constexpr float WINDOW_HEIGHT = 675;
 //}
-
-void drawClassSelectionScreen();
 
 class Game : public Singleton<Game>
 {
@@ -25,18 +25,25 @@ private:
 	bool m_selectItems = false;
 	bool m_player1sTurn = true;
 	int m_round = 1;
-	sf::Vector2f m_mousePosition;
+
+	std::shared_ptr<PlayerInventory> inventory1;
+	std::shared_ptr<PlayerInventory> inventory2;
+	std::shared_ptr<Character> character1;
+	std::shared_ptr<Character> character2;
+	
 private:
+	sf::Vector2f m_mousePosition;
+
 	std::vector<Button> m_classSelectionButtons;
 	std::vector<Button> m_itemSelectionButtons;
 	sf::Sprite m_backgroundSprite;
 	sf::RectangleShape m_sign;
 	sf::Text m_signText;
 	sf::Sprite player1Sprite;
-	CharacterAnimation animationPlayer1 = CharacterAnimation(1, sf::Vector2u(2, 1), 0.5f);
+	CharacterAnimation animationPlayer1;
 
 	sf::Sprite player2Sprite;
-	CharacterAnimation animationPlayer2 = CharacterAnimation(2, sf::Vector2u(2, 1), 0.4f);
+	CharacterAnimation animationPlayer2;
 
 	float m_deltaTime = 0.0f;
 	sf::Clock m_clock;

@@ -11,10 +11,14 @@ void Resources::initTextures()
 	if (!m_itemFrameTexture.loadFromFile(PATH + "item_frame_3.png"))
 		throw TextureLoadError("Couldn't load texture\n");
 
-	if (!m_rogueTexture.loadFromFile(PATH + "astarion_idle_sprite.png"))
+	if (!m_rogueTexture.loadFromFile(PATH + "astarion_idle.png"))
 		throw TextureLoadError("Couldn't load texture\n");
 
-	if (!m_druidTexture.loadFromFile(PATH + "Druid.png"))
+	if (!m_druidTexture.loadFromFile(PATH + "druid_idle.png"))
+		throw TextureLoadError("Couldn't load texture\n");
+
+
+	if (!m_itemsTexture.loadFromFile(PATH + "itemSprite.png"))
 		throw TextureLoadError("Couldn't load texture\n");
 }
 
@@ -29,4 +33,5 @@ sf::Texture& Resources::getSignTexture() { return m_signTexture; }
 sf::Texture& Resources::getItemFrameTexture() { return m_itemFrameTexture; }
 sf::Texture& Resources::getRogueTexture() { return m_rogueTexture; }
 sf::Texture& Resources::getDruidTexture() { return m_druidTexture; }
+sf::Texture& Resources::getItemsTexture() { return m_itemsTexture; }
 sf::Font& Resources::getFont() { return m_font; }

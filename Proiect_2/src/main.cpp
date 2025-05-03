@@ -219,7 +219,6 @@ int main()
 		//Game::getInstance().update();
 		Game::getInstance().update();
 		Game::getInstance().drawFrame(window);
-		
 
 		//window.clear();
 

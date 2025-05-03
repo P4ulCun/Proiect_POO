@@ -1,5 +1,13 @@
 #include "button.h"
 
+//ITEMS START
+const int cellWidth = 80;
+const int cellHeight = 80;
+const int columns = 2;
+const int rows = 5;
+
+//ITEMS END
+
 void Button::draw(sf::RenderWindow& window)
 {
     if (shape.getTexture() == nullptr)
@@ -21,6 +29,9 @@ void Button::draw(sf::RenderWindow& window)
     }
     window.draw(shape);
     window.draw(text);
+
+    if (shape.getTexture() != nullptr)
+        window.draw(itemIcon);
 }
 
 bool Button::contains(sf::Vector2f point)
@@ -82,6 +93,57 @@ std::vector<Button> initItemSelectionButtons(sf::Font& font)
             else
                 btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 + 20,
                     windowDetails::WINDOW_HEIGHT - 5 * (ItemButtonHeight + 20) + i * (ItemButtonHeight + 20));
+
+            btn.itemIcon.setSize(sf::Vector2f(ItemButtonWidth, ItemButtonHeight));
+            btn.itemIcon.setTexture(&Resources::getInstance().getItemsTexture());
+            btn.itemIcon.setTextureRect(sf::IntRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight));
+            btn.itemIcon.setPosition(btn.shape.getPosition());
+
+            btn.shape.setTexture(&Resources::getInstance().getItemFrameTexture());
+            btn.text.setFillColor(sf::Color::Transparent);
+
+            /*btn.text.setFont(font);
+            btn.text.setString("item");
+            btn.text.setCharacterSize(14);
+            btn.text.setFillColor(sf::Color::White);
+            sf::FloatRect textBounds = btn.text.getLocalBounds();
+            btn.text.setOrigin(textBounds.left + textBounds.width / 2, textBounds.top + textBounds.height / 2);
+            btn.text.setPosition(btn.shape.getPosition().x + ItemButtonWidth / 2, btn.shape.getPosition().y + ItemButtonHeight / 2);*/
+
+            buttons.push_back(btn);
+        }
+
+    return buttons;
+}
+
+std::vector<Button> initItemPlayerInventory(sf::Font& font, int item1, int item2, int item3)
+{
+    std::vector<Button> buttons;
+    int lin = 5;
+    int col = 2;
+    int index = 0;
+    for (int i = 0; i < lin; i++)
+        for (int j = 0; j < col; j++)
+        {
+            Button btn;
+
+            index++;
+            btn.index = index;
+            /*btn.color = sf::Color::Transparent;
+            btn.hoverColor = sf::Color::Transparent;*/
+            btn.shape.setSize(sf::Vector2f(ItemButtonWidth, ItemButtonHeight));
+
+            if (j % 2)
+                btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 - (ItemButtonWidth + 20),
+                    windowDetails::WINDOW_HEIGHT - 5 * (ItemButtonHeight + 20) + i * (ItemButtonHeight + 20));
+            else
+                btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 + 20,
+                    windowDetails::WINDOW_HEIGHT - 5 * (ItemButtonHeight + 20) + i * (ItemButtonHeight + 20));
+
+            btn.itemIcon.setSize(sf::Vector2f(ItemButtonWidth, ItemButtonHeight));
+            btn.itemIcon.setTexture(&Resources::getInstance().getItemsTexture());
+            btn.itemIcon.setTextureRect(sf::IntRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight));
+            btn.itemIcon.setPosition(btn.shape.getPosition());
 
             btn.shape.setTexture(&Resources::getInstance().getItemFrameTexture());
             btn.text.setFillColor(sf::Color::Transparent);

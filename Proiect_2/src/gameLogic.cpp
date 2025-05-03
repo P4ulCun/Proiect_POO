@@ -1,9 +1,5 @@
 #include "gameLogic.h"
 
-void drawClassSelectionScreen()
-{
-
-}
 //void processEventsForPlayerTurn(Player& player1, Player& player2) // player1 e turn ul lui, player2 e enemy
 //{
 //	std::cout << std::endl << player1.m_character->getName() << "'S TURN!\n\n";
@@ -101,16 +97,6 @@ void Game::init()
 		m_sign.getPosition().y + m_sign.getSize().y / 2.0f);
 	//SIGN END
 
-	//PLAYER START
-
-	player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
-
-	//trb schimbat!!
-	player2Sprite.setPosition(windowDetails::WINDOW_WIDTH - characterSprite::WIDTH - 100,
-		windowDetails::WINDOW_HEIGHT - 450);
-
-	//PLAYER END
-
 	//SELECTION BUTTONS START
 	m_classSelectionButtons = initClassSelectionButtons(Resources::getInstance().getFont());
 	m_itemSelectionButtons = initItemSelectionButtons(Resources::getInstance().getFont());
@@ -150,17 +136,48 @@ void Game::resetClassSelectionButtons()
 			case 1:
 				//Rogue
 				if (m_player1sTurn)
-					player1Sprite.setTexture(Resources::getInstance().getRogueTexture());
+				{
+					sf::Texture& t = Resources::getInstance().getRogueTexture();
+					player1Sprite.setTexture(t);
+					player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
+					animationPlayer1 = CharacterAnimation(1, t, sf::Vector2u(2, 1), 0.5f);
+
+					character1 = CharacterFactory::createCharacter("R", "noName");
+				}
 				else
-					player2Sprite.setTexture(Resources::getInstance().getRogueTexture());
+				{
+					sf::Texture& t = Resources::getInstance().getRogueTexture();
+					player2Sprite.setTexture(t);
+					player2Sprite.setPosition(windowDetails::WINDOW_WIDTH - t.getSize().x / 2 - 100,
+						windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
+					animationPlayer2 = CharacterAnimation(2, t, sf::Vector2u(2, 1), 0.5f);
+
+					character2 = CharacterFactory::createCharacter("R", "noName");
+				}
+
 				break;
 
 			case 2:
 				//Druid
 				if (m_player1sTurn)
-					player1Sprite.setTexture(Resources::getInstance().getDruidTexture());
+				{
+					sf::Texture& t = Resources::getInstance().getDruidTexture();
+					player1Sprite.setTexture(t);
+					player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
+					animationPlayer1 = CharacterAnimation(2, t, sf::Vector2u(2, 1), 0.5f);
+
+					character1 = CharacterFactory::createCharacter("D", "noName");
+				}
 				else
-					player2Sprite.setTexture(Resources::getInstance().getDruidTexture());
+				{
+					sf::Texture& t = Resources::getInstance().getDruidTexture();
+					player2Sprite.setTexture(t);
+					player2Sprite.setPosition(windowDetails::WINDOW_WIDTH - t.getSize().x / 2 - 100,
+						windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
+					animationPlayer2 = CharacterAnimation(1, t, sf::Vector2u(2, 1), 0.5f);
+
+					character2 = CharacterFactory::createCharacter("D", "noName");
+				}
 				break;
 
 			case 3:
@@ -168,6 +185,7 @@ void Game::resetClassSelectionButtons()
 				break;
 			}
 
+			
 			m_selectClass = false;
 			m_selectItems = true;
 		}
@@ -189,14 +207,51 @@ void Game::resetItemSelectionButtons()
 	{
 		if (m_player1sTurn == false)
 		{
+			//pune itemele la player2!!
+			std::vector<std::string> items;
+			for (int i = 0; i < m_itemSelectionButtons.size(); i++)
+				if (m_itemSelectionButtons[i].selected == true)
+					items.push_back(std::to_string(i + 1));
+
+			std::shared_ptr<Item> item1_ptr = ItemShop::getInstance().getItem(items[0]);
+			std::shared_ptr<Item> item2_ptr = ItemShop::getInstance().getItem(items[1]);
+			std::shared_ptr<Item> item3_ptr = ItemShop::getInstance().getItem(items[2]);
+
+			InventoryBuilder build;
+			build.addItem(item1_ptr)
+				.addItem(item2_ptr)
+				.addItem(item3_ptr);
+			inventory2 = build.build();
+
 			//gata cu selctionul
+			//=> creeaza playerii
+			m_player1 = Player(inventory1, character1);
+			m_player2 = Player(inventory2, character2);
+
 			m_selectClass = false;
 			m_selectItems = false;
-			//pune itemele la player2!!
+			
 		}
 		else
 		{
+			std::vector<std::string> items;
+			for (int i = 0; i < m_itemSelectionButtons.size(); i++)
+				if (m_itemSelectionButtons[i].selected == true)
+					items.push_back(std::to_string(i + 1));
 			//pune itemele la player1!!
+			std::shared_ptr<Item> item1_ptr = ItemShop::getInstance().getItem(items[0]);
+			std::shared_ptr<Item> item2_ptr = ItemShop::getInstance().getItem(items[1]);
+			std::shared_ptr<Item> item3_ptr = ItemShop::getInstance().getItem(items[2]);
+
+			InventoryBuilder build;
+			build.addItem(item1_ptr)
+				.addItem(item2_ptr)
+				.addItem(item3_ptr);
+			inventory1 = build.build();
+
+			ItemShop::getInstance().removeItem(item1_ptr);
+			ItemShop::getInstance().removeItem(item2_ptr);
+			ItemShop::getInstance().removeItem(item3_ptr);
 			//si scoatele din inventar
 
 			//doar am scos butonale din gui
@@ -231,8 +286,8 @@ void Game::update()
 	animationPlayer1.update(0, m_deltaTime); // first animation aka row 0
 	player1Sprite.setTextureRect(animationPlayer1.m_uvRect);
 
-	//animationPlayer2.update(0, m_deltaTime); // first animation aka row 0
-	//player2Sprite.setTextureRect(animationPlayer2.m_uvRect);
+	animationPlayer2.update(0, m_deltaTime); // first animation aka row 0
+	player2Sprite.setTextureRect(animationPlayer2.m_uvRect);
 }
 
 void Game::drawFrame(sf::RenderWindow& window)

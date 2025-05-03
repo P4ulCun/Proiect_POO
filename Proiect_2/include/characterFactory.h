@@ -4,7 +4,7 @@
 class CharacterFactory
 {
 public:
-	static std::shared_ptr<Character> createCharacter(std::string& className, std::string& name)
+	static std::shared_ptr<Character> createCharacter(std::string className, std::string name)
 	{
 		if (className[0] == 'R' || className[0] == 'r')
 			return std::make_shared<Rogue>(name);
