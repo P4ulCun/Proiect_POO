@@ -39,6 +39,7 @@ std::vector<Button> initClassSelectionButtons(sf::Font& font)
         Button btn;
         btn.color = sf::Color(70, 70, 70);
         btn.hoverColor = sf::Color(100, 100, 255);
+        btn.index = i + 1;
 
         btn.shape.setSize(sf::Vector2f(ClassButtonWidth, ClassButtonHeight));
         btn.shape.setPosition((windowDetails::WINDOW_WIDTH - ClassButtonWidth) / 2, 
@@ -63,10 +64,14 @@ std::vector<Button> initItemSelectionButtons(sf::Font& font)
     std::vector<Button> buttons;
     int lin = 5;
     int col = 2;
+    int index = 0;
     for (int i = 0; i < lin; i++)
         for (int j = 0; j < col; j++)
         {
             Button btn;
+
+            index++;
+            btn.index = index;
             /*btn.color = sf::Color::Transparent;
             btn.hoverColor = sf::Color::Transparent;*/
             btn.shape.setSize(sf::Vector2f(ItemButtonWidth, ItemButtonHeight));

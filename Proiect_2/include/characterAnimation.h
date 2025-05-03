@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include "nameSpaces.h"
 
 class CharacterAnimation
 {
@@ -16,7 +17,7 @@ private:
 
 public:
 	//CharacterAnimation();
-	CharacterAnimation(int choosePlayer, sf::Texture texture, sf::Vector2u imageCount, float switchTime);
+	CharacterAnimation(int choosePlayer, sf::Vector2u imageCount, float switchTime);
 	~CharacterAnimation();
 
 	void update(int row, float deltaTime);

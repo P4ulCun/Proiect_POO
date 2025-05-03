@@ -190,7 +190,7 @@ int main()
 	//PLAYER END
 
 	//game loop
-	
+
 	Game::getInstance().init();
 
 	while (window.isOpen())
@@ -214,8 +214,6 @@ int main()
 				window.setView(sf::View(visibleArea));*/
 			}
 
-			if (Game::getInstance().getDeltaTime() < inputCooldown)
-				break;
 			Game::getInstance().handleInputs(event);
 		}
 		//Game::getInstance().update();

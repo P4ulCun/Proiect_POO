@@ -5,7 +5,7 @@
 //
 //}
 
-CharacterAnimation::CharacterAnimation(int choosePlayer, sf::Texture texture, sf::Vector2u imageCount, float switchTime)
+CharacterAnimation::CharacterAnimation(int choosePlayer, sf::Vector2u imageCount, float switchTime)
 {
 	m_choosePlayer = choosePlayer;
 	m_imageCount = imageCount;
@@ -13,8 +13,8 @@ CharacterAnimation::CharacterAnimation(int choosePlayer, sf::Texture texture, sf
 	m_totalTime = 0.0f;
 	m_currentImage.x = 0;
 
-	m_uvRect.width = texture.getSize().x / float(imageCount.x);
-	m_uvRect.height = texture.getSize().y / float(imageCount.y);
+	m_uvRect.width = characterSprite::WIDTH;
+	m_uvRect.height = characterSprite::HEIGHT;
 }
 
 CharacterAnimation::~CharacterAnimation()

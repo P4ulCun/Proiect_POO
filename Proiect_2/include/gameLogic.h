@@ -33,8 +33,10 @@ private:
 	sf::RectangleShape m_sign;
 	sf::Text m_signText;
 	sf::Sprite player1Sprite;
-	CharacterAnimation animationPlayer1 = CharacterAnimation(1,
-		Resources::getInstance().getPlayer1Texture(), sf::Vector2u(2, 1), 0.5f);
+	CharacterAnimation animationPlayer1 = CharacterAnimation(1, sf::Vector2u(2, 1), 0.5f);
+
+	sf::Sprite player2Sprite;
+	CharacterAnimation animationPlayer2 = CharacterAnimation(2, sf::Vector2u(2, 1), 0.4f);
 
 	float m_deltaTime = 0.0f;
 	sf::Clock m_clock;

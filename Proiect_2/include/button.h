@@ -16,6 +16,7 @@ struct Button {
     bool selected = false;
     sf::Color hoverColor;
     sf::Color color;
+    int index = 0;
 
     void draw(sf::RenderWindow& window);
 

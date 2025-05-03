@@ -102,14 +102,12 @@ void Game::init()
 	//SIGN END
 
 	//PLAYER START
-	sf::Texture &player1Texture = Resources::getInstance().getPlayer1Texture();
-	player1Sprite.setTexture(player1Texture);
 
-	if (animationPlayer1.m_choosePlayer == 1)
-		player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
-	else
-		player1Sprite.setPosition(windowDetails::WINDOW_WIDTH - player1Texture.getSize().x / 2 - 100, 
-			windowDetails::WINDOW_HEIGHT - 450);
+	player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - 450);
+
+	//trb schimbat!!
+	player2Sprite.setPosition(windowDetails::WINDOW_WIDTH - characterSprite::WIDTH - 100,
+		windowDetails::WINDOW_HEIGHT - 450);
 
 	//PLAYER END
 
@@ -142,7 +140,34 @@ void Game::resetClassSelectionButtons()
 		{
 			btn.hovered = false;
 			btn.selected = false;
+
+			for (auto& ItemBtn : m_itemSelectionButtons)
+				ItemBtn.selected = false;
 			//player chose CLASS!!!
+
+			switch (btn.index)
+			{
+			case 1:
+				//Rogue
+				if (m_player1sTurn)
+					player1Sprite.setTexture(Resources::getInstance().getRogueTexture());
+				else
+					player2Sprite.setTexture(Resources::getInstance().getRogueTexture());
+				break;
+
+			case 2:
+				//Druid
+				if (m_player1sTurn)
+					player1Sprite.setTexture(Resources::getInstance().getDruidTexture());
+				else
+					player2Sprite.setTexture(Resources::getInstance().getDruidTexture());
+				break;
+
+			case 3:
+				//Warrior
+				break;
+			}
+
 			m_selectClass = false;
 			m_selectItems = true;
 		}
@@ -181,6 +206,9 @@ void Game::resetItemSelectionButtons()
 				else
 					item++;
 
+			for (auto& btn : m_classSelectionButtons)
+				btn.selected = false;
+
 			m_selectItems = false;
 			m_selectClass = true;
 		}
@@ -200,15 +228,11 @@ void Game::update()
 	else
 		m_signText.setString("Player 2's TURN");
 
-	if (m_selectClass == true)
-	{
-		//if is selected do smth w/ class selection buttons
-	}
-	else
-	{
-		animationPlayer1.update(0, m_deltaTime); // first animation aka row 0
-		player1Sprite.setTextureRect(animationPlayer1.m_uvRect);
-	}
+	animationPlayer1.update(0, m_deltaTime); // first animation aka row 0
+	player1Sprite.setTextureRect(animationPlayer1.m_uvRect);
+
+	//animationPlayer2.update(0, m_deltaTime); // first animation aka row 0
+	//player2Sprite.setTextureRect(animationPlayer2.m_uvRect);
 }
 
 void Game::drawFrame(sf::RenderWindow& window)
@@ -221,6 +245,9 @@ void Game::drawFrame(sf::RenderWindow& window)
 
 	if (m_selectClass == true)
 	{
+		if (m_player1sTurn == false)
+			window.draw(player1Sprite);
+
 		for (auto& btn : m_classSelectionButtons)
 			btn.draw(window);
 	}
@@ -231,6 +258,7 @@ void Game::drawFrame(sf::RenderWindow& window)
 				btn.draw(window);
 
 		window.draw(player1Sprite);
+		window.draw(player2Sprite);
 	}
 	
 	window.display();
