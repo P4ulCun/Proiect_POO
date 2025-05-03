@@ -73,6 +73,7 @@ public:
 	virtual void applyAbilityCooldownTicks();
 	virtual int getCooldown();
 
+	virtual std::string getHealth();
 	//friend std::ostream& operator<<(std::ostream& out, Character player);
 };
 

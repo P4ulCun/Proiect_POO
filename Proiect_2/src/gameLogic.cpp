@@ -1,5 +1,34 @@
 #include "gameLogic.h"
 
+void drawHP(sf::RenderWindow& window, Player& player1, Player& player2)
+{
+	sf::Text HPplayer1;
+	std::string string1 = player1.m_character->getHealth();
+	HPplayer1.setFont(Resources::getInstance().getFont());
+	HPplayer1.setString(string1);
+	HPplayer1.setCharacterSize(42);
+	HPplayer1.setFillColor(sf::Color::White);
+	HPplayer1.setPosition(100, 50);
+
+
+	sf::Text HPplayer2;
+	std::string string2 = player2.m_character->getHealth();
+	HPplayer2.setFont(Resources::getInstance().getFont());
+	HPplayer2.setString(string2);
+	HPplayer2.setCharacterSize(42);
+	HPplayer2.setFillColor(sf::Color::White);
+	HPplayer2.setPosition(windowDetails::WINDOW_WIDTH - 280, 50);
+
+	window.draw(HPplayer1);
+	window.draw(HPplayer2);
+	/*sf::RectangleShape shapeHPplayer2;
+	shapeHPplayer2.setSize(sf::Vector2f(btnWidth, btnHeight));
+	shapeHPplayer2.setPosition(windowDetails::WINDOW_WIDTH - btnWidth, 10);
+
+	sf::FloatRect textBounds = shapeHPplayer2.getLocalBounds();
+	shapeHPplayer2.setOrigin(textBounds.left + textBounds.width / 2, textBounds.top + textBounds.height / 2);
+	shapeHPplayer2.setPosition(shapeHPplayer2.getPosition().x + btnWidth / 2, shapeHPplayer2.getPosition().y + btnHeight / 2);*/
+}
 //void processEventsForPlayerTurn(Player& player1, Player& player2) // player1 e turn ul lui, player2 e enemy
 //{
 //	std::cout << std::endl << player1.m_character->getName() << "'S TURN!\n\n";
@@ -211,7 +240,24 @@ void Game::resetItemSelectionButtons()
 			std::vector<std::string> items;
 			for (int i = 0; i < m_itemSelectionButtons.size(); i++)
 				if (m_itemSelectionButtons[i].selected == true)
+				{
 					items.push_back(std::to_string(i + 1));
+					m_itemPlayer2Inventory.push_back(m_itemSelectionButtons[i]);
+				}
+
+			//position the player items accordingly
+			for (int i = 0; i < m_itemPlayer2Inventory.size(); i++)
+			{
+				float shapeX = m_itemPlayer2Inventory[i].shape.getSize().x;
+				m_itemPlayer2Inventory[i].shape.setPosition(
+					windowDetails::WINDOW_WIDTH - 50 - shapeX - i * (shapeX + 20),
+					m_sign.getSize().y / 2);
+				m_itemPlayer2Inventory[i].itemIcon.setPosition(m_itemPlayer2Inventory[i].shape.getPosition());
+
+				//reset buttons
+				m_itemPlayer2Inventory[i].hovered = false;
+				m_itemPlayer2Inventory[i].selected = false;
+			}
 
 			std::shared_ptr<Item> item1_ptr = ItemShop::getInstance().getItem(items[0]);
 			std::shared_ptr<Item> item2_ptr = ItemShop::getInstance().getItem(items[1]);
@@ -228,16 +274,37 @@ void Game::resetItemSelectionButtons()
 			m_player1 = Player(inventory1, character1);
 			m_player2 = Player(inventory2, character2);
 
+			for (int i = 0; i < MAX_ITEMS; i++) // trec prin itemele selectate de player
+			{
+				//si aplic statusurile
+				m_player1.m_inventory->usePassive(i, *m_player1.m_character);
+				m_player2.m_inventory->usePassive(i, *m_player2.m_character);
+			}
+
 			m_selectClass = false;
 			m_selectItems = false;
-			
 		}
 		else
 		{
 			std::vector<std::string> items;
 			for (int i = 0; i < m_itemSelectionButtons.size(); i++)
 				if (m_itemSelectionButtons[i].selected == true)
+				{
 					items.push_back(std::to_string(i + 1));
+					m_itemPlayer1Inventory.push_back(m_itemSelectionButtons[i]);
+				}
+
+			//position the player items accordingly
+			for (int i = 0; i < m_itemPlayer1Inventory.size(); i++)
+			{
+				m_itemPlayer1Inventory[i].shape.setPosition(
+					50 + i * (m_itemPlayer1Inventory[i].shape.getSize().x + 20),
+					m_sign.getSize().y / 2);
+				m_itemPlayer1Inventory[i].itemIcon.setPosition(m_itemPlayer1Inventory[i].shape.getPosition());
+				m_itemPlayer1Inventory[i].hovered = false;
+				m_itemPlayer1Inventory[i].selected = false;
+			}
+
 			//pune itemele la player1!!
 			std::shared_ptr<Item> item1_ptr = ItemShop::getInstance().getItem(items[0]);
 			std::shared_ptr<Item> item2_ptr = ItemShop::getInstance().getItem(items[1]);
@@ -249,9 +316,6 @@ void Game::resetItemSelectionButtons()
 				.addItem(item3_ptr);
 			inventory1 = build.build();
 
-			ItemShop::getInstance().removeItem(item1_ptr);
-			ItemShop::getInstance().removeItem(item2_ptr);
-			ItemShop::getInstance().removeItem(item3_ptr);
 			//si scoatele din inventar
 
 			//doar am scos butonale din gui
@@ -268,6 +332,32 @@ void Game::resetItemSelectionButtons()
 			m_selectClass = true;
 		}
 		m_player1sTurn = !m_player1sTurn;
+	}
+}
+
+void Game::resetItemPlayerInventory()
+{
+	if (!m_selectClass && !m_selectItems)
+	{
+		//fa ceva
+		for (auto& btn : m_itemPlayer1Inventory)
+			if (btn.selected == true)
+			{
+				btn.selected = false;
+				btn.hovered = false;
+
+				//TODO: fa actiunea de la item!!!
+				//!!
+			}
+		for (auto& btn : m_itemPlayer2Inventory)
+			if (btn.selected == true)
+			{
+				btn.selected = false;
+				btn.hovered = false;
+
+				//TODO: fa actiunea de la item!!!
+				//!!
+			}
 	}
 }
 
@@ -311,7 +401,17 @@ void Game::drawFrame(sf::RenderWindow& window)
 		if (m_selectItems == true)
 			for (auto& btn : m_itemSelectionButtons)
 				btn.draw(window);
+		else
+		{
+			//GAME LOOP DRAW
+			//here are all the objects printed on screen after SELECTION PHASE
+			for (auto& btn : m_itemPlayer1Inventory)
+				btn.draw(window);
+			for (auto& btn : m_itemPlayer2Inventory)
+				btn.draw(window);
 
+			drawHP(window, m_player1, m_player2);
+		}
 		window.draw(player1Sprite);
 		window.draw(player2Sprite);
 	}
@@ -332,17 +432,6 @@ void Game::handleInputs(sf::Event& event)
 		}
 	}
 
-	// Mouse hover Item Select Buttons  (ITEM SOHP)
-	for (int i = 0; i < m_itemSelectionButtons.size(); i++) {
-		if (m_itemSelectionButtons[i].contains(m_mousePosition)) {
-			m_itemSelectionButtons[i].hovered = true;
-		}
-		else
-		{
-			m_itemSelectionButtons[i].hovered = false;
-		}
-	}
-
 	// Mouse click Class Select
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 		for (int i = 0; i < m_classSelectionButtons.size(); i++) {
@@ -351,6 +440,18 @@ void Game::handleInputs(sf::Event& event)
 				std::cout << "pressed " << i << "nd button!\n";
 				//std::cout << "Selected: " << labels[i] << std::endl;
 			}
+		}
+	}
+
+
+	// Mouse hover Item Select Buttons  (ITEM SOHP)
+	for (int i = 0; i < m_itemSelectionButtons.size(); i++) {
+		if (m_itemSelectionButtons[i].contains(m_mousePosition)) {
+			m_itemSelectionButtons[i].hovered = true;
+		}
+		else
+		{
+			m_itemSelectionButtons[i].hovered = false;
 		}
 	}
 
@@ -364,6 +465,53 @@ void Game::handleInputs(sf::Event& event)
 			}
 		}
 	}
+
+
+	// Mouse hover Item Player Inventory Buttons
+	if (m_player1sTurn)
+		for (int i = 0; i < m_itemPlayer1Inventory.size(); i++) {
+			if (m_itemPlayer1Inventory[i].contains(m_mousePosition)) {
+				m_itemPlayer1Inventory[i].hovered = true;
+			}
+			else
+			{
+				m_itemPlayer1Inventory[i].hovered = false;
+			}
+		}
+	else
+		for (int i = 0; i < m_itemPlayer2Inventory.size(); i++) {
+			if (m_itemPlayer2Inventory[i].contains(m_mousePosition)) {
+				m_itemPlayer2Inventory[i].hovered = true;
+			}
+			else
+			{
+				m_itemPlayer2Inventory[i].hovered = false;
+			}
+		}
+
+	// Mouse click Player Inventory
+	if (m_player1sTurn)
+	{
+		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+			for (int i = 0; i < m_itemPlayer1Inventory.size(); i++) {
+				if (m_itemPlayer1Inventory[i].contains(m_mousePosition)) {
+					m_itemPlayer1Inventory[i].selected = true;
+					std::cout << "pressed " << i << "nd button!\n";
+					//std::cout << "Selected: " << labels[i] << std::endl;
+				}
+			}
+		}
+	}
+	else
+		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+			for (int i = 0; i < m_itemPlayer2Inventory.size(); i++) {
+				if (m_itemPlayer2Inventory[i].contains(m_mousePosition)) {
+					m_itemPlayer2Inventory[i].selected = true;
+					std::cout << "pressed " << i << "nd button!\n";
+					//std::cout << "Selected: " << labels[i] << std::endl;
+				}
+			}
+		}
 }
 
 //bool Game_CLI::playersAreAlive()

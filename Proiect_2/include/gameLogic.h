@@ -36,9 +36,14 @@ private:
 
 	std::vector<Button> m_classSelectionButtons;
 	std::vector<Button> m_itemSelectionButtons;
+
+	std::vector<Button> m_itemPlayer1Inventory;
+	std::vector<Button> m_itemPlayer2Inventory;
+
 	sf::Sprite m_backgroundSprite;
 	sf::RectangleShape m_sign;
 	sf::Text m_signText;
+
 	sf::Sprite player1Sprite;
 	CharacterAnimation animationPlayer1;
 
@@ -72,6 +77,8 @@ public:
 
 	void resetClassSelectionButtons();
 	void resetItemSelectionButtons();
+	void resetItemPlayerInventory();
 };
 
+void drawHP(sf::RenderWindow& window, Player& player1, Player& player2);
 //void processEventsForPlayerTurn(Player& player1, Player& player2);

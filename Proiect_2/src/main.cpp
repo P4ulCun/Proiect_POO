@@ -198,6 +198,7 @@ int main()
 		//deltaTime = clock.restart().asSeconds();
 		Game::getInstance().resetClassSelectionButtons();
 		Game::getInstance().resetItemSelectionButtons();
+		Game::getInstance().resetItemPlayerInventory(); // not yet made
 
 		Game::getInstance().updateDeltaTime();
 		Game::getInstance().getMousePosition(window);

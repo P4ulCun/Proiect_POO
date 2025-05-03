@@ -11,7 +11,7 @@ void Resources::initTextures()
 	if (!m_itemFrameTexture.loadFromFile(PATH + "item_frame_3.png"))
 		throw TextureLoadError("Couldn't load texture\n");
 
-	if (!m_rogueTexture.loadFromFile(PATH + "astarion_idle.png"))
+	if (!m_rogueTexture.loadFromFile(PATH + "astarion_idle_fixed.png"))
 		throw TextureLoadError("Couldn't load texture\n");
 
 	if (!m_druidTexture.loadFromFile(PATH + "druid_idle.png"))

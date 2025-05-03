@@ -148,3 +148,9 @@ int Warrior::specialAttack1(Character& target)
 	}
 	return 0;
 }
+
+std::string Character::getHealth()
+{
+	std::string hp = std::to_string(m_currHP) + " / " + std::to_string(m_baseHP);
+	return hp;
+}
