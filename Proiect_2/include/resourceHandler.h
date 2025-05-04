@@ -14,6 +14,7 @@ private:
 	sf::Texture m_rogueTexture;
 	sf::Texture m_druidTexture;
 	sf::Texture m_itemsTexture;
+	sf::Texture m_basicAttackTexture;
 
 public:
 	Resources() = default;
@@ -27,5 +28,6 @@ public:
 	sf::Texture& getRogueTexture();
 	sf::Texture& getDruidTexture();
 	sf::Texture& getItemsTexture();
+	sf::Texture& getBasicAttackTexture();
 	sf::Font& getFont();
 };

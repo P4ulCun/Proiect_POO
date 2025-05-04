@@ -32,4 +32,4 @@ const float ItemButtonHeight = 80;
 
 std::vector<Button> initClassSelectionButtons(sf::Font& font);
 std::vector<Button> initItemSelectionButtons(sf::Font& font);
-std::vector<Button> initItemPlayerInventory(sf::Font& font, int item1, int item2, int item3);
+std::vector<Button> initAttackButtons(sf::Font& font, int player);

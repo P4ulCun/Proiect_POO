@@ -20,6 +20,9 @@ void Resources::initTextures()
 
 	if (!m_itemsTexture.loadFromFile(PATH + "itemSprite.png"))
 		throw TextureLoadError("Couldn't load texture\n");
+
+	if (!m_basicAttackTexture.loadFromFile(PATH + "basic_attack.png"))
+		throw TextureLoadError("Couldn't load texture\n");
 }
 
 void Resources::initFont()
@@ -34,4 +37,5 @@ sf::Texture& Resources::getItemFrameTexture() { return m_itemFrameTexture; }
 sf::Texture& Resources::getRogueTexture() { return m_rogueTexture; }
 sf::Texture& Resources::getDruidTexture() { return m_druidTexture; }
 sf::Texture& Resources::getItemsTexture() { return m_itemsTexture; }
+sf::Texture& Resources::getBasicAttackTexture() { return m_basicAttackTexture; }
 sf::Font& Resources::getFont() { return m_font; }

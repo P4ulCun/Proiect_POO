@@ -129,6 +129,9 @@ void Game::init()
 	//SELECTION BUTTONS START
 	m_classSelectionButtons = initClassSelectionButtons(Resources::getInstance().getFont());
 	m_itemSelectionButtons = initItemSelectionButtons(Resources::getInstance().getFont());
+
+	m_attackButtonsPlayer1 = initAttackButtons(Resources::getInstance().getFont(), 1);
+	m_attackButtonsPlayer2 = initAttackButtons(Resources::getInstance().getFont(), 2);
 	//SELECTION BUTTONS END
 	
 	//CHARACTER CREATION
@@ -361,6 +364,32 @@ void Game::resetItemPlayerInventory()
 	}
 }
 
+void Game::resetAttackButtons()
+{
+	if (!m_selectClass && !m_selectItems)
+	{
+		//fa ceva
+		for (auto& btn : m_attackButtonsPlayer1)
+			if (btn.selected == true)
+			{
+				btn.selected = false;
+				btn.hovered = false;
+
+				//TODO: fa actiunea de la item!!!
+				//!!
+			}
+		for (auto& btn : m_attackButtonsPlayer2)
+			if (btn.selected == true)
+			{
+				btn.selected = false;
+				btn.hovered = false;
+
+				//TODO: fa actiunea de la item!!!
+				//!!
+			}
+	}
+}
+
 void Game::updateDeltaTime()
 {
 	m_deltaTime = m_clock.restart().asSeconds();
@@ -408,6 +437,11 @@ void Game::drawFrame(sf::RenderWindow& window)
 			for (auto& btn : m_itemPlayer1Inventory)
 				btn.draw(window);
 			for (auto& btn : m_itemPlayer2Inventory)
+				btn.draw(window);
+
+			for (auto& btn : m_attackButtonsPlayer1)
+				btn.draw(window);
+			for (auto& btn : m_attackButtonsPlayer2)
 				btn.draw(window);
 
 			drawHP(window, m_player1, m_player2);
@@ -507,6 +541,53 @@ void Game::handleInputs(sf::Event& event)
 			for (int i = 0; i < m_itemPlayer2Inventory.size(); i++) {
 				if (m_itemPlayer2Inventory[i].contains(m_mousePosition)) {
 					m_itemPlayer2Inventory[i].selected = true;
+					std::cout << "pressed " << i << "nd button!\n";
+					//std::cout << "Selected: " << labels[i] << std::endl;
+				}
+			}
+		}
+
+
+	// Mouse hover Attack Buttons
+	if (m_player1sTurn)
+		for (int i = 0; i < m_attackButtonsPlayer1.size(); i++) {
+			if (m_attackButtonsPlayer1[i].contains(m_mousePosition)) {
+				m_attackButtonsPlayer1[i].hovered = true;
+			}
+			else
+			{
+				m_attackButtonsPlayer1[i].hovered = false;
+			}
+		}
+	else
+		for (int i = 0; i < m_attackButtonsPlayer2.size(); i++) {
+			if (m_attackButtonsPlayer2[i].contains(m_mousePosition)) {
+				m_attackButtonsPlayer2[i].hovered = true;
+			}
+			else
+			{
+				m_attackButtonsPlayer2[i].hovered = false;
+			}
+		}
+
+	// Mouse click Attack Buttons
+	if (m_player1sTurn)
+	{
+		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+			for (int i = 0; i < m_attackButtonsPlayer1.size(); i++) {
+				if (m_attackButtonsPlayer1[i].contains(m_mousePosition)) {
+					m_attackButtonsPlayer1[i].selected = true;
+					std::cout << "pressed " << i << "nd button!\n";
+					//std::cout << "Selected: " << labels[i] << std::endl;
+				}
+			}
+		}
+	}
+	else
+		if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+			for (int i = 0; i < m_attackButtonsPlayer2.size(); i++) {
+				if (m_attackButtonsPlayer2[i].contains(m_mousePosition)) {
+					m_attackButtonsPlayer2[i].selected = true;
 					std::cout << "pressed " << i << "nd button!\n";
 					//std::cout << "Selected: " << labels[i] << std::endl;
 				}

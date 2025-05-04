@@ -40,6 +40,9 @@ private:
 	std::vector<Button> m_itemPlayer1Inventory;
 	std::vector<Button> m_itemPlayer2Inventory;
 
+	std::vector<Button> m_attackButtonsPlayer1;
+	std::vector<Button> m_attackButtonsPlayer2;
+
 	sf::Sprite m_backgroundSprite;
 	sf::RectangleShape m_sign;
 	sf::Text m_signText;
@@ -78,6 +81,7 @@ public:
 	void resetClassSelectionButtons();
 	void resetItemSelectionButtons();
 	void resetItemPlayerInventory();
+	void resetAttackButtons();
 };
 
 void drawHP(sf::RenderWindow& window, Player& player1, Player& player2);

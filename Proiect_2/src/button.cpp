@@ -116,48 +116,40 @@ std::vector<Button> initItemSelectionButtons(sf::Font& font)
     return buttons;
 }
 
-std::vector<Button> initItemPlayerInventory(sf::Font& font, int item1, int item2, int item3)
+std::vector<Button> initAttackButtons(sf::Font& font, int player)
 {
     std::vector<Button> buttons;
-    int lin = 5;
-    int col = 2;
-    int index = 0;
-    for (int i = 0; i < lin; i++)
-        for (int j = 0; j < col; j++)
+    for (int i = 0; i < 2; i++)
+    {
+        Button btn;
+        
+        btn.shape.setSize(sf::Vector2f(cellWidth, cellHeight));
+
+        if (player == 1)
+            btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 - cellWidth - 50 - i * 30,
+                windowDetails::WINDOW_HEIGHT / 2 + i * (cellHeight + 20));
+        else
+            btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 + 50 + i * 30,
+                windowDetails::WINDOW_HEIGHT / 2 + i * (cellHeight + 20));
+
+        btn.itemIcon.setSize(sf::Vector2f(cellWidth, cellHeight));
+        btn.itemIcon.setPosition(btn.shape.getPosition());
+
+        if (i == 0)
         {
-            Button btn;
-
-            index++;
-            btn.index = index;
-            /*btn.color = sf::Color::Transparent;
-            btn.hoverColor = sf::Color::Transparent;*/
-            btn.shape.setSize(sf::Vector2f(ItemButtonWidth, ItemButtonHeight));
-
-            if (j % 2)
-                btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 - (ItemButtonWidth + 20),
-                    windowDetails::WINDOW_HEIGHT - 5 * (ItemButtonHeight + 20) + i * (ItemButtonHeight + 20));
-            else
-                btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 + 20,
-                    windowDetails::WINDOW_HEIGHT - 5 * (ItemButtonHeight + 20) + i * (ItemButtonHeight + 20));
-
-            btn.itemIcon.setSize(sf::Vector2f(ItemButtonWidth, ItemButtonHeight));
-            btn.itemIcon.setTexture(&Resources::getInstance().getItemsTexture());
-            btn.itemIcon.setTextureRect(sf::IntRect(j * cellWidth, i * cellHeight, cellWidth, cellHeight));
-            btn.itemIcon.setPosition(btn.shape.getPosition());
-
-            btn.shape.setTexture(&Resources::getInstance().getItemFrameTexture());
-            btn.text.setFillColor(sf::Color::Transparent);
-
-            /*btn.text.setFont(font);
-            btn.text.setString("item");
-            btn.text.setCharacterSize(14);
-            btn.text.setFillColor(sf::Color::White);
-            sf::FloatRect textBounds = btn.text.getLocalBounds();
-            btn.text.setOrigin(textBounds.left + textBounds.width / 2, textBounds.top + textBounds.height / 2);
-            btn.text.setPosition(btn.shape.getPosition().x + ItemButtonWidth / 2, btn.shape.getPosition().y + ItemButtonHeight / 2);*/
-
-            buttons.push_back(btn);
+            btn.itemIcon.setTexture(&Resources::getInstance().getBasicAttackTexture());
+            btn.shape.setTexture(&Resources::getInstance().getBasicAttackTexture());
+        }
+        else
+        {
+            btn.itemIcon.setTexture(&Resources::getInstance().getBasicAttackTexture());
+            btn.shape.setTexture(&Resources::getInstance().getBasicAttackTexture());
         }
 
+        //btn.shape.setFillColor(sf::Color::Transparent);
+        btn.text.setFillColor(sf::Color::Transparent);
+
+        buttons.push_back(btn);
+    }
     return buttons;
 }
