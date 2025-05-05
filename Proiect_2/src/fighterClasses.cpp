@@ -71,6 +71,15 @@ int Character::getCooldown()
 	return m_special1Cooldown.getCooldown();
 }
 
+std::string Character::getSpecialName()
+{
+	return m_specialName;
+}
+std::string Character::getSpecialDesc()
+{
+	return m_specialDesc;
+}
+
 bool Character::isAlive()
 {
 	if (m_currHP <= 0)

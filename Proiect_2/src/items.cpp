@@ -11,6 +11,11 @@ std::string Item::getName()
 	return m_itemName;
 }
 
+std::string Item::getDesc()
+{
+	return m_itemDesc;
+}
+
 void BasicSword::applyPassive(Character& player)
 {
 	//increaseStats(player.m_basePower, m_power);

@@ -19,6 +19,7 @@ public:
 	virtual int useItemAbility(Character&) = 0; // let the active item classes implement 
 	virtual int getItemCooldown() = 0;
 	virtual std::string getName();
+	virtual std::string getDesc();
 
 	friend std::ostream& operator<<(std::ostream& out, Item& item);
 };

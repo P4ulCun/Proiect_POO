@@ -29,76 +29,16 @@ void drawHP(sf::RenderWindow& window, Player& player1, Player& player2)
 	shapeHPplayer2.setOrigin(textBounds.left + textBounds.width / 2, textBounds.top + textBounds.height / 2);
 	shapeHPplayer2.setPosition(shapeHPplayer2.getPosition().x + btnWidth / 2, shapeHPplayer2.getPosition().y + btnHeight / 2);*/
 }
-//void processEventsForPlayerTurn(Player& player1, Player& player2) // player1 e turn ul lui, player2 e enemy
-//{
-//	std::cout << std::endl << player1.m_character->getName() << "'S TURN!\n\n";
-//
-//	bool makingAMove = true;
-//	while (makingAMove)
-//	{
-//		std::cout << player1.m_character->getName() << ", make your move!\n" << "('q' for a basic attack)\n"
-//			<< "('w' for special attack)\n" << "('1', '2', '3' for item active effects)\n"
-//			<< "('i' to check inventory)\n" << "('s' to check player stats)\n\n";
-//
-//		std::string input;
-//		std::getline(std::cin, input);
-//
-//		if (input == "i" || input == "I")
-//		{
-//			//check inventory
-//			player1.m_inventory->listItems();
-//
-//			makingAMove = true; // the turn is still player1's
-//		}
-//		else if (input == "S" || input == "s")
-//		{
-//			player1.m_character->showStats();
-//			makingAMove = true;
-//		}
-//		else if (input == "Q" || input == "q")
-//		{
-//			player1.m_character->basicAttack(*player2.m_character);
-//			makingAMove = false;
-//		}
-//		else if (input == "W" || input == "w")
-//		{
-//			if (!player1.m_character->specialAttack1(*player2.m_character))
-//			{
-//				//if unsuccessful
-//				std::cout << "Special attack 1 is still on cooldown"
-//					<< "(" << player1.m_character->getCooldown() << ")"
-//					<< "! Choose another ability!\n";
-//				makingAMove = true;
-//			}
-//			else
-//			{
-//				//successful
-//				makingAMove = false;
-//			}
-//		}
-//		else if (input == "1" || input == "2" || input == "3")
-//		{
-//			int result = player1.m_inventory->useActive(std::stoi(input), *player1.m_character, *player2.m_character);
-//			if (result == 2)
-//			{
-//				std::cout << "Item " << input << " does not have an active ability! Choose another ability or item!\n";
-//				makingAMove = true;
-//			}
-//			else if (result == 0)
-//			{
-//				std::cout << "Item " << input << " is still on cooldown"
-//					<< "(" << player1.m_inventory->getItemCooldown(std::stoi(input)) << ")"
-//					<< "! Choose another ability or item!\n";
-//				makingAMove = true;
-//			}
-//			else
-//			{
-//				//successful
-//				makingAMove = false;
-//			}
-//		}
-//	}
-//}
+
+void centerText(sf::Text& textBox, sf::RectangleShape& textureBox)
+{
+	// Center text in button
+	sf::FloatRect textRect = textBox.getLocalBounds();
+	textBox.setOrigin(textRect.left + textRect.width / 2.0f,
+		textRect.top + textRect.height / 2.0f);
+	textBox.setPosition(textureBox.getPosition().x + textureBox.getSize().x / 2.0f,
+		textureBox.getPosition().y + textureBox.getSize().y / 2.0f);
+}
 
 void Game::init()
 {
@@ -119,15 +59,11 @@ void Game::init()
 	m_signText.setCharacterSize(36);
 
 	// Center text in button
-	sf::FloatRect textRect = m_signText.getLocalBounds();
-	m_signText.setOrigin(textRect.left + textRect.width / 2.0f,
-		textRect.top + textRect.height / 2.0f);
-	m_signText.setPosition(m_sign.getPosition().x + m_sign.getSize().x / 2.0f,
-		m_sign.getPosition().y + m_sign.getSize().y / 2.0f);
+	centerText(m_signText, m_sign);
 	//SIGN END
 
 	//ANNOUNCEMENT CARD START
-	sf::Texture& announceTexture = Resources::getInstance().getSignTexture();
+	sf::Texture& announceTexture = Resources::getInstance().getAnnouncementTexture();
 
 	m_announcementSign = sf::RectangleShape(sf::Vector2f(announceTexture.getSize().x, announceTexture.getSize().y));
 	m_announcementSign.setPosition(windowDetails::WINDOW_WIDTH / 2 - m_announcementSign.getSize().x / 2,
@@ -135,16 +71,11 @@ void Game::init()
 	m_announcementSign.setTexture(&announceTexture);
 
 	m_announcementText.setFont(Resources::getInstance().getFont());
-	m_announcementText.setString("Nimic");
+	m_announcementText.setString("Announcements board!");
+	centerText(m_announcementText, m_announcementSign);
 	//signText.setColor(sf::Color::);
 	m_announcementText.setCharacterSize(36);
 
-	// Center text in button
-	sf::FloatRect announceRect = m_announcementText.getLocalBounds();
-	m_announcementText.setOrigin(announceRect.left + announceRect.width / 2.0f,
-		announceRect.top + announceRect.height / 2.0f);
-	m_announcementText.setPosition(m_announcementSign.getPosition().x + m_announcementSign.getSize().x / 2.0f,
-		m_announcementSign.getPosition().y + m_announcementSign.getSize().y / 2.0f);
 	//ANNOUNCEMENT CARD END
 
 	//END SCREEN START
@@ -156,16 +87,9 @@ void Game::init()
 		(windowDetails::WINDOW_HEIGHT - endTexture.getSize().y) / 2);
 
 	m_endScreenText.setFont(Resources::getInstance().getFont());
-	m_endScreenText.setString("WINNER");
 	//signText.setColor(sf::Color::);
 	m_endScreenText.setCharacterSize(36);
 
-	// Center text in button
-	sf::FloatRect endRect = m_endScreenText.getLocalBounds();
-	m_endScreenText.setOrigin(endRect.left + endRect.width / 2.0f,
-		endRect.top + endRect.height / 2.0f);
-	m_endScreenText.setPosition(m_endScreen.getPosition().x + m_endScreen.getSize().x / 2.0f,
-		m_endScreen.getPosition().y + m_endScreen.getSize().y / 2.0f);
 	//END SCREEN END
 
 	//SELECTION BUTTONS START
@@ -198,8 +122,7 @@ void Game::applyBasicAttack(Player player1, Player player2)
 {
 	player1.m_character->basicAttack(*player2.m_character);
 
-	m_announcementText.setString(player1.m_character->getName() 
-		+ " Basic attacked " + player2.m_character->getName() + "!");
+	m_announcementText.setString("Basic attack!");
 
 	changeTurns();
 }
@@ -215,8 +138,7 @@ void Game::applySpecialAttack(Player player1, Player player2)
 	else
 	{
 		//successful
-		m_announcementText.setString(player1.m_character->getName()
-			+ " Special attacked" + player2.m_character->getName() + "!");
+		m_announcementText.setString("Special attack!!");
 		//change turn
 		changeTurns();
 	}
@@ -447,6 +369,13 @@ void Game::resetItemPlayerInventory()
 	{
 		//fa ceva
 		for (int i = 0; i < m_itemPlayer1Inventory.size(); i++)
+		{
+			if (m_itemPlayer1Inventory[i].hovered == true)
+			{
+				m_announcementText.setString(m_player1.m_inventory->getItemName(i + 1) + "\n" + m_player1.m_inventory->getItemDesc(i + 1));
+				centerText(m_announcementText, m_announcementSign);
+			}
+
 			if (m_itemPlayer1Inventory[i].selected == true)
 			{
 				m_itemPlayer1Inventory[i].selected = false;
@@ -457,7 +386,16 @@ void Game::resetItemPlayerInventory()
 				//TODO: fa actiunea de la item!!!
 				//!!
 			}
+		}
+
 		for (int i = 0; i < m_itemPlayer2Inventory.size(); i++)
+		{
+			if (m_itemPlayer2Inventory[i].hovered == true)
+			{
+				m_announcementText.setString(m_player2.m_inventory->getItemName(i + 1) + "\n" + m_player2.m_inventory->getItemDesc(i + 1));
+				centerText(m_announcementText, m_announcementSign);
+			}
+
 			if (m_itemPlayer2Inventory[i].selected == true)
 			{
 				m_itemPlayer2Inventory[i].selected = false;
@@ -468,6 +406,7 @@ void Game::resetItemPlayerInventory()
 				//TODO: fa actiunea de la item!!!
 				//!!
 			}
+		}
 	}
 }
 
@@ -477,6 +416,16 @@ void Game::resetAttackButtons()
 	{
 		//fa ceva
 		for (auto& btn : m_attackButtonsPlayer1)
+		{
+			if (btn.hovered == true)
+			{
+				if (btn.index == 1)
+				{
+					m_announcementText.setString(m_player1.m_character->getSpecialName() + "\n" + m_player1.m_character->getSpecialDesc());
+					centerText(m_announcementText, m_announcementSign);
+				}
+			}
+
 			if (btn.selected == true)
 			{
 				btn.selected = false;
@@ -495,7 +444,19 @@ void Game::resetAttackButtons()
 						applySpecialAttack(m_player1, m_player2);
 				}
 			}
+		}
+
 		for (auto& btn : m_attackButtonsPlayer2)
+		{
+			if (btn.hovered == true)
+			{
+				if (btn.index == 1)
+				{
+					m_announcementText.setString(m_player2.m_character->getSpecialName() + "\n" + m_player2.m_character->getSpecialDesc());
+					centerText(m_announcementText, m_announcementSign);
+				}
+			}
+
 			if (btn.selected == true)
 			{
 				btn.selected = false;
@@ -514,6 +475,7 @@ void Game::resetAttackButtons()
 						applySpecialAttack(m_player2, m_player1);
 				}
 			}
+		}
 	}
 	else
 	{
@@ -545,9 +507,15 @@ void Game::update()
 		if (!playersAreAlive())
 		{
 			if (m_player1.m_character->isAlive())
+			{
 				m_signText.setString(m_player1.m_character->getName() + " IS THE\n     WINNER!!");
+				centerText(m_signText, m_sign);
+			}
 			else
+			{
 				m_signText.setString(m_player2.m_character->getName() + " IS THE\n     WINNER!!");
+				centerText(m_signText, m_sign);
+			}
 			return;
 		}
 
@@ -606,6 +574,7 @@ void Game::drawFrame(sf::RenderWindow& window)
 			else
 			{
 				window.draw(m_announcementSign);
+				centerText(m_announcementText, m_announcementSign);
 				window.draw(m_announcementText);
 			}
 

@@ -99,4 +99,6 @@ public:
 };
 
 void drawHP(sf::RenderWindow& window, Player& player1, Player& player2);
+
+void centerText();
 //void processEventsForPlayerTurn(Player& player1, Player& player2);

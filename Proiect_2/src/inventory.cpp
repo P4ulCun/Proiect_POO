@@ -14,6 +14,17 @@ Inventory::Inventory(const Inventory& inventory)
 	m_items = inventory.m_items;
 }
 
+std::string Inventory::getItemName(int index)
+{
+	index--;
+	return m_items[index]->getName();
+}
+std::string Inventory::getItemDesc(int index)
+{
+	index--;
+	return m_items[index]->getDesc();
+}
+
 void ItemShop::addItem(std::shared_ptr<Item> item) { m_items.push_back(item); }
 void ItemShop::removeItem(std::shared_ptr<Item> item)
 {

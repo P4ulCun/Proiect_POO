@@ -21,6 +21,8 @@ public:
 	virtual void addItem(std::shared_ptr<Item> item) = 0;
 	virtual void removeItem(std::shared_ptr<Item> item) = 0;
 	virtual void listItems();
+	virtual std::string getItemName(int index);
+	virtual std::string getItemDesc(int index);
 	//virtual void listItems() = 0;
 	// asta pt afisare cu sprites si chestii
 };

@@ -8,6 +8,9 @@ void Resources::initTextures()
 	if (!m_signTexture.loadFromFile(PATH + "wood_sign_360-200.png"))
 		throw TextureLoadError("Couldn't load texture\n");
 
+	if (!m_announcementTexture.loadFromFile(PATH + "announcement_sign.png"))
+		throw TextureLoadError("Couldn't load texture\n");
+
 	if (!m_itemFrameTexture.loadFromFile(PATH + "item_frame_3.png"))
 		throw TextureLoadError("Couldn't load texture\n");
 
@@ -33,6 +36,7 @@ void Resources::initFont()
 
 sf::Texture& Resources::getBGTexture() { return m_backgroundTexture; }
 sf::Texture& Resources::getSignTexture() { return m_signTexture; }
+sf::Texture& Resources::getAnnouncementTexture() { return m_announcementTexture; }
 sf::Texture& Resources::getItemFrameTexture() { return m_itemFrameTexture; }
 sf::Texture& Resources::getRogueTexture() { return m_rogueTexture; }
 sf::Texture& Resources::getDruidTexture() { return m_druidTexture; }

@@ -10,6 +10,7 @@ private:
 	sf::Font m_font;
 	sf::Texture m_backgroundTexture;
 	sf::Texture m_signTexture;
+	sf::Texture m_announcementTexture;
 	sf::Texture m_itemFrameTexture;
 	sf::Texture m_rogueTexture;
 	sf::Texture m_druidTexture;
@@ -24,6 +25,7 @@ public:
 	void initFont();
 	sf::Texture& getBGTexture();
 	sf::Texture& getSignTexture();
+	sf::Texture& getAnnouncementTexture();
 	sf::Texture& getItemFrameTexture();
 	sf::Texture& getRogueTexture();
 	sf::Texture& getDruidTexture();
