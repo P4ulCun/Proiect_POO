@@ -21,7 +21,7 @@ void Resources::initTextures()
 	if (!m_itemsTexture.loadFromFile(PATH + "itemSprite.png"))
 		throw TextureLoadError("Couldn't load texture\n");
 
-	if (!m_basicAttackTexture.loadFromFile(PATH + "basic_attack.png"))
+	if (!m_basicAttackTexture.loadFromFile(PATH + "attack_buttons.png"))
 		throw TextureLoadError("Couldn't load texture\n");
 }
 

@@ -28,7 +28,8 @@ int Character::takeDamage(int value)
 { 
 	// need to occount for armour (damage reduction by %) : (m_armour + 1)^2
 	value = value - (int)((value * pow(m_currArmour + 1, 2)) / 100);
-	m_currHP -= value; 
+	m_currHP = (m_currHP - value <= 0) ? 0 : m_currHP - value;
+	//m_currHP -= value; 
 	return value;
 }
 int Character::heal(int value)

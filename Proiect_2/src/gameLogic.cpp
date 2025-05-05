@@ -126,6 +126,48 @@ void Game::init()
 		m_sign.getPosition().y + m_sign.getSize().y / 2.0f);
 	//SIGN END
 
+	//ANNOUNCEMENT CARD START
+	sf::Texture& announceTexture = Resources::getInstance().getSignTexture();
+
+	m_announcementSign = sf::RectangleShape(sf::Vector2f(announceTexture.getSize().x, announceTexture.getSize().y));
+	m_announcementSign.setPosition(windowDetails::WINDOW_WIDTH / 2 - m_announcementSign.getSize().x / 2,
+		windowDetails::WINDOW_HEIGHT - announceTexture.getSize().y);
+	m_announcementSign.setTexture(&announceTexture);
+
+	m_announcementText.setFont(Resources::getInstance().getFont());
+	m_announcementText.setString("Nimic");
+	//signText.setColor(sf::Color::);
+	m_announcementText.setCharacterSize(36);
+
+	// Center text in button
+	sf::FloatRect announceRect = m_announcementText.getLocalBounds();
+	m_announcementText.setOrigin(announceRect.left + announceRect.width / 2.0f,
+		announceRect.top + announceRect.height / 2.0f);
+	m_announcementText.setPosition(m_announcementSign.getPosition().x + m_announcementSign.getSize().x / 2.0f,
+		m_announcementSign.getPosition().y + m_announcementSign.getSize().y / 2.0f);
+	//ANNOUNCEMENT CARD END
+
+	//END SCREEN START
+	sf::Texture& endTexture = Resources::getInstance().getSignTexture();
+
+	m_endScreen = sf::RectangleShape(sf::Vector2f(endTexture.getSize().x, endTexture.getSize().y));
+	m_endScreen.setTexture(&endTexture);
+	m_endScreen.setPosition((windowDetails::WINDOW_WIDTH - endTexture.getSize().x) / 2,
+		(windowDetails::WINDOW_HEIGHT - endTexture.getSize().y) / 2);
+
+	m_endScreenText.setFont(Resources::getInstance().getFont());
+	m_endScreenText.setString("WINNER");
+	//signText.setColor(sf::Color::);
+	m_endScreenText.setCharacterSize(36);
+
+	// Center text in button
+	sf::FloatRect endRect = m_endScreenText.getLocalBounds();
+	m_endScreenText.setOrigin(endRect.left + endRect.width / 2.0f,
+		endRect.top + endRect.height / 2.0f);
+	m_endScreenText.setPosition(m_endScreen.getPosition().x + m_endScreen.getSize().x / 2.0f,
+		m_endScreen.getPosition().y + m_endScreen.getSize().y / 2.0f);
+	//END SCREEN END
+
 	//SELECTION BUTTONS START
 	m_classSelectionButtons = initClassSelectionButtons(Resources::getInstance().getFont());
 	m_itemSelectionButtons = initItemSelectionButtons(Resources::getInstance().getFont());
@@ -133,20 +175,81 @@ void Game::init()
 	m_attackButtonsPlayer1 = initAttackButtons(Resources::getInstance().getFont(), 1);
 	m_attackButtonsPlayer2 = initAttackButtons(Resources::getInstance().getFont(), 2);
 	//SELECTION BUTTONS END
-	
-	//CHARACTER CREATION
-
-	/*std::cout << "PLAYER 1 - MAKE YOUR CHARACTER!\n\n";
-	m_player1 = createPlayer();
-
-	std::cout << "PLAYER 2 - YOUR TURN!\n\n";
-	m_player2 = createPlayer();
-
-	std::cout << "GET READY!\n\n" << "FIGHT!\n";*/
 }
 
 float Game::getDeltaTime() { return m_deltaTime; }
 void Game::getMousePosition(sf::RenderWindow& window) { m_mousePosition = sf::Vector2f(sf::Mouse::getPosition(window)); }
+
+void Game::changeTurns()
+{
+	if (m_player1sTurn)
+	{
+		applyCooldownTicks(m_player1);
+		m_player1sTurn = !m_player1sTurn;
+	}
+	else
+	{
+		applyCooldownTicks(m_player2);
+		m_player1sTurn = !m_player1sTurn;
+	}
+}
+
+void Game::applyBasicAttack(Player player1, Player player2)
+{
+	player1.m_character->basicAttack(*player2.m_character);
+
+	m_announcementText.setString(player1.m_character->getName() 
+		+ " Basic attacked " + player2.m_character->getName() + "!");
+
+	changeTurns();
+}
+
+void Game::applySpecialAttack(Player player1, Player player2)
+{
+	if (!player1.m_character->specialAttack1(*player2.m_character))
+	{
+		//if unsuccessful
+		m_announcementText.setString("Cooldown: " + std::to_string(player1.m_character->getCooldown()));
+		//try again
+	}
+	else
+	{
+		//successful
+		m_announcementText.setString(player1.m_character->getName()
+			+ " Special attacked" + player2.m_character->getName() + "!");
+		//change turn
+		changeTurns();
+	}
+}
+
+void Game::applyItemActive(Player player1, Player player2, int index)
+{
+	index++;
+	int result = player1.m_inventory->useActive(index, *player1.m_character, *player2.m_character);
+	if (result == 2)
+	{
+		//do nothing
+		//not an active
+		m_announcementText.setString("Not Active Item");
+	}
+	else if (result == 0)
+	{
+		//item on cooldown
+		m_announcementText.setString("Cooldown: " + std::to_string(player1.m_inventory->getItemCooldown(index)));
+	}
+	else
+	{
+		//successfully used active
+		m_announcementText.setString(player1.m_character->getName() + " used active item!");
+		changeTurns();
+	}
+}
+
+void Game::applyCooldownTicks(Player player)
+{
+	player.m_character->applyAbilityCooldownTicks();
+	player.m_inventory->applyItemsCooldownTicks();
+}
 
 void Game::resetClassSelectionButtons()
 {
@@ -174,7 +277,7 @@ void Game::resetClassSelectionButtons()
 					player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
 					animationPlayer1 = CharacterAnimation(1, t, sf::Vector2u(2, 1), 0.5f);
 
-					character1 = CharacterFactory::createCharacter("R", "noName");
+					character1 = CharacterFactory::createCharacter("R", "Player1");
 				}
 				else
 				{
@@ -184,7 +287,7 @@ void Game::resetClassSelectionButtons()
 						windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
 					animationPlayer2 = CharacterAnimation(2, t, sf::Vector2u(2, 1), 0.5f);
 
-					character2 = CharacterFactory::createCharacter("R", "noName");
+					character2 = CharacterFactory::createCharacter("R", "Player2");
 				}
 
 				break;
@@ -198,7 +301,7 @@ void Game::resetClassSelectionButtons()
 					player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
 					animationPlayer1 = CharacterAnimation(2, t, sf::Vector2u(2, 1), 0.5f);
 
-					character1 = CharacterFactory::createCharacter("D", "noName");
+					character1 = CharacterFactory::createCharacter("D", "Player1");
 				}
 				else
 				{
@@ -208,7 +311,7 @@ void Game::resetClassSelectionButtons()
 						windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
 					animationPlayer2 = CharacterAnimation(1, t, sf::Vector2u(2, 1), 0.5f);
 
-					character2 = CharacterFactory::createCharacter("D", "noName");
+					character2 = CharacterFactory::createCharacter("D", "Player2");
 				}
 				break;
 
@@ -343,21 +446,25 @@ void Game::resetItemPlayerInventory()
 	if (!m_selectClass && !m_selectItems)
 	{
 		//fa ceva
-		for (auto& btn : m_itemPlayer1Inventory)
-			if (btn.selected == true)
+		for (int i = 0; i < m_itemPlayer1Inventory.size(); i++)
+			if (m_itemPlayer1Inventory[i].selected == true)
 			{
-				btn.selected = false;
-				btn.hovered = false;
+				m_itemPlayer1Inventory[i].selected = false;
+				m_itemPlayer1Inventory[i].hovered = false;
 
+				if (m_player1sTurn)
+					applyItemActive(m_player1, m_player2, i);
 				//TODO: fa actiunea de la item!!!
 				//!!
 			}
-		for (auto& btn : m_itemPlayer2Inventory)
-			if (btn.selected == true)
+		for (int i = 0; i < m_itemPlayer2Inventory.size(); i++)
+			if (m_itemPlayer2Inventory[i].selected == true)
 			{
-				btn.selected = false;
-				btn.hovered = false;
+				m_itemPlayer2Inventory[i].selected = false;
+				m_itemPlayer2Inventory[i].hovered = false;
 
+				if (!m_player1sTurn)
+					applyItemActive(m_player2, m_player1, i);
 				//TODO: fa actiunea de la item!!!
 				//!!
 			}
@@ -375,8 +482,18 @@ void Game::resetAttackButtons()
 				btn.selected = false;
 				btn.hovered = false;
 
-				//TODO: fa actiunea de la item!!!
-				//!!
+				if (btn.index == 0)
+				{
+					//basic attack
+					if (m_player1sTurn)
+						applyBasicAttack(m_player1, m_player2);
+				}
+				else if (btn.index == 1)
+				{
+					//special attack
+					if (m_player1sTurn)
+						applySpecialAttack(m_player1, m_player2);
+				}
 			}
 		for (auto& btn : m_attackButtonsPlayer2)
 			if (btn.selected == true)
@@ -384,10 +501,32 @@ void Game::resetAttackButtons()
 				btn.selected = false;
 				btn.hovered = false;
 
-				//TODO: fa actiunea de la item!!!
-				//!!
+				if (btn.index == 0)
+				{
+					//basic attack
+					if (!m_player1sTurn)
+						applyBasicAttack(m_player2, m_player1);
+				}
+				else if (btn.index == 1)
+				{
+					//special attack
+					if (!m_player1sTurn)
+						applySpecialAttack(m_player2, m_player1);
+				}
 			}
 	}
+	else
+	{
+		for (auto& btn : m_attackButtonsPlayer1)
+			btn.selected = false;
+		for (auto& btn : m_attackButtonsPlayer2)
+			btn.selected = false;
+	}
+}
+
+bool Game::playersAreAlive()
+{
+	return m_player1.m_character->isAlive() && m_player2.m_character->isAlive();
 }
 
 void Game::updateDeltaTime()
@@ -401,6 +540,17 @@ void Game::update()
 		m_signText.setString("Player 1's TURN");
 	else
 		m_signText.setString("Player 2's TURN");
+
+	if (m_selectClass == false && m_selectItems == false)
+		if (!playersAreAlive())
+		{
+			if (m_player1.m_character->isAlive())
+				m_signText.setString(m_player1.m_character->getName() + " IS THE\n     WINNER!!");
+			else
+				m_signText.setString(m_player2.m_character->getName() + " IS THE\n     WINNER!!");
+			return;
+		}
+
 
 	animationPlayer1.update(0, m_deltaTime); // first animation aka row 0
 	player1Sprite.setTextureRect(animationPlayer1.m_uvRect);
@@ -446,6 +596,19 @@ void Game::drawFrame(sf::RenderWindow& window)
 
 			drawHP(window, m_player1, m_player2);
 		}
+
+		if (m_selectClass == false && m_selectItems == false)
+			if (!playersAreAlive())
+			{
+				/*window.draw(m_endScreen);
+				window.draw(m_endScreenText);*/
+			}
+			else
+			{
+				window.draw(m_announcementSign);
+				window.draw(m_announcementText);
+			}
+
 		window.draw(player1Sprite);
 		window.draw(player2Sprite);
 	}
@@ -455,6 +618,10 @@ void Game::drawFrame(sf::RenderWindow& window)
 
 void Game::handleInputs(sf::Event& event)
 {
+	if (!m_selectClass && !m_selectItems)
+		if (!playersAreAlive())
+			return;
+
 	// Mouse hover Class Select Buttons
 	for (int i = 0; i < m_classSelectionButtons.size(); i++) {
 		if (m_classSelectionButtons[i].contains(m_mousePosition)) {
@@ -577,8 +744,7 @@ void Game::handleInputs(sf::Event& event)
 			for (int i = 0; i < m_attackButtonsPlayer1.size(); i++) {
 				if (m_attackButtonsPlayer1[i].contains(m_mousePosition)) {
 					m_attackButtonsPlayer1[i].selected = true;
-					std::cout << "pressed " << i << "nd button!\n";
-					//std::cout << "Selected: " << labels[i] << std::endl;
+					std::cout << "pressed attack button " << m_attackButtonsPlayer1[i].index << "!\n";
 				}
 			}
 		}
@@ -588,65 +754,8 @@ void Game::handleInputs(sf::Event& event)
 			for (int i = 0; i < m_attackButtonsPlayer2.size(); i++) {
 				if (m_attackButtonsPlayer2[i].contains(m_mousePosition)) {
 					m_attackButtonsPlayer2[i].selected = true;
-					std::cout << "pressed " << i << "nd button!\n";
-					//std::cout << "Selected: " << labels[i] << std::endl;
+					std::cout << "pressed attack button " << m_attackButtonsPlayer2[i].index << "!\n";
 				}
 			}
 		}
 }
-
-//bool Game_CLI::playersAreAlive()
-//{
-//	return m_player1.m_character->isAlive() && m_player2.m_character->isAlive();
-//}
-//
-//bool Game_CLI::isPlayer1sTurn()
-//{
-//	return m_player1sTurn;
-//}
-//
-//void Game_CLI::processEvents() // for first players turn
-//{
-//	if (m_player1sTurn)
-//	{
-//		std::cout << "\n\n---------It is now round " << m_round << "!!!---------\n\n";
-//		m_round++;
-//		processEventsForPlayerTurn(m_player1, m_player2); // process events on player1's turn
-//	}
-//	else
-//	{
-//		processEventsForPlayerTurn(m_player2, m_player1); // now for player2
-//	}
-//}
-//
-//void Game_CLI::applyCooldownTicks() // 1 or 2
-//{
-//	if (m_player1sTurn)
-//	{
-//		m_player1.m_character->applyAbilityCooldownTicks();
-//		m_player1.m_inventory->applyItemsCooldownTicks();
-//	}
-//	else
-//	{
-//		m_player2.m_character->applyAbilityCooldownTicks();
-//		m_player2.m_inventory->applyItemsCooldownTicks();
-//	}
-//}
-//
-//void Game_CLI::changeTurn()
-//{
-//	m_player1sTurn = !m_player1sTurn;
-//}
-//
-//void Game_CLI::showWinner()
-//{
-//	if (m_player1.m_character->isAlive())
-//	{
-//		std::cout << "-------CONGRATS " << m_player1.m_character->getName() << ", YOU'VE WON!!-------\n";
-//	}
-//	else
-//	{
-//		std::cout << "-------CONGRATS " << m_player2.m_character->getName() << ", YOU'VE WON!!-------\n";
-//	}
-//}
-//

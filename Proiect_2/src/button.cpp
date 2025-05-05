@@ -122,29 +122,23 @@ std::vector<Button> initAttackButtons(sf::Font& font, int player)
     for (int i = 0; i < 2; i++)
     {
         Button btn;
-        
+        btn.index = i;
         btn.shape.setSize(sf::Vector2f(cellWidth, cellHeight));
 
         if (player == 1)
             btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 - cellWidth - 50 - i * 30,
-                windowDetails::WINDOW_HEIGHT / 2 + i * (cellHeight + 20));
+                windowDetails::WINDOW_HEIGHT / 2 - cellHeight + i * (cellHeight + 20));
         else
             btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 + 50 + i * 30,
-                windowDetails::WINDOW_HEIGHT / 2 + i * (cellHeight + 20));
+                windowDetails::WINDOW_HEIGHT / 2 - cellHeight + i * (cellHeight + 20));
 
         btn.itemIcon.setSize(sf::Vector2f(cellWidth, cellHeight));
         btn.itemIcon.setPosition(btn.shape.getPosition());
 
-        if (i == 0)
-        {
-            btn.itemIcon.setTexture(&Resources::getInstance().getBasicAttackTexture());
-            btn.shape.setTexture(&Resources::getInstance().getBasicAttackTexture());
-        }
-        else
-        {
-            btn.itemIcon.setTexture(&Resources::getInstance().getBasicAttackTexture());
-            btn.shape.setTexture(&Resources::getInstance().getBasicAttackTexture());
-        }
+        btn.itemIcon.setTexture(&Resources::getInstance().getBasicAttackTexture());
+        btn.itemIcon.setTextureRect(sf::IntRect(i * cellWidth, 0, cellWidth, cellHeight));
+        btn.shape.setTexture(&Resources::getInstance().getBasicAttackTexture());
+        btn.shape.setTextureRect(sf::IntRect(i * cellWidth, 0, cellWidth, cellHeight));
 
         //btn.shape.setFillColor(sf::Color::Transparent);
         btn.text.setFillColor(sf::Color::Transparent);

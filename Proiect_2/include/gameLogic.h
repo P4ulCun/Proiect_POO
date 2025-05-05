@@ -44,8 +44,15 @@ private:
 	std::vector<Button> m_attackButtonsPlayer2;
 
 	sf::Sprite m_backgroundSprite;
+
 	sf::RectangleShape m_sign;
 	sf::Text m_signText;
+
+	sf::RectangleShape m_endScreen;
+	sf::Text m_endScreenText;
+
+	sf::RectangleShape m_announcementSign;
+	sf::Text m_announcementText;
 
 	sf::Sprite player1Sprite;
 	CharacterAnimation animationPlayer1;
@@ -74,6 +81,13 @@ public:
 	void update();
 
 	void updateDeltaTime();
+
+	void applyBasicAttack(Player player1, Player player2);
+	void applySpecialAttack(Player player1, Player player2);
+	void applyItemActive(Player player1, Player player2, int index);
+	void applyCooldownTicks(Player player);
+	bool playersAreAlive();
+	void changeTurns();
 
 	float getDeltaTime();
 	void getMousePosition(sf::RenderWindow& window);
