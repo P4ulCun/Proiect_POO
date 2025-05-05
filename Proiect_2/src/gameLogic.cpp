@@ -347,7 +347,7 @@ void Game::resetItemSelectionButtons()
 			for (int i = 0; i < m_itemSelectionButtons.size(); i++)
 				if (m_itemSelectionButtons[i].selected == true)
 				{
-					items.push_back(std::to_string(i + 1));
+					items.push_back(std::to_string(m_itemSelectionButtons[i].index));
 					m_itemPlayer2Inventory.push_back(m_itemSelectionButtons[i]);
 				}
 
@@ -396,7 +396,7 @@ void Game::resetItemSelectionButtons()
 			for (int i = 0; i < m_itemSelectionButtons.size(); i++)
 				if (m_itemSelectionButtons[i].selected == true)
 				{
-					items.push_back(std::to_string(i + 1));
+					items.push_back(std::to_string(m_itemSelectionButtons[i].index));
 					m_itemPlayer1Inventory.push_back(m_itemSelectionButtons[i]);
 				}
 
@@ -661,7 +661,7 @@ void Game::handleInputs(sf::Event& event)
 		for (int i = 0; i < m_itemSelectionButtons.size(); i++) {
 			if (m_itemSelectionButtons[i].contains(m_mousePosition)) {
 				m_itemSelectionButtons[i].selected = true;
-				std::cout << "pressed " << i << "nd button!\n";
+				std::cout << "pressed " << m_itemSelectionButtons[i].index << "nd button!\n";
 				//std::cout << "Selected: " << labels[i] << std::endl;
 			}
 		}
@@ -697,7 +697,7 @@ void Game::handleInputs(sf::Event& event)
 			for (int i = 0; i < m_itemPlayer1Inventory.size(); i++) {
 				if (m_itemPlayer1Inventory[i].contains(m_mousePosition)) {
 					m_itemPlayer1Inventory[i].selected = true;
-					std::cout << "pressed " << i << "nd button!\n";
+					std::cout << "pressed " << m_itemPlayer1Inventory[i].index << "nd button!\n";
 					//std::cout << "Selected: " << labels[i] << std::endl;
 				}
 			}
@@ -708,7 +708,7 @@ void Game::handleInputs(sf::Event& event)
 			for (int i = 0; i < m_itemPlayer2Inventory.size(); i++) {
 				if (m_itemPlayer2Inventory[i].contains(m_mousePosition)) {
 					m_itemPlayer2Inventory[i].selected = true;
-					std::cout << "pressed " << i << "nd button!\n";
+					std::cout << "pressed " << m_itemPlayer2Inventory[i].index << "nd button!\n";
 					//std::cout << "Selected: " << labels[i] << std::endl;
 				}
 			}
