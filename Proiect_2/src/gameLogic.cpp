@@ -104,6 +104,13 @@ void Game::init()
 float Game::getDeltaTime() { return m_deltaTime; }
 void Game::getMousePosition(sf::RenderWindow& window) { m_mousePosition = sf::Vector2f(sf::Mouse::getPosition(window)); }
 
+void Game::updateAnnouncementBoard(std::string string)
+{
+	m_announcementText.setString(string);
+	m_announcementText.setCharacterSize(30);
+	centerText(m_announcementText, m_announcementSign);
+}
+
 void Game::changeTurns()
 {
 	if (m_player1sTurn)
@@ -176,9 +183,30 @@ void Game::applyCooldownTicks(Player player)
 void Game::resetClassSelectionButtons()
 {
 	if (m_selectClass == false)
+	{
+		for (auto& btn : m_classSelectionButtons)
+			btn.hovered = false;
 		return;
+	}
 
 	for (auto& btn : m_classSelectionButtons)
+	{
+		if (btn.hovered == true)
+		{
+			switch (btn.index)
+			{
+			case 1:
+				updateAnnouncementBoard("High damage\nLower hp / armour");
+				break;
+			case 2:
+				updateAnnouncementBoard("High armour\nAverage health/dmg\nImproved healing");
+				break;
+			case 3:
+				updateAnnouncementBoard("High healh\nAverage dmg/armour ");
+				break;
+			}
+		}
+
 		if (btn.selected == true)
 		{
 			btn.hovered = false;
@@ -242,21 +270,32 @@ void Game::resetClassSelectionButtons()
 				break;
 			}
 
-			
+
 			m_selectClass = false;
 			m_selectItems = true;
 		}
+	}
 }
 
 void Game::resetItemSelectionButtons()
 {
 	if (m_selectItems == false)
+	{
+		for (auto& btn : m_itemSelectionButtons)
+			btn.hovered = false;
 		return;
+	}
 
 	int selectedCnt = 0;
 	for (auto& btn : m_itemSelectionButtons)
+	{
+		if (btn.hovered == true)
+			updateAnnouncementBoard(ItemShop::getInstance().getItemName(btn.index) + "\n" +
+				ItemShop::getInstance().getItemDesc(btn.index));
+
 		if (btn.selected == true)
 			selectedCnt++;
+	}
 
 	if (selectedCnt > 3)
 		std::cout << "prea multe iteme!! eroare!!\n";
@@ -371,10 +410,7 @@ void Game::resetItemPlayerInventory()
 		for (int i = 0; i < m_itemPlayer1Inventory.size(); i++)
 		{
 			if (m_itemPlayer1Inventory[i].hovered == true)
-			{
-				m_announcementText.setString(m_player1.m_inventory->getItemName(i + 1) + "\n" + m_player1.m_inventory->getItemDesc(i + 1));
-				centerText(m_announcementText, m_announcementSign);
-			}
+				updateAnnouncementBoard(m_player1.m_inventory->getItemName(i + 1) + "\n" + m_player1.m_inventory->getItemDesc(i + 1));
 
 			if (m_itemPlayer1Inventory[i].selected == true)
 			{
@@ -391,10 +427,7 @@ void Game::resetItemPlayerInventory()
 		for (int i = 0; i < m_itemPlayer2Inventory.size(); i++)
 		{
 			if (m_itemPlayer2Inventory[i].hovered == true)
-			{
-				m_announcementText.setString(m_player2.m_inventory->getItemName(i + 1) + "\n" + m_player2.m_inventory->getItemDesc(i + 1));
-				centerText(m_announcementText, m_announcementSign);
-			}
+				updateAnnouncementBoard(m_player2.m_inventory->getItemName(i + 1) + "\n" + m_player2.m_inventory->getItemDesc(i + 1));
 
 			if (m_itemPlayer2Inventory[i].selected == true)
 			{
@@ -417,14 +450,9 @@ void Game::resetAttackButtons()
 		//fa ceva
 		for (auto& btn : m_attackButtonsPlayer1)
 		{
-			if (btn.hovered == true)
-			{
-				if (btn.index == 1)
-				{
-					m_announcementText.setString(m_player1.m_character->getSpecialName() + "\n" + m_player1.m_character->getSpecialDesc());
-					centerText(m_announcementText, m_announcementSign);
-				}
-			}
+			if (btn.index == 1)
+				if (btn.hovered == true)
+					updateAnnouncementBoard(m_player1.m_character->getSpecialName() + "\n" + m_player1.m_character->getSpecialDesc());
 
 			if (btn.selected == true)
 			{
@@ -448,14 +476,9 @@ void Game::resetAttackButtons()
 
 		for (auto& btn : m_attackButtonsPlayer2)
 		{
-			if (btn.hovered == true)
-			{
-				if (btn.index == 1)
-				{
-					m_announcementText.setString(m_player2.m_character->getSpecialName() + "\n" + m_player2.m_character->getSpecialDesc());
-					centerText(m_announcementText, m_announcementSign);
-				}
-			}
+			if (btn.index == 1)
+				if (btn.hovered == true)
+					updateAnnouncementBoard(m_player2.m_character->getSpecialName() + "\n" + m_player2.m_character->getSpecialDesc());
 
 			if (btn.selected == true)
 			{
@@ -534,6 +557,9 @@ void Game::drawFrame(sf::RenderWindow& window)
 	window.draw(m_backgroundSprite);
 	window.draw(m_sign);
 	window.draw(m_signText);
+	window.draw(m_announcementSign);
+	centerText(m_announcementText, m_announcementSign);
+	window.draw(m_announcementText);
 
 	if (m_selectClass == true)
 	{
@@ -573,9 +599,7 @@ void Game::drawFrame(sf::RenderWindow& window)
 			}
 			else
 			{
-				window.draw(m_announcementSign);
-				centerText(m_announcementText, m_announcementSign);
-				window.draw(m_announcementText);
+
 			}
 
 		window.draw(player1Sprite);

@@ -81,6 +81,7 @@ public:
 	void update();
 
 	void updateDeltaTime();
+	void updateAnnouncementBoard(std::string string);
 
 	void applyBasicAttack(Player player1, Player player2);
 	void applySpecialAttack(Player player1, Player player2);

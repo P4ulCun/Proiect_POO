@@ -3,43 +3,43 @@
 		{
 			"type": "BasicSword",
 			"name": "Obsidian Dagger",
-			"description": "A simple dagger made from obsidian.",
+			"description": "Passive: adds power",
 			"power": 15
 		},
 		{
 			"type": "BasicSword",
 			"name": "Rapier",
-			"description": "Razor-thin blade with a pointy tip. Be careful!",
+			"description": "Passive: adds power",
 			"power": 15
 		},
 		{
 			"type": "BasicHeal",
 			"name": "Belt of strength",
-			"description": "Increases base amount of HP.",
+			"description": "Passive: increases HP",
 			"hp": 45
 		},
 		{
 			"type": "BasicHeal",
 			"name": "Health ring",
-			"description": "A ring that increases base HP.",
+			"description": "Passive: increases HP",
 			"hp": 50
 		},
 		{
 			"type": "BasicArmour",
 			"name": "Turtle shell",
-			"description": "Basic protection made from the shell of a tortoise.",
+			"description": "Passive: increases armour",
 			"armour": 2
 		},
 		{
 			"type": "BasicArmour",
 			"name": "Chainmail",
-			"description": "Provides decent protection in battle.",
+			"description": "Passive: increases armour",
 			"armour": 3
 		},
 		{
 			"type": "ActiveSword",
 			"name": "Grieving Blade",
-			"description": "A cursed sword that causes major damage.",
+			"description": "Passive: no stats\nActive: deals heavy DMG",
 			"power": 0,
 			"activePower": 45,
 			"cooldown": 2
@@ -47,7 +47,7 @@
 		{
 			"type": "ActiveSword",
 			"name": "Ashened Fang",
-			"description": "Fangs of an ancient beast, increase base armour and can pierce enemies.",
+			"description": "Passive: adds power\nActive: deals DMG",
 			"power": 18,
 			"activePower": 30,
 			"cooldown": 3
@@ -55,7 +55,7 @@
 		{
 			"type": "ActiveHeal",
 			"name": "Faerie Fire",
-			"description": "Provides base health and can be consumed to heal.",
+			"description": "Passive: increase HP\nActive: moderate healing",
 			"hp": 20,
 			"activeHp": 40,
 			"cooldown": 3
@@ -63,7 +63,7 @@
 		{
 			"type": "ActiveHeal",
 			"name": "Mekansm",
-			"description": "A powerful mechanism that instantly heals the user.",
+			"description": "Passive: no stats\nActive: Major healing",
 			"hp": 0,
 			"activeHp": 100,
 			"cooldown": 3

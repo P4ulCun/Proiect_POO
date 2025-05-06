@@ -54,7 +54,7 @@ std::vector<Button> initClassSelectionButtons(sf::Font& font)
 
         btn.shape.setSize(sf::Vector2f(ClassButtonWidth, ClassButtonHeight));
         btn.shape.setPosition((windowDetails::WINDOW_WIDTH - ClassButtonWidth) / 2, 
-            windowDetails::WINDOW_HEIGHT / 2 + i * (ClassButtonHeight + 20));
+            windowDetails::WINDOW_HEIGHT / 2 + i * (ClassButtonHeight + 20) - 100);
         btn.shape.setFillColor(btn.color);
 
         btn.text.setFont(font);
@@ -89,12 +89,14 @@ std::vector<Button> initItemSelectionButtons(sf::Font& font)
             btn.hoverColor = sf::Color::Transparent;*/
             btn.shape.setSize(sf::Vector2f(ItemButtonWidth, ItemButtonHeight));
 
-            if (j % 2)
+            btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 - 2 * (ItemButtonWidth + 20) + index % 4 * (ItemButtonHeight + 20),
+                windowDetails::WINDOW_HEIGHT - 5 * (ItemButtonHeight + 20) + index / 4 * (ItemButtonHeight + 20));
+            /*if (j % 2)
                 btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 - (ItemButtonWidth + 20),
                     windowDetails::WINDOW_HEIGHT - 5 * (ItemButtonHeight + 20) + i * (ItemButtonHeight + 20));
             else
                 btn.shape.setPosition(windowDetails::WINDOW_WIDTH / 2 + 20,
-                    windowDetails::WINDOW_HEIGHT - 5 * (ItemButtonHeight + 20) + i * (ItemButtonHeight + 20));
+                    windowDetails::WINDOW_HEIGHT - 5 * (ItemButtonHeight + 20) + i * (ItemButtonHeight + 20));*/
 
             btn.itemIcon.setSize(sf::Vector2f(ItemButtonWidth, ItemButtonHeight));
             btn.itemIcon.setTexture(&Resources::getInstance().getItemsTexture());
