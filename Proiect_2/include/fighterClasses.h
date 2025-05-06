@@ -18,15 +18,15 @@ namespace CharacterStats {
 	constexpr int DRUID_POWER = 13;
 	constexpr int DRUID_ARMOR = 4;
 	constexpr int DRUID_SPECIAL1_COOLDOWN = 3;
-	const std::string DRUID_SPECIAL_NAME = "Deery bite";
+	const std::string DRUID_SPECIAL_NAME = "Deery Bite";
 	const std::string DRUID_SPECIAL_DESC = "Adds damage and heals";
 
 	constexpr int WARRIOR_HP = 160;
 	constexpr int WARRIOR_POWER = 15;
 	constexpr int WARRIOR_ARMOR = 3;
-	constexpr int WARRIOR_SPECIAL1_COOLDOWN = 1;
-	const std::string WARRIOR_SPECIAL_NAME = "Deery bite";
-	const std::string WARRIOR_SPECIAL_DESC = "Deery bite";
+	constexpr int WARRIOR_SPECIAL1_COOLDOWN = 2;
+	const std::string WARRIOR_SPECIAL_NAME = "Shield Bash";
+	const std::string WARRIOR_SPECIAL_DESC = "Deals damage\nIncrease armour";
 
 	constexpr int PALADIN_HP = 130;
 	constexpr int PALADIN_POWER = 18;

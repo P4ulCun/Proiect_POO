@@ -68,14 +68,7 @@ public:
 	~Game() = default;
 
 	void init();
-	/*bool playersAreAlive();
-	bool isPlayer1sTurn();
-	void changeTurn();
-	void processEvents();
-	void applyCooldownTicks();
-	void showWinner();*/
-	/*void proccesEvents();
-	void update();*/
+
 	void handleInputs(sf::Event& event);
 	void drawFrame(sf::RenderWindow& window);
 	void update();
@@ -101,5 +94,4 @@ public:
 
 void drawHP(sf::RenderWindow& window, Player& player1, Player& player2);
 
-void centerText();
-//void processEventsForPlayerTurn(Player& player1, Player& player2);
+void centerText(sf::Text& textBox, sf::RectangleShape& textureBox);

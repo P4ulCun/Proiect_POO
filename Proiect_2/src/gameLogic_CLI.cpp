@@ -73,31 +73,13 @@ void processEventsForPlayerTurn(Player& player1, Player& player2) // player1 e t
 
 void Game_CLI::init()
 {
-	/*m_player1Turn = true;
-
-	sf::Texture backgroundTexture;
-	try
-	{
-		if (!backgroundTexture.loadFromFile("C:\\Users\\Paul\\Desktop\\Lab_POO\\Proiect_POO\\Proiect_2\\resources\\background_bamboo_1200_cut.png"))
-			throw TextureLoadError("Couldn't load texture\n");
-		m_backgroundSprite.setTexture(backgroundTexture);
-	}
-	catch (TextureLoadError& err) { std::cout << err.what(); }*/
-
-	try
-	{
-		//load items from json and pu them in the shop
-		ItemShop::getInstance().init();
-	}
-	catch (FileLoadError& err) { std::cout << err.what() << std::endl; }
-
 	//CHARACTER CREATION
 
 	std::cout << "PLAYER 1 - MAKE YOUR CHARACTER!\n\n";
-	m_player1 = createPlayer();
+	m_player1 = createPlayer(1);
 
 	std::cout << "PLAYER 2 - YOUR TURN!\n\n";
-	m_player2 = createPlayer();
+	m_player2 = createPlayer(2);
 
 	std::cout << "GET READY!\n\n" << "FIGHT!\n";
 }

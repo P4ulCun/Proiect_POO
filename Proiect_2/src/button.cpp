@@ -76,14 +76,14 @@ std::vector<Button> initItemSelectionButtons(sf::Font& font)
     int lin = 5;
     int col = 2;
     int index = 0;
-    std::cout << "item indeces: \n";
+    //std::cout << "item indeces: \n";
     for (int i = 0; i < lin; i++)
         for (int j = 0; j < col; j++)
         {
             Button btn;
 
             index++;
-            std::cout << index << '\n';
+            //std::cout << index << '\n';
             btn.index = index;
             /*btn.color = sf::Color::Transparent;
             btn.hoverColor = sf::Color::Transparent;*/

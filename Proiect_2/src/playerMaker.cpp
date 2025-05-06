@@ -1,6 +1,6 @@
 #include "playerMaker.h"
 
-Player createPlayer()
+Player createPlayer(int p)
 {
 	std::string className;
 	std::string characterName;
@@ -9,8 +9,9 @@ Player createPlayer()
 	std::getline(std::cin, className);
 	//std::cout << std::endl;
 
-	std::cout << "Choose player name: ";
-	std::getline(std::cin, characterName);
+	//std::cout << "Choose player name: ";
+	//std::getline(std::cin, characterName);
+	characterName = "Player " + std::to_string(p);
 	//std::cout << std::endl;
 
 	auto character = CharacterFactory::createCharacter(className, characterName);

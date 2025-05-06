@@ -112,7 +112,7 @@ int Rogue::specialAttack1(Character& target)
 	if (m_special1Cooldown.isOffCooldown())
 	{
 		int actualDMG = target.takeDamage(m_currPower + 15);
-		std::cout << "used Backstab to inflict " << actualDMG << " damage!!\n";
+		std::cout << "used " << m_specialName << " to inflict " << actualDMG << " damage!!\n";
 		m_special1Cooldown.applyCooldown();
 		return 1; // successful 
 	}
@@ -126,7 +126,7 @@ int Druid::specialAttack1(Character& target)
 	if (m_special1Cooldown.isOffCooldown())
 	{
 		int actualDMG = target.takeDamage(m_currPower + 5);
-		std::cout << "used Sabre-Toothed Tiger bite to inflict " << actualDMG << " damage";
+		std::cout << "used " << m_specialName << " to inflict " << actualDMG << " damage";
 		
 		int actualHealAmount = this->heal(20);
 		std::cout << " and heal for " << actualHealAmount << " HP!!\n";
@@ -142,7 +142,7 @@ int Warrior::specialAttack1(Character& target)
 	if (m_special1Cooldown.isOffCooldown())
 	{
 		int actualDMG = target.takeDamage(m_currPower + 10);
-		std::cout << "used Shield Bash to inflict " << actualDMG << " damage";
+		std::cout << "used " << m_specialName << " to inflict " << actualDMG << " damage";
 
 		if (this->increaseBaseArmour(1) == 0)
 		{

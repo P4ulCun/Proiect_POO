@@ -215,16 +215,17 @@ void Game::resetClassSelectionButtons()
 			for (auto& ItemBtn : m_itemSelectionButtons)
 				ItemBtn.selected = false;
 			//player chose CLASS!!!
-
+			float distanceLeft = 50;
 			switch (btn.index)
 			{
+				
 			case 1:
 				//Rogue
 				if (m_player1sTurn)
 				{
 					sf::Texture& t = Resources::getInstance().getRogueTexture();
 					player1Sprite.setTexture(t);
-					player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
+					player1Sprite.setPosition(distanceLeft, windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
 					animationPlayer1 = CharacterAnimation(1, t, sf::Vector2u(2, 1), 0.5f);
 
 					character1 = CharacterFactory::createCharacter("R", "Player1");
@@ -233,7 +234,7 @@ void Game::resetClassSelectionButtons()
 				{
 					sf::Texture& t = Resources::getInstance().getRogueTexture();
 					player2Sprite.setTexture(t);
-					player2Sprite.setPosition(windowDetails::WINDOW_WIDTH - t.getSize().x / 2 - 100,
+					player2Sprite.setPosition(windowDetails::WINDOW_WIDTH - t.getSize().x / 2 - distanceLeft,
 						windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
 					animationPlayer2 = CharacterAnimation(2, t, sf::Vector2u(2, 1), 0.5f);
 
@@ -248,7 +249,7 @@ void Game::resetClassSelectionButtons()
 				{
 					sf::Texture& t = Resources::getInstance().getDruidTexture();
 					player1Sprite.setTexture(t);
-					player1Sprite.setPosition(100, windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
+					player1Sprite.setPosition(distanceLeft, windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
 					animationPlayer1 = CharacterAnimation(2, t, sf::Vector2u(2, 1), 0.5f);
 
 					character1 = CharacterFactory::createCharacter("D", "Player1");
@@ -257,7 +258,7 @@ void Game::resetClassSelectionButtons()
 				{
 					sf::Texture& t = Resources::getInstance().getDruidTexture();
 					player2Sprite.setTexture(t);
-					player2Sprite.setPosition(windowDetails::WINDOW_WIDTH - t.getSize().x / 2 - 100,
+					player2Sprite.setPosition(windowDetails::WINDOW_WIDTH - t.getSize().x / 2 - distanceLeft,
 						windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
 					animationPlayer2 = CharacterAnimation(1, t, sf::Vector2u(2, 1), 0.5f);
 
@@ -267,6 +268,25 @@ void Game::resetClassSelectionButtons()
 
 			case 3:
 				//Warrior
+				if (m_player1sTurn)
+				{
+					sf::Texture& t = Resources::getInstance().getWarriorTexture();
+					player1Sprite.setTexture(t);
+					player1Sprite.setPosition(distanceLeft, windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
+					animationPlayer1 = CharacterAnimation(2, t, sf::Vector2u(2, 1), 0.5f);
+
+					character1 = CharacterFactory::createCharacter("W", "Player1");
+				}
+				else
+				{
+					sf::Texture& t = Resources::getInstance().getWarriorTexture();
+					player2Sprite.setTexture(t);
+					player2Sprite.setPosition(windowDetails::WINDOW_WIDTH - t.getSize().x / 2 - distanceLeft,
+						windowDetails::WINDOW_HEIGHT - t.getSize().y - 50);
+					animationPlayer2 = CharacterAnimation(1, t, sf::Vector2u(2, 1), 0.5f);
+
+					character2 = CharacterFactory::createCharacter("W", "Player2");
+				}
 				break;
 			}
 
@@ -522,9 +542,36 @@ void Game::updateDeltaTime()
 void Game::update()
 {
 	if (m_player1sTurn == true)
+	{
 		m_signText.setString("Player 1's TURN");
+		centerText(m_signText, m_sign);
+		if (m_selectClass)
+		{
+			m_signText.setString(m_signText.getString() + "\n" + "Choose a class!");
+			centerText(m_signText, m_sign);
+		}
+		if (m_selectItems)
+		{
+			m_signText.setString(m_signText.getString() + "\n" + "Choose 3 items!");
+			centerText(m_signText, m_sign);
+		}
+	}
 	else
+	{
 		m_signText.setString("Player 2's TURN");
+		centerText(m_signText, m_sign);
+		if (m_selectClass)
+		{
+			m_signText.setString(m_signText.getString() + "\n" + "Choose a class!");
+			centerText(m_signText, m_sign);
+		}
+		if (m_selectItems)
+		{
+			m_signText.setString(m_signText.getString() + "\n" + "Choose 3 items!");
+			centerText(m_signText, m_sign);
+		}
+	}
+
 
 	if (m_selectClass == false && m_selectItems == false)
 		if (!playersAreAlive())
@@ -597,10 +644,6 @@ void Game::drawFrame(sf::RenderWindow& window)
 				/*window.draw(m_endScreen);
 				window.draw(m_endScreenText);*/
 			}
-			else
-			{
-
-			}
 
 		window.draw(player1Sprite);
 		window.draw(player2Sprite);
@@ -631,7 +674,7 @@ void Game::handleInputs(sf::Event& event)
 		for (int i = 0; i < m_classSelectionButtons.size(); i++) {
 			if (m_classSelectionButtons[i].contains(m_mousePosition)) {
 				m_classSelectionButtons[i].selected = true;
-				std::cout << "pressed " << i << "nd button!\n";
+				//std::cout << "pressed " << i << "nd button!\n";
 				//std::cout << "Selected: " << labels[i] << std::endl;
 			}
 		}
@@ -654,7 +697,7 @@ void Game::handleInputs(sf::Event& event)
 		for (int i = 0; i < m_itemSelectionButtons.size(); i++) {
 			if (m_itemSelectionButtons[i].contains(m_mousePosition)) {
 				m_itemSelectionButtons[i].selected = true;
-				std::cout << "pressed " << m_itemSelectionButtons[i].index << "nd button!\n";
+				//std::cout << "pressed " << m_itemSelectionButtons[i].index << "nd button!\n";
 				//std::cout << "Selected: " << labels[i] << std::endl;
 			}
 		}
@@ -690,7 +733,7 @@ void Game::handleInputs(sf::Event& event)
 			for (int i = 0; i < m_itemPlayer1Inventory.size(); i++) {
 				if (m_itemPlayer1Inventory[i].contains(m_mousePosition)) {
 					m_itemPlayer1Inventory[i].selected = true;
-					std::cout << "pressed " << m_itemPlayer1Inventory[i].index << "nd button!\n";
+					//std::cout << "pressed " << m_itemPlayer1Inventory[i].index << "nd button!\n";
 					//std::cout << "Selected: " << labels[i] << std::endl;
 				}
 			}
@@ -701,7 +744,7 @@ void Game::handleInputs(sf::Event& event)
 			for (int i = 0; i < m_itemPlayer2Inventory.size(); i++) {
 				if (m_itemPlayer2Inventory[i].contains(m_mousePosition)) {
 					m_itemPlayer2Inventory[i].selected = true;
-					std::cout << "pressed " << m_itemPlayer2Inventory[i].index << "nd button!\n";
+					//std::cout << "pressed " << m_itemPlayer2Inventory[i].index << "nd button!\n";
 					//std::cout << "Selected: " << labels[i] << std::endl;
 				}
 			}
@@ -737,7 +780,7 @@ void Game::handleInputs(sf::Event& event)
 			for (int i = 0; i < m_attackButtonsPlayer1.size(); i++) {
 				if (m_attackButtonsPlayer1[i].contains(m_mousePosition)) {
 					m_attackButtonsPlayer1[i].selected = true;
-					std::cout << "pressed attack button " << m_attackButtonsPlayer1[i].index << "!\n";
+					//std::cout << "pressed attack button " << m_attackButtonsPlayer1[i].index << "!\n";
 				}
 			}
 		}
@@ -747,7 +790,7 @@ void Game::handleInputs(sf::Event& event)
 			for (int i = 0; i < m_attackButtonsPlayer2.size(); i++) {
 				if (m_attackButtonsPlayer2[i].contains(m_mousePosition)) {
 					m_attackButtonsPlayer2[i].selected = true;
-					std::cout << "pressed attack button " << m_attackButtonsPlayer2[i].index << "!\n";
+					//std::cout << "pressed attack button " << m_attackButtonsPlayer2[i].index << "!\n";
 				}
 			}
 		}

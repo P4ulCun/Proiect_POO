@@ -3,4 +3,4 @@
 #include "inventoryBuilder.h"
 #include "player.h"
 
-Player createPlayer();
+Player createPlayer(int p);

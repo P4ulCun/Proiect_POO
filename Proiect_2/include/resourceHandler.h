@@ -14,6 +14,7 @@ private:
 	sf::Texture m_itemFrameTexture;
 	sf::Texture m_rogueTexture;
 	sf::Texture m_druidTexture;
+	sf::Texture m_warriorTexture;
 	sf::Texture m_itemsTexture;
 	sf::Texture m_basicAttackTexture;
 
@@ -29,6 +30,7 @@ public:
 	sf::Texture& getItemFrameTexture();
 	sf::Texture& getRogueTexture();
 	sf::Texture& getDruidTexture();
+	sf::Texture& getWarriorTexture();
 	sf::Texture& getItemsTexture();
 	sf::Texture& getBasicAttackTexture();
 	sf::Font& getFont();
