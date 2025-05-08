@@ -2,6 +2,8 @@
 
 void drawHP(sf::RenderWindow& window, Player& player1, Player& player2)
 {
+	//TODO: sa schimb culoarea la viata cand iau damage
+	//cu clock si un flaot time
 	sf::Text HPplayer1;
 	std::string string1 = player1.m_character->getHealth();
 	HPplayer1.setFont(Resources::getInstance().getFont());
@@ -106,9 +108,13 @@ void Game::getMousePosition(sf::RenderWindow& window) { m_mousePosition = sf::Ve
 
 void Game::updateAnnouncementBoard(std::string string)
 {
-	m_announcementText.setString(string);
-	m_announcementText.setCharacterSize(30);
-	centerText(m_announcementText, m_announcementSign);
+	if (m_cooldownSignTime > 2.0f)
+	{
+		m_announcementText.setString(string);
+		m_announcementText.setCharacterSize(30);
+		m_announcementText.setColor(sf::Color::White);
+		centerText(m_announcementText, m_announcementSign);
+	}
 }
 
 void Game::changeTurns()
@@ -139,13 +145,15 @@ void Game::applySpecialAttack(Player player1, Player player2)
 	if (!player1.m_character->specialAttack1(*player2.m_character))
 	{
 		//if unsuccessful
-		m_announcementText.setString("Cooldown: " + std::to_string(player1.m_character->getCooldown()));
+		updateAnnouncementBoard("Cooldown: " + std::to_string(player1.m_character->getCooldown()));
+		m_cooldownSignTime = 0.0f;
+		//m_announcementText.setColor(sf::Color::Red);
 		//try again
 	}
 	else
 	{
 		//successful
-		m_announcementText.setString("Special attack!!");
+		updateAnnouncementBoard("Special attack!!");
 		//change turn
 		changeTurns();
 	}
@@ -159,12 +167,14 @@ void Game::applyItemActive(Player player1, Player player2, int index)
 	{
 		//do nothing
 		//not an active
-		m_announcementText.setString("Not Active Item");
+		//m_announcementText.setString("Not Active Item");
 	}
 	else if (result == 0)
 	{
 		//item on cooldown
-		m_announcementText.setString("Cooldown: " + std::to_string(player1.m_inventory->getItemCooldown(index)));
+		updateAnnouncementBoard("Cooldown: " + std::to_string(player1.m_inventory->getItemCooldown(index)));
+		m_cooldownSignTime = 0.0f;
+		//m_announcementText.setColor(sf::Color::Red);
 	}
 	else
 	{
@@ -310,8 +320,10 @@ void Game::resetItemSelectionButtons()
 	for (auto& btn : m_itemSelectionButtons)
 	{
 		if (btn.hovered == true)
+		{
 			updateAnnouncementBoard(ItemShop::getInstance().getItemName(btn.index) + "\n" +
 				ItemShop::getInstance().getItemDesc(btn.index));
+		}
 
 		if (btn.selected == true)
 			selectedCnt++;
@@ -470,10 +482,15 @@ void Game::resetAttackButtons()
 		//fa ceva
 		for (auto& btn : m_attackButtonsPlayer1)
 		{
-			if (btn.index == 1)
-				if (btn.hovered == true)
+			if (btn.hovered == true)
+			{
+				if (btn.index == 1)
 					updateAnnouncementBoard(m_player1.m_character->getSpecialName() + "\n" + m_player1.m_character->getSpecialDesc());
 
+				if (btn.index == 0)
+					updateAnnouncementBoard("Basic attack");
+			}
+			
 			if (btn.selected == true)
 			{
 				btn.selected = false;
@@ -496,10 +513,14 @@ void Game::resetAttackButtons()
 
 		for (auto& btn : m_attackButtonsPlayer2)
 		{
-			if (btn.index == 1)
-				if (btn.hovered == true)
+			if (btn.hovered == true)
+			{
+				if (btn.index == 1)
 					updateAnnouncementBoard(m_player2.m_character->getSpecialName() + "\n" + m_player2.m_character->getSpecialDesc());
 
+				if (btn.index == 0)
+					updateAnnouncementBoard("Basic attack");
+			}
 			if (btn.selected == true)
 			{
 				btn.selected = false;
@@ -537,6 +558,7 @@ bool Game::playersAreAlive()
 void Game::updateDeltaTime()
 {
 	m_deltaTime = m_clock.restart().asSeconds();
+	m_cooldownSignTime += m_deltaTime;
 }
 
 void Game::update()

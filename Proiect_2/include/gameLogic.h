@@ -63,6 +63,8 @@ private:
 	float m_deltaTime = 0.0f;
 	sf::Clock m_clock;
 
+	float m_cooldownSignTime = 0.0f;
+
 public:
 	Game() = default;
 	~Game() = default;
