@@ -17,6 +17,11 @@
 
 int main()
 {
+	Rogue player1("skibi");
+	std::cout << player1.getHealth() << '\n';
+	increaseStats<Rogue>(player1, 100);
+	std::cout << player1.getHealth() << '\n';
+	exit(0);
 	//RESOURCE LOADING START
 	try
 	{

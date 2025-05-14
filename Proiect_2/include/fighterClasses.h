@@ -34,7 +34,13 @@ namespace CharacterStats {
 }
 
 //template<typename T>
-//void increaseStats(T& stat, T& boost);
+//void increaseStats(T stat, T boost);
+//
+//template<typename T>
+//void increaseStats(T stat, T boost)
+//{
+//	stat += boost;
+//}
 
 class Character
 {
@@ -89,7 +95,16 @@ public:
 	virtual std::string getSpecialName();
 	virtual std::string getSpecialDesc();
 	//friend std::ostream& operator<<(std::ostream& out, Character player);
+
+	template<typename T>
+	friend void increaseStats(T& player, int boost);
 };
+
+template<typename T>
+void increaseStats(T& player, int boost)
+{
+	player.m_baseHP += boost;
+}
 
 // SPECIFIC CLASSES
 class Rogue : public Character

@@ -48,9 +48,6 @@ int ActiveSword::useItemAbility(Character& target)
 		return 1; //successful
 	}
 	return 0; // unsuccessful
-	// need to define it
-
-	//std::cout << "active sowrd attack!\n" << m_cooldownTime << std::endl;
 }
 
 int ActiveHeal::useItemAbility(Character& player)
