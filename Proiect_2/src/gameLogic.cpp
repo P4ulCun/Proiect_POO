@@ -485,7 +485,7 @@ void Game::resetAttackButtons()
 			if (btn.hovered == true)
 			{
 				if (btn.index == 1)
-					updateAnnouncementBoard(m_player1.m_character->getSpecialName() + "\n" + m_player1.m_character->getSpecialDesc());
+					updateAnnouncementBoard(getSpecialDetails(*m_player1.m_character));
 
 				if (btn.index == 0)
 					updateAnnouncementBoard("Basic attack");
@@ -516,7 +516,7 @@ void Game::resetAttackButtons()
 			if (btn.hovered == true)
 			{
 				if (btn.index == 1)
-					updateAnnouncementBoard(m_player2.m_character->getSpecialName() + "\n" + m_player2.m_character->getSpecialDesc());
+					updateAnnouncementBoard(getSpecialDetails(*m_player2.m_character));
 
 				if (btn.index == 0)
 					updateAnnouncementBoard("Basic attack");
