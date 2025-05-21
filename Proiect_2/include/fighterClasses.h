@@ -41,6 +41,8 @@ namespace CharacterStats {
 //{
 //	stat += boost;
 //}
+template<typename T>
+std::string getSpecialDetails(T& player);
 
 class Character
 {
@@ -98,7 +100,15 @@ public:
 
 	/*template<typename T>
 	friend void increaseStats(T& player, int boost);*/
+	template<typename T>
+	friend std::string getSpecialDetails(T& player);
 };
+
+template<typename T>
+std::string getSpecialDetails(T& player)
+{
+	return player.m_specialName + "\n" + player.m_specialDesc;
+}
 
 //template<typename T>
 //void increaseStats(T& player, int boost)
