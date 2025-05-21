@@ -2,19 +2,24 @@
 //#include "fighterClasses.h"
 #include <string>
 
+template <typename T>
 class Cooldown
 {
 private:
-	int m_cooldownTotalDuration;
-	int m_cooldownTime;
+	T m_cooldownTotalDuration;
+	T m_cooldownTime;
 public:
+	//Cooldown() = default;
 	Cooldown(int cooldownTime) : m_cooldownTotalDuration(cooldownTime), m_cooldownTime(0) {};
 	virtual ~Cooldown() = default;
 
 	virtual void tick();
 	virtual bool isOffCooldown();
 	virtual void applyCooldown();
-	virtual int getCooldown();
+	virtual T getCooldown()
+	{
+		return m_cooldownTime; 
+	}
 };
 
 //class StatusEffect

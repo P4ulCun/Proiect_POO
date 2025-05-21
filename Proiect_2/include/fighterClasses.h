@@ -50,7 +50,7 @@ private:
 	int m_baseArmour; // max base armour 7
 	// int m_stamina;
 protected:
-	Cooldown m_special1Cooldown;
+	Cooldown<int> m_special1Cooldown;
 	int m_currHP;
 	int m_currPower;
 	int m_currArmour;
@@ -96,15 +96,15 @@ public:
 	virtual std::string getSpecialDesc();
 	//friend std::ostream& operator<<(std::ostream& out, Character player);
 
-	template<typename T>
-	friend void increaseStats(T& player, int boost);
+	/*template<typename T>
+	friend void increaseStats(T& player, int boost);*/
 };
 
-template<typename T>
-void increaseStats(T& player, int boost)
-{
-	player.m_baseHP += boost;
-}
+//template<typename T>
+//void increaseStats(T& player, int boost)
+//{
+//	player.m_baseHP += boost;
+//}
 
 // SPECIFIC CLASSES
 class Rogue : public Character

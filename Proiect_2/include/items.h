@@ -62,7 +62,7 @@ public:
 
 
 // ACTIVE abilities need a button press to apply an effect
-class ActiveSword : public BasicSword, public Cooldown
+class ActiveSword : public BasicSword, public Cooldown<int>
 {
 	// bleeding, crit chance
 	int m_activePower;
@@ -74,7 +74,7 @@ public:
 	int getItemCooldown() override;
 };
 
-class ActiveHeal : public BasicHeal, public Cooldown
+class ActiveHeal : public BasicHeal, public Cooldown<int>
 {
 	// more heal for druid maybe
 	int m_activeHeal;

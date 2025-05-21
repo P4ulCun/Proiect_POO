@@ -1,10 +1,9 @@
 #include "statusEffect.h"
 
-void Cooldown::tick() { m_cooldownTime = (m_cooldownTime > 0) ? m_cooldownTime - 1 : 0; }
-bool Cooldown::isOffCooldown() { return (m_cooldownTime <= 0) ? true : false; }
-void Cooldown::applyCooldown() { m_cooldownTime = m_cooldownTotalDuration; }
+void Cooldown<int>::tick() { m_cooldownTime = (m_cooldownTime > 0) ? m_cooldownTime - 1 : 0; }
+bool Cooldown<int>::isOffCooldown() { return (m_cooldownTime <= 0) ? true : false; }
+void Cooldown<int>::applyCooldown() { m_cooldownTime = m_cooldownTotalDuration; }
 
-int Cooldown::getCooldown() { return m_cooldownTime; }
 //void StatusEffect::tick()
 //{
 //	m_effectDuration -= 1;
